@@ -1,0 +1,6 @@
+/vendor/
+ProcessWire
+public_html/wire
+public_html/site/config.php
+public_html/site/assets/logs
+public_html/site/assets/cache

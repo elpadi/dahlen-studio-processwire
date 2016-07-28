@@ -1,0 +1,14 @@
+{
+	"name": "elpadi/dahlen-studio-processwire",
+	"description": "Website for dahlenstudio.com using Processwire as the CMS",
+	"type": "project",
+	"license": "GPL",
+	"authors": [
+		{
+			"name": "Carlos Padilla",
+			"email": "padi_05@yahoo.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {}
+}
