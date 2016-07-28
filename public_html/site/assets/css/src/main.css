@@ -1,0 +1,22 @@
+@import "base/normalize.css";
+@import "base/default.css";
+@import "components/menu.css";
+
+body,html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: black;
+	color: white;
+}
+#container {
+	position: relative;
+	margin: 0 auto;
+	max-width: 1280px;
+}
+
+#main-menu {
+	font-family: Arial Black,Arial,sans-serif;
+	font-weight: 100;
+}

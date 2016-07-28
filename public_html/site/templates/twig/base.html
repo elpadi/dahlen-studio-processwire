@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+			<meta charset="utf-8">
+			<meta http-equiv="x-ua-compatible" content="ie=edge">
+			{% block seo_meta %}
+			<title>{{ page.title }}</title>
+			<meta name="description" content="{{ page.headline }}">
+			{% endblock %}
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+
+			<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+			{% block css_js_head %}
+			{% if user.name == 'admin' %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}css/src/main.css">
+			<script src="{{ config.urls.assets }}js/src/vendor/modernizr.js"></script>
+			{% else %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}css/dist/main.css">
+			<script src="{{ config.urls.assets }}js/dist/modernizr.js"></script>
+			{% endif %}
+			{% endblock %}
+    </head>
+    <body>
+			<div id="container">
+				<header id="main-header">
+					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu | raw }}</ul></nav>
+				</header>
+
+				<h1 class="visuallyhidden">{{ page.title }}</h1>
+			</div>
+
+			{% block css_js_foot %}
+			{% if user.name == 'admin' %}
+			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
+			<script src="{{ config.urls.assets }}js/src/components/menu.js"></script>
+			<script src="{{ config.urls.assets }}js/src/main.js"></script>
+			{% else %}
+			<script src="{{ config.urls.assets }}js/dist/main.js"></script>
+			{% endif %}
+			{% endblock %}
+    </body>
+</html>
