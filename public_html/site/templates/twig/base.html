@@ -27,7 +27,7 @@
 					{% block main_menu %}
 					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu | raw }}</ul></nav>
 					{% endblock %}
-					<h1 class="visuallyhidden">{{ page.title }}</h1>
+					<h2 class="page-title">{{ page.title }}</h2>
 				</header>
 				<main id="main-content">{{ page.content | raw }}</main>
 			</div>
@@ -35,7 +35,9 @@
 			{% block css_js_foot %}
 			{% if user.name == 'admin' %}
 			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
+			<script src="{{ config.urls.assets }}js/src/vendor/slick.js"></script>
 			<script src="{{ config.urls.assets }}js/src/components/menu.js"></script>
+			<script src="{{ config.urls.assets }}js/src/components/slideshow.js"></script>
 			<script src="{{ config.urls.assets }}js/src/main.js"></script>
 			{% else %}
 			<script src="{{ config.urls.assets }}js/dist/main.js"></script>

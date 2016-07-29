@@ -105,7 +105,7 @@ class Zenphoto extends WireData implements Module {
 		$sth->execute([$name]);
 		$id = intval($sth->fetch(\PDO::FETCH_OBJ)->id);
 
-		$sth = self::zenphotoDB()->query("SELECT `filename` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC");
+		$sth = self::zenphotoDB()->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC LIMIT 0,20");
 		while ($img = $sth->fetch(\PDO::FETCH_OBJ)) $images[] = $img;
 
 		$vars = compact('name','images');

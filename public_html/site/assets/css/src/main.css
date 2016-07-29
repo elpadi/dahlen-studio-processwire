@@ -1,6 +1,9 @@
 @import "base/normalize.css";
 @import "base/default.css";
+@import "base/fonts.css";
 @import "components/menu.css";
+@import "components/slick.css";
+@import "components/slideshow.css";
 
 body,html {
 	margin: 0;
@@ -25,4 +28,8 @@ body {
 #main-menu {
 	font-family: Arial Black,Arial,sans-serif;
 	font-weight: 100;
+}
+
+.js h2.page-title {
+	display: none;
 }
