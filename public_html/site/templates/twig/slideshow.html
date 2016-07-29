@@ -1,0 +1,7 @@
+<section class="slideshow">
+	{% for img in images %}
+	<article class="image"><a href="{{ root_url }}zenphoto/albums/{{ name }}/{{ img.filename }}">
+		<img src="{{ root_url }}site/assets/img/blank.gif" data-src="{{ root_url }}zenphoto/zp-core/i.php?a={{ name }}&i={{ img.filename }}" alt="">
+	</a></article>
+	{% endfor %}
+</section>

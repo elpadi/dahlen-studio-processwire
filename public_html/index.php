@@ -1,5 +1,7 @@
 <?php namespace ProcessWire;
 
+global $twig;
+
 /**
  * ProcessWire Bootstrap
  *
@@ -38,6 +40,16 @@ $wire = null;
 try { 
 	// Bootstrap ProcessWire's core and make the API available with $wire
 	$wire = new ProcessWire($config);
+
+	$loader = new \Twig_Loader_Filesystem($config->paths->templates.'/twig');
+	$twig = new \Twig_Environment($loader, array(
+			'debug' => $config->debug,
+			'auto_reload' => true,
+			'autoescape' => false,
+			'cache' => $config->debug ? FALSE : $config->paths->cache.'/twig',
+	));
+	$twig->addGlobal('wire', $wire);
+
 	$process = $wire->modules->getModule('ProcessPageView', ['noPermissionCheck' => true]);
 	$wire->wire('process', $process); 
 	echo $process->execute($config->internal);

@@ -24,10 +24,12 @@
     <body>
 			<div id="container">
 				<header id="main-header">
+					{% block main_menu %}
 					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu | raw }}</ul></nav>
+					{% endblock %}
+					<h1 class="visuallyhidden">{{ page.title }}</h1>
 				</header>
-
-				<h1 class="visuallyhidden">{{ page.title }}</h1>
+				<main id="main-content">{{ page.content | raw }}</main>
 			</div>
 
 			{% block css_js_foot %}

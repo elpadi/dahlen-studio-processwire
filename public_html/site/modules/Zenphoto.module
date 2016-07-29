@@ -1,0 +1,116 @@
+<?php
+namespace ProcessWire;
+
+use Functional as F;
+
+/**
+ * ProcessWire 'Hello world' demonstration module
+ *
+ * Demonstrates the Module interface and how to add hooks.
+ * 
+ * See README file for further links regarding module development.
+ * 
+ * This file is licensed under the MIT license
+ * https://processwire.com/about/license/mit/
+ * 
+ * ProcessWire 3.x (development), Copyright 2015 by Ryan Cramer
+ * https://processwire.com
+ *
+ */
+
+class Zenphoto extends WireData implements Module {
+
+	private static $zdb;
+
+	/**
+	 * getModuleInfo is a module required by all modules to tell ProcessWire about them
+	 *
+	 * @return array
+	 *
+	 */
+	public static function getModuleInfo() {
+
+		return array(
+
+			// The module'ss title, typically a little more descriptive than the class name
+			'title' => 'Zenphoto', 
+
+			// version number 
+			'version' => 1, 
+
+			// summary is brief description of what this module is
+			'summary' => 'Bridge between the data inside Zenphoto and ProcessWire.',
+			
+			// Optional URL to more information about the module
+			'href' => '',
+
+			// singular=true: indicates that only one instance of the module is allowed.
+			// This is usually what you want for modules that attach hooks. 
+			'singular' => true, 
+
+			// autoload=true: indicates the module should be started with ProcessWire.
+			// This is necessary for any modules that attach runtime hooks, otherwise those
+			// hooks won't get attached unless some other code calls the module on it's own.
+			// Note that autoload modules are almost always also 'singular' (seen above).
+			'autoload' => true, 
+		
+			// Optional font-awesome icon name, minus the 'fa-' part
+			'icon' => 'smile-o', 
+			);
+	}
+
+	/**
+	 * Initialize the module
+	 *
+	 * ProcessWire calls this when the module is loaded. For 'autoload' modules, this will be called
+	 * when ProcessWire's API is ready. As a result, this is a good place to attach hooks. 
+	 *
+	 */
+	public function init() {
+
+		$this->addHookAfter('Fieldtype::wakeupValue', $this, 'parseShortcodes'); 
+
+	}
+
+	public function parseShortcodes($event) {
+		$page = $event->arguments[0];
+		$field = $event->arguments[1];
+		$value = $event->arguments[2];
+		
+		// don't add this to the admin pages
+		if ($page->template == 'admin') return;
+
+		// only run on content field
+		if ($field->name !== 'content') return;
+
+		$event->return = preg_replace_callback('/\[([a-z\-]+) ([a-z\-]+)\]/', [__CLASS__, 'parseShortcode'], $value);
+	}
+
+	public static function parseShortcode($matches) {
+		return method_exists(__CLASS__, $matches[1]) ? call_user_func([__CLASS__, $matches[1]], $matches[2]) : '';
+	}
+
+	private static function zenphotoDB() {
+		global $wire, $_zp_conf_vars;
+		if (self::$zdb) return self::$zdb;
+		include($wire->config->paths->root.'zenphoto/zp-data/zenphoto.cfg.php');
+		self::$zdb = new \PDO("mysql:dbname=$_zp_conf_vars[mysql_database];host=$_zp_conf_vars[mysql_host]", $_zp_conf_vars['mysql_user'], $_zp_conf_vars['mysql_pass']);
+		return self::$zdb;
+	}
+
+	public static function slideshow($name) {
+		global $wire;
+
+		$sth = self::zenphotoDB()->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
+		$sth->execute([$name]);
+		$id = intval($sth->fetch(\PDO::FETCH_OBJ)->id);
+
+		$sth = self::zenphotoDB()->query("SELECT `filename` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC");
+		while ($img = $sth->fetch(\PDO::FETCH_OBJ)) $images[] = $img;
+
+		$vars = compact('name','images');
+		$vars['root_url'] = $wire->config->urls->root;
+		return $GLOBALS['twig']->render('slideshow.html', $vars);
+	}
+
+}
