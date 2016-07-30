@@ -12,7 +12,7 @@
 			<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 			{% block css_js_head %}
-			{% if user.name == 'admin' %}
+			{% if config.debug %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}css/src/main.css">
 			<script src="{{ config.urls.assets }}js/src/vendor/modernizr.js"></script>
 			{% else %}
@@ -29,15 +29,18 @@
 					{% endblock %}
 					<h2 class="page-title">{{ page.title }}</h2>
 				</header>
+				{% block main_content %}
 				<main id="main-content">{{ page.content | raw }}</main>
+				{% endblock %}
 			</div>
 
 			{% block css_js_foot %}
-			{% if user.name == 'admin' %}
+			{% if config.debug %}
 			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
 			<script src="{{ config.urls.assets }}js/src/vendor/slick.js"></script>
 			<script src="{{ config.urls.assets }}js/src/components/menu.js"></script>
 			<script src="{{ config.urls.assets }}js/src/components/slideshow.js"></script>
+			<script src="{{ config.urls.assets }}js/src/components/jigsaw.js"></script>
 			<script src="{{ config.urls.assets }}js/src/main.js"></script>
 			{% else %}
 			<script src="{{ config.urls.assets }}js/dist/main.js"></script>

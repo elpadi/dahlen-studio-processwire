@@ -98,8 +98,8 @@ class Zenphoto extends WireData implements Module {
 		return self::$zdb;
 	}
 
-	public static function slideshow($name) {
-		global $wire;
+	protected static function fetchAlbumImages($name) {
+		$images = [];
 
 		$sth = self::zenphotoDB()->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
 		$sth->execute([$name]);
@@ -108,9 +108,23 @@ class Zenphoto extends WireData implements Module {
 		$sth = self::zenphotoDB()->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC LIMIT 0,20");
 		while ($img = $sth->fetch(\PDO::FETCH_OBJ)) $images[] = $img;
 
+		return $images;
+	}
+
+	public static function slideshow($name) {
+		$images = static::fetchAlbumImages($name);
+
 		$vars = compact('name','images');
-		$vars['root_url'] = $wire->config->urls->root;
+		$vars['root_url'] = $GLOBALS['wire']->config->urls->root;
 		return $GLOBALS['twig']->render('slideshow.html', $vars);
+	}
+
+	public static function motion($name) {
+		$images = static::fetchAlbumImages($name);
+
+		$vars = compact('name','images');
+		$vars['root_url'] = $GLOBALS['wire']->config->urls->root;
+		return $GLOBALS['twig']->render('motion.html', $vars);
 	}
 
 }

@@ -2,4 +2,8 @@
 $vars = compact('page','user','config');
 $vars['menu'] = $pages->get('/')->menuHtml();
 
-echo $GLOBALS['twig']->render($page->template->name.'.html', $vars);
+$GLOBALS['twig']->addFunction(new Twig_SimpleFunction('files', function($pattern) {
+	return array_map('basename', glob($pattern));
+}));
+
+echo $GLOBALS['twig']->render(is_readable(__DIR__."/twig/$page->name.html") ? "$page->name.html" : "{$page->template->name}.html", $vars);

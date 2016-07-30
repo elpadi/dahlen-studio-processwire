@@ -4,6 +4,7 @@
 @import "components/menu.css";
 @import "components/slick.css";
 @import "components/slideshow.css";
+@import "components/jigsaw.css";
 
 body,html {
 	margin: 0;
@@ -23,6 +24,7 @@ body {
 	margin: 50px auto;
 	max-width: 980px;
 	padding: 1em;
+	min-height: calc(100vh - 200px);
 }
 
 #main-menu {
