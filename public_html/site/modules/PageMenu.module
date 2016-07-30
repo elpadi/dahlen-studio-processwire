@@ -73,10 +73,13 @@ class PageMenu extends WireData implements Module {
 
 	public function html($event) {
 		$html = '';
-		if ($event->object->numChildren) {
-			$html .= sprintf('<li><a href="%s">%s</a><ul>%s</ul></li>', $event->object->url, $event->object->title, implode('', F\invoke($event->object->children(), 'menuHtml')));
+		$item = $event->object;
+		$page = $GLOBALS['wire']->page;
+		$selected = $item->id === $page->id || $item->id === $page->parentID;
+		if ($item->numChildren) {
+			$html .= sprintf('<li class="%s"><a href="%s">%s</a><ul>%s</ul></li>', $selected ? 'selected' : '', $item->url, $item->title, implode('', F\invoke($item->children(), 'menuHtml')));
 		}
-		else $html .= sprintf('<li><a href="%s">%s</a></li>', $event->object->url, $event->object->title);
+		else $html .= sprintf('<li class="%s"><a href="%s">%s</a></li>', $selected ? 'selected' : '', $item->url, $item->title);
 		$event->return = $html;
 	}
 
