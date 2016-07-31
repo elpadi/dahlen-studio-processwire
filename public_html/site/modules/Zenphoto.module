@@ -68,6 +68,7 @@ class Zenphoto extends WireData implements Module {
 	 */
 	public function init() {
 
+		$this->addHook('Page::slideshowImages', $this, 'slideshowImages'); 
 		$this->addHookAfter('Fieldtype::wakeupValue', $this, 'parseShortcodes'); 
 
 	}
@@ -86,6 +87,11 @@ class Zenphoto extends WireData implements Module {
 		$event->return = preg_replace_callback('/\[([a-z\-]+) ([a-z\-]+)\]/', [__CLASS__, 'parseShortcode'], $value);
 	}
 
+	public function slideshowImages($event) {
+		$page = $event->object;
+		$event->return = static::fetchAlbumImages($page->name);
+	}
+
 	public static function parseShortcode($matches) {
 		return method_exists(__CLASS__, $matches[1]) ? call_user_func([__CLASS__, $matches[1]], $matches[2]) : '';
 	}
@@ -99,20 +105,23 @@ class Zenphoto extends WireData implements Module {
 	}
 
 	protected static function fetchAlbumImages($name) {
-		$images = [];
+		$db = self::zenphotoDB();
+		return $GLOBALS['wire']->cache->get("album-images--$name", 24 * 3600, function() use ($db, $name) {
+			$images = [];
 
-		$sth = self::zenphotoDB()->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
-		$sth->execute([$name]);
-		$id = intval($sth->fetch(\PDO::FETCH_OBJ)->id);
+			$sth = $db->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
+			$sth->execute([$name]);
+			$id = intval($sth->fetch(\PDO::FETCH_OBJ)->id);
 
-		$sth = self::zenphotoDB()->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC LIMIT 0,20");
-		while ($img = $sth->fetch(\PDO::FETCH_OBJ)) $images[] = $img;
+			$sth = $db->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC");
+			while ($img = $sth->fetch(\PDO::FETCH_OBJ)) $images[] = $img;
 
-		return $images;
+			return $images;
+		});
 	}
 
 	public static function slideshow($name) {
-		$images = static::fetchAlbumImages($name);
+		$images = array_slice(static::fetchAlbumImages($name), 0, 20);
 
 		$vars = compact('name','images');
 		$vars['root_url'] = $GLOBALS['wire']->config->urls->root;

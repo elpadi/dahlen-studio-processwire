@@ -35,7 +35,7 @@
 			</div>
 
 			{% block css_js_foot %}
-			<script>window.ASSETS_URL = "{{ config.urls.assets }}";</script>
+			<script>window.ASSETS_URL = "{{ config.urls.assets }}"; window.ALBUMS_URL = "{{ config.urls.site }}../zenphoto/albums/";</script>
 			{% if config.debug %}
 			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
 			<script src="{{ config.urls.assets }}js/src/vendor/slick.js"></script>

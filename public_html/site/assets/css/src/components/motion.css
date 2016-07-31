@@ -8,6 +8,14 @@
 	opacity: 0;
 }
 
+#introduction {
+	width: 980px;
+	height: 750px;
+	position: absolute;
+	left: calc(50% - 490px);
+	top: calc(50% - 375px);
+}
+
 #ana-lisboa-steps {
 	width: 754px;
 	height: 503px;

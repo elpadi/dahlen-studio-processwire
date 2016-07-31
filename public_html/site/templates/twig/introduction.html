@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<main id="main-content">
+	<section id="introduction" class="motion" data-info="Introduction" data-timing="250" data-start="35" data-location="ALBUMS_URL">
+		<img src="{{ config.urls.site }}../zenphoto/albums/introduction/covertry2.jpg" alt="Introduction">
+	</section>
+</main>
+<script>window.Introduction = {{ json(page.slideshowImages()) }};</script>
+{% endblock %}
