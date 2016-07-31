@@ -8,10 +8,10 @@
 	var load = function(name, slideshowInfo, onProgress) {
 		var count = slideshowInfo.length, loadedCount = 0, index = 0;
 		var loadNext = function() {
-			loadSingle(name, slideshowInfo[index], function(e) {
+			if (index < count) loadSingle(name, slideshowInfo[index], function(e) {
 				loadedCount++;
 				onProgress(100 * loadedCount / count);
-				if (loadedCount < count) loadNext();
+				if (index < count) loadNext();
 			});
 			index++;
 		};
@@ -20,7 +20,7 @@
 
 	var play = function(slideshowInfo, defaultTiming) {
 		var lastDelay = 0;
-		slideshowInfo.forEach(function(imageInfo) {
+		slideshowInfo.forEach(function(imageInfo, index) {
 			var img = imageInfo.img;
 			if (imageInfo.delay === 0) imageInfo.delay = lastDelay + defaultTiming;
 			if (imageInfo.duration === 0) imageInfo.duration = defaultTiming;
@@ -29,7 +29,7 @@
 				setTimeout(function() {
 					img.style.transition = 'opacity ' + imageInfo.fade[1] + 'ms';
 					requestAnimationFrame(function() { img.style.opacity = 0; });
-					setTimeout(function() { img.remove(); imageInfo = null; }, imageInfo.fade[1] + 100);
+					setTimeout(function() { img.remove(); delete slideshowInfo[index]; }, imageInfo.fade[1] + 100);
 				}, imageInfo.duration + imageInfo.fade[0]);
 			}, imageInfo.delay);
 			lastDelay = imageInfo.delay;
