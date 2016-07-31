@@ -35,11 +35,13 @@
 			</div>
 
 			{% block css_js_foot %}
+			<script>window.ASSETS_URL = "{{ config.urls.assets }}";</script>
 			{% if config.debug %}
 			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
 			<script src="{{ config.urls.assets }}js/src/vendor/slick.js"></script>
 			<script src="{{ config.urls.assets }}js/src/components/menu.js"></script>
 			<script src="{{ config.urls.assets }}js/src/components/slideshow.js"></script>
+			<script src="{{ config.urls.assets }}js/src/components/motion.js"></script>
 			<script src="{{ config.urls.assets }}js/src/components/jigsaw.js"></script>
 			<script src="{{ config.urls.assets }}js/src/main.js"></script>
 			{% else %}

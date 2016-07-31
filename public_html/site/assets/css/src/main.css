@@ -4,6 +4,7 @@
 @import "components/menu.css";
 @import "components/slick.css";
 @import "components/slideshow.css";
+@import "components/motion.css";
 @import "components/jigsaw.css";
 
 body,html {

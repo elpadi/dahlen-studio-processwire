@@ -1,29 +1,5 @@
 (function($) {
 
-	/*
-	var contain = function(inner, outer) {
-		var c = {};
-		inner.r = inner.w / inner.h;
-		outer.r = outer.w / outer.h;
-		if (inner.r > outer.r) {
-			c.w = outer.w;
-			c.h = Math.round(outer.w / inner.r);
-		}
-		else {
-			c.w = Math.round(outer.h * inner.r);
-			c.h = outer.h;
-		}
-		return c;
-	};
-
-	var center = function(inner, outer) {
-		return {
-			x: Math.round((outer.w - inner.w) / 2),
-			y: Math.round((outer.h - inner.h) / 2)
-		};
-	};
-	*/
-
 	Object.defineProperty(Array.prototype, 'shuffle', {
 		value: function() {
 			var i = 0, j = 0, temp = null;
