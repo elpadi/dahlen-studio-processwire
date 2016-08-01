@@ -25,7 +25,8 @@
 	$(document).ready(function() {
 		$('.slideshow').each(function() {
 			var $s = $(this);
-			var w = $s.width();
+			var $nav = $s.find('nav > button'),
+					w = $s.width();
 			var h = Math.max($(window).height() - 200, w * (9 / 16));
 			$s.find('a').each(function(i, el) {
 				var dims = contain({ w: parseInt(this.dataset.width, 10), h: parseInt(this.dataset.height, 10) }, { w: w, h: h });
@@ -38,9 +39,9 @@
 				});
 			});
 			$s.css({ height: h + 'px' });
-			setTimeout(function() { $s.slick({
-				prevArrow: $s.prev(),
-				nextArrow: $s.next()
+			setTimeout(function() { $s.find('.images').slick({
+				prevArrow: $nav.first(),
+				nextArrow: $nav.last()
 			}); }, 100);
 		});
 	});

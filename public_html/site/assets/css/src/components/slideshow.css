@@ -1,4 +1,4 @@
-.slick-list, .slick-track {
+.slick-list, .slick-track, .images {
 	height: 100%;
 }
 .slick-slide {
@@ -37,6 +37,7 @@
 }
 
 .slideshow {
+	position: relative;
 	opacity: 0;
 	transition: opacity 0.5s 0.3s;
 }

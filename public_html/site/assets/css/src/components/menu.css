@@ -35,7 +35,7 @@
 	float: left;
 }
 
-/* Only on hovers and selected *
+/* Color only on hovers and selected *
 #main-menu > ul > li > ul > li:nth-child(1) > a:hover, #main-menu > ul > li > ul > li:nth-child(1) > a.selected { color: #FF2526; }
 #main-menu > ul > li > ul > li:nth-child(2) > a:hover, #main-menu > ul > li > ul > li:nth-child(2) > a.selected { color: #FF5583; }
 #main-menu > ul > li > ul > li:nth-child(3) > a:hover, #main-menu > ul > li > ul > li:nth-child(3) > a.selected { color: #FFF23A; }
@@ -44,12 +44,17 @@
 #main-menu > ul > li > ul > li:nth-child(6) > a:hover, #main-menu > ul > li > ul > li:nth-child(6) > a.selected { color: #5DB0DB; }
 /* */
 
+#main-menu > ul > li > ul > li > a {
+	position: relative;
+	overflow: hidden;
+}
 #main-menu > ul > li > ul > li:nth-child(1) > a { color: #FF2526; }
 #main-menu > ul > li > ul > li:nth-child(2) > a { color: #FF5583; }
 #main-menu > ul > li > ul > li:nth-child(3) > a { color: #FFF23A; }
 #main-menu > ul > li > ul > li:nth-child(4) > a { color: #00FFA2; }
 #main-menu > ul > li > ul > li:nth-child(5) > a { color: #35D7DD; }
 #main-menu > ul > li > ul > li:nth-child(6) > a { color: #5DB0DB; }
+/* Shadows on hover and selected */
 #main-menu > ul > li > ul > li:nth-child(1) > a:hover, #main-menu > ul > li > ul > li.selected:nth-child(1) > a {
 	text-shadow:  #FF2526 0 0 1px, #FF2526 0 0 1px;
 }
@@ -68,6 +73,22 @@
 #main-menu > ul > li > ul > li:nth-child(6) > a:hover, #main-menu > ul > li > ul > li.selected:nth-child(6) > a {
 	text-shadow:  #5DB0DB 0 0 1px, #5DB0DB 0 0 1px;
 }
+/* */
+#main-menu > ul > li > ul > li > a::after {
+	content:'';
+	position: absolute;
+	top: -0.7em;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	height: 1em;
+}
+#main-menu > ul > li > ul > li.selected:nth-child(1) > a::after { box-shadow: 0px 0px 80px #FF2526; }
+#main-menu > ul > li > ul > li.selected:nth-child(2) > a::after { box-shadow: 0px 0px 80px #FF5583; }
+#main-menu > ul > li > ul > li.selected:nth-child(3) > a::after { box-shadow: 0px 0px 80px #FFF23A; }
+#main-menu > ul > li > ul > li.selected:nth-child(4) > a::after { box-shadow: 0px 0px 80px #00FFA2; }
+#main-menu > ul > li > ul > li.selected:nth-child(5) > a::after { box-shadow: 0px 0px 80px #35D7DD; }
+#main-menu > ul > li > ul > li.selected:nth-child(6) > a::after { box-shadow: 0px 0px 80px #5DB0DB; }
 
 /* Submenus */
 #main-menu > ul > li > ul ul {
@@ -78,11 +99,17 @@
 	transform: translateY(-100%);
 	transition: transform 0s 0.2s, opacity 0.2s, visibility 0s 0.2s;
 }
+#main-menu > ul > li > ul > li > ul > li > a {
+	color: white;
+}
 #main-menu > ul > li > ul ul a:hover {
+	color: #ccc;
+}
+#main-menu > ul > li > ul > li.selected > ul > li.selected > a {
 	color: #aaa;
 }
 #main-menu > ul > li > ul > li.selected:nth-child(1) > ul > li.selected > a { color: #FF2526; }
-#main-menu > ul > li > ul > li.selected:nth-child(k) > ul > li.selected > a { color: #FF5583; }
+#main-menu > ul > li > ul > li.selected:nth-child(2) > ul > li.selected > a { color: #FF5583; }
 #main-menu > ul > li > ul > li.selected:nth-child(3) > ul > li.selected > a { color: #FFF23A; }
 #main-menu > ul > li > ul > li.selected:nth-child(4) > ul > li.selected > a { color: #00FFA2; }
 #main-menu > ul > li > ul > li.selected:nth-child(5) > ul > li.selected > a { color: #35D7DD; }

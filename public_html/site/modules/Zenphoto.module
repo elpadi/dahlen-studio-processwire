@@ -79,7 +79,7 @@ class Zenphoto extends WireData implements Module {
 		$value = $event->arguments[2];
 		
 		// don't add this to the admin pages
-		if ($page->template == 'admin') return;
+		if (!$GLOBALS['wire']->page || $GLOBALS['wire']->page->template->name === 'admin') return;
 
 		// only run on content field
 		if ($field->name !== 'content') return;
