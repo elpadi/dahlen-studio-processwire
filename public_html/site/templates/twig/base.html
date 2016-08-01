@@ -4,7 +4,7 @@
 			<meta charset="utf-8">
 			<meta http-equiv="x-ua-compatible" content="ie=edge">
 			{% block seo_meta %}
-			<title>{{ page.seo_title }}</title>
+			<title>{{ page.seo_title ? page.seo_title : page.title }}</title>
 			<meta name="description" content="{{ page.headline }}">
 			{% endblock %}
 			<meta name="viewport" content="width=device-width, initial-scale=1">

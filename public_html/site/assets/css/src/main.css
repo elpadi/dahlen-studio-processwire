@@ -31,12 +31,35 @@ h2.page-title {
 	margin: 0 auto;
 	max-width: 980px;
 	padding: 0 1em;
-	min-height: calc(100vh - 200px);
+	min-height: calc(100vh - 220px);
 }
 
+h2.page-title,
+#main-content > h3,
 #main-menu {
 	font-family: Arial Black,Arial,sans-serif;
 	font-weight: 100;
+	text-transform: uppercase;
+}
+h2.page-title {
+	text-align: center;
+}
+#main-content > h3,
+#main-content > p {
+	max-width: 640px;
+	text-align: justify;
+	margin: 1em auto;
+}
+#main-content > h3 {
+	margin: 3em auto 1em;
+}
+#main-content > p:first-child {
+	margin-top: 3em;
+}
+
+#main-content a {
+	text-decoration: none;
+	color: lightblue;
 }
 
 .js h2.page-title,
