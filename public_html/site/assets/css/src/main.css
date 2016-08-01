@@ -20,11 +20,17 @@ body {
 	margin: 0 auto;
 	max-width: 1280px;
 }
-#main-content {
-	position: relative;
+h2.page-title {
 	margin: 50px auto;
 	max-width: 980px;
-	padding: 1em;
+	padding: 0 20px;
+}
+
+#main-content {
+	position: relative;
+	margin: 0 auto;
+	max-width: 980px;
+	padding: 0 1em;
 	min-height: calc(100vh - 200px);
 }
 
@@ -33,6 +39,9 @@ body {
 	font-weight: 100;
 }
 
-.js h2.page-title {
-	display: none;
+.js h2.page-title,
+.js #main-content,
+.js #main-content > * {
+	opacity: 0;
+	transition: opacity 2s;
 }

@@ -4,7 +4,7 @@
 			<meta charset="utf-8">
 			<meta http-equiv="x-ua-compatible" content="ie=edge">
 			{% block seo_meta %}
-			<title>{{ page.title }}</title>
+			<title>{{ page.seo_title }}</title>
 			<meta name="description" content="{{ page.headline }}">
 			{% endblock %}
 			<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,12 +25,12 @@
 			<div id="container">
 				<header id="main-header">
 					{% block main_menu %}
-					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu | raw }}</ul></nav>
+					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu }}</ul></nav>
 					{% endblock %}
 					<h2 class="page-title">{{ page.title }}</h2>
 				</header>
 				{% block main_content %}
-				<main id="main-content">{{ page.content | raw }}</main>
+				<main id="main-content">{{ page.content }}</main>
 				{% endblock %}
 			</div>
 
