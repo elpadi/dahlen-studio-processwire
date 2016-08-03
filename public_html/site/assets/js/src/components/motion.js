@@ -105,7 +105,7 @@
 			var slideshowInfo = window[this.dataset.info];
 			if (!('position' in slideshowInfo[0])) setInfoDefaults(slideshowInfo, this);
 			createImages(this, slideshowInfo);
-			if (i === 0) loadSlideshow(el, slideshowInfo).then(function() {
+			if (false && i === 0) loadSlideshow(el, slideshowInfo).then(function() {
 				if ($slideshows.length === 1) {
 					return;
 					el.classList.add('playing');

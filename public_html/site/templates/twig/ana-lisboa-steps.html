@@ -3,6 +3,13 @@
 {% block main_content %}
 <main id="main-content">
 	<section id="ana-lisboa-steps" class="motion" data-info="AnaLisboaSteps" data-timing="250" data-start="20" data-location="ASSETS_URL">
+		<button class="play-button icon-button absolute-center">
+			<svg class="play-icon svg-icon" viewBox="0 0 100 100" title="Play Slideshow">
+				<circle class="outer" cx="50" cy="50" r="47"/>
+				<circle class="filler" cx="50" cy="50" r="47"/>
+				<path class="triangle" d="M 30,20 L 80,50 L 30,80 Z"/>
+			</svg>
+		</button>
 		<img src="{{ config.urls.assets }}ana-lisboa-steps/darker_join1.jpg" alt="Ana Lisboa Steps">
 	</section>
 </main>

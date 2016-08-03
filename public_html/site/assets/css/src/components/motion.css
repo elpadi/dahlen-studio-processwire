@@ -5,8 +5,45 @@
 	opacity: 0;
 	transition: opacity 1s;
 }
-.motion:not(.playing) > img:first-child {
+.motion:not(.playing) > img:nth-of-type(1) {
 	opacity: 1;
+}
+.motion > button {
+	width: 100px;
+	height: 100px;
+	margin: auto;
+}
+
+.play-icon .outer {
+	fill: none;
+	stroke-width: 3;
+	stroke: white;
+	opacity: 0.7;
+}
+.play-icon .filler {
+	stroke: none;
+	fill: #ccc;
+	opacity: 0.5;
+}
+.play-icon .triangle {
+	stroke: none;
+	fill: white;
+}
+.play-icon .outer,
+.play-icon .filler {
+	transition: opacity 0.3s;
+}
+.play-icon .triangle {
+	transform-origin: center center;
+	transition: transform 0.3s, fill 0.3s;
+}
+.motion .play-button:hover .outer,
+.motion .play-button:hover .filler {
+	opacity: 1;
+}
+.motion .play-button:hover .triangle {
+	fill: #666;
+	transform: scale(0.7);
 }
 
 #introduction {

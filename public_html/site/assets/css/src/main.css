@@ -1,5 +1,6 @@
 @import "base/normalize.css";
 @import "base/default.css";
+@import "base/classes.css";
 @import "base/fonts.css";
 @import "components/menu.css";
 @import "components/slick.css";
