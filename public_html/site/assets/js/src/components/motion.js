@@ -40,7 +40,7 @@
 		imageInfo.img.src = path + '/' + imageInfo.filename;
 	};
 
-	var load = function(path, slideshowInfo, onProgress) {
+	var loadImages = function(path, slideshowInfo, onProgress) {
 		var count = slideshowInfo.length, loadedCount = 0, index = 0;
 		var loadNext = function() {
 			if (index < count) loadSingle(path, slideshowInfo[index], function(e) {
@@ -86,16 +86,29 @@
 		});
 	};
 
+	var loadSlideshow = function(node, slideshowInfo) {
+		var done = false, start = parseInt(node.dataset.start, 10);
+		node.classList.add('loading');
+		return new Promise(function(resolve, reject) {
+			loadImages(window[node.dataset.location] + node.id, slideshowInfo, function(progress) {
+				if (!done && progress > start) {
+					done = true;
+					resolve(node);
+				}
+			});
+		});
+	};
+
 	$(document).ready(function() {
-		$('.motion').each(function(i, el) {
-			this.classList.add('init');
-			this.classList.add('loading');
-			var slideshowInfo = window[this.dataset.info], playing = false, start = parseInt(this.dataset.start, 10);
+		var $slideshows = $('.motion');
+		$slideshows.each(function(i, el) {
+			var slideshowInfo = window[this.dataset.info];
 			if (!('position' in slideshowInfo[0])) setInfoDefaults(slideshowInfo, this);
 			createImages(this, slideshowInfo);
-			load(window[this.dataset.location] + this.id, slideshowInfo, function(progress) {
-				if (!playing && progress > start) {
-					playing = true;
+			if (i === 0) loadSlideshow(el, slideshowInfo).then(function() {
+				if ($slideshows.length === 1) {
+					return;
+					el.classList.add('playing');
 					play(slideshowInfo, parseInt(el.dataset.timing, 10));
 				}
 			});

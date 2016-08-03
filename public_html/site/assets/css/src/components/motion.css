@@ -2,10 +2,11 @@
 	position: absolute;
 	left: 0;
 	top: 0;
+	opacity: 0;
 	transition: opacity 1s;
 }
-.motion.init > img {
-	opacity: 0;
+.motion:not(.playing) > img:first-child {
+	opacity: 1;
 }
 
 #introduction {
