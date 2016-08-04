@@ -1,3 +1,15 @@
+@keyframes spinner {
+	from {
+		transform: rotate(0);
+	}
+	50% {
+		transform: rotate(-180deg);
+	}
+	to {
+		transform: rotate(-360deg);
+	}
+}
+
 .motion > img {
 	position: absolute;
 	left: 0;
@@ -12,6 +24,9 @@
 	width: 100px;
 	height: 100px;
 	margin: auto;
+}
+.motion.playing > button {
+	opacity: 0;
 }
 
 .play-icon .outer {
@@ -29,21 +44,57 @@
 	stroke: none;
 	fill: white;
 }
+.play-icon .loading-inner {
+	stroke: none;
+	fill: white;
+	opacity: 0.3;
+	transform: scale(0);
+	transform-origin: center center;
+	transition: transform 0.3s 0.1s;
+}
+.play-icon .loading-spinner {
+	fill: none;
+	stroke-width: 9;
+	stroke-linecap: round;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+.play-icon .loading-spinner.one { transform-origin: bottom right; }
+.play-icon .loading-spinner.two { transform-origin: bottom left; }
 .play-icon .outer,
 .play-icon .filler {
-	transition: opacity 0.3s;
+	transition: opacity 0.3s, stroke-width 0.3s;
 }
 .play-icon .triangle {
 	transform-origin: center center;
 	transition: transform 0.3s, fill 0.3s;
 }
+.motion.loading .play-button .outer,
 .motion .play-button:hover .outer,
 .motion .play-button:hover .filler {
 	opacity: 1;
 }
-.motion .play-button:hover .triangle {
+.motion.loading .play-button .filler {
+	opacity: 0.5;
+}
+.motion.loading .play-button .triangle,
+.motion:not(.loading) .play-button:hover .triangle {
 	fill: #666;
 	transform: scale(0.7);
+}
+.motion.loading .play-button .triangle {
+	fill: #666;
+	transform: scale(0);
+}
+.motion.loading .play-button .loading-inner {
+	transform: scale(1);
+}
+.motion.loading .play-button .loading-spinner {
+	opacity: 1;
+  animation-duration: 1.5s;
+  animation-name: spinner;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
 }
 
 #introduction {

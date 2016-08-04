@@ -105,12 +105,11 @@
 			var slideshowInfo = window[this.dataset.info];
 			if (!('position' in slideshowInfo[0])) setInfoDefaults(slideshowInfo, this);
 			createImages(this, slideshowInfo);
-			if (false && i === 0) loadSlideshow(el, slideshowInfo).then(function() {
-				if ($slideshows.length === 1) {
-					return;
+			$(el).on('click', '.play-button', function(e) {
+				loadSlideshow(el, slideshowInfo).then(function() {
 					el.classList.add('playing');
 					play(slideshowInfo, parseInt(el.dataset.timing, 10));
-				}
+				});
 			});
 		});
 	});

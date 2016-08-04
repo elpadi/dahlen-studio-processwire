@@ -6,11 +6,16 @@
 	bottom: 0;
 	z-index: 2;
 }
+.fade {
+	opacity: 1;
+	transition: opacity 0.3s;
+}
 .clean-button,
 .icon-button {
 	background-color: transparent;
 	border-style: none;
 	box-shadow: none;
+	outline-style: none;
 }
 .icon-button {
 	cursor: pointer;
