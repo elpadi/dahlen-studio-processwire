@@ -2,6 +2,10 @@
 namespace ProcessWire;
 
 use Functional as F;
+use Thunder\Shortcode\HandlerContainer\HandlerContainer;
+use Thunder\Shortcode\Parser\RegularParser;
+use Thunder\Shortcode\Processor\Processor;
+use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 /**
  * ProcessWire 'Hello world' demonstration module
@@ -21,6 +25,9 @@ use Functional as F;
 class Zenphoto extends WireData implements Module {
 
 	private static $zdb;
+
+	const DEFAULT_MOTION_TIMING = 250;
+	const DEFAULT_MOTION_START = 20;
 
 	/**
 	 * getModuleInfo is a module required by all modules to tell ProcessWire about them
@@ -84,16 +91,16 @@ class Zenphoto extends WireData implements Module {
 		// only run on content field
 		if ($field->name !== 'content') return;
 
-		$event->return = preg_replace_callback('/\[([a-z\-]+) ([a-z\-]+)\]/', [__CLASS__, 'parseShortcode'], $value);
+		$handlers = new HandlerContainer();
+		foreach (['slideshow','motion'] as $method) $handlers->add($method, [__CLASS__, $method]);
+		$processor = new Processor(new RegularParser(), $handlers);
+
+		$event->return = $processor->withRecursionDepth(0)->process($value);
 	}
 
 	public function slideshowImages($event) {
 		$page = $event->object;
 		$event->return = static::fetchAlbumImages($page->name);
-	}
-
-	public static function parseShortcode($matches) {
-		return method_exists(__CLASS__, $matches[1]) ? call_user_func([__CLASS__, $matches[1]], $matches[2]) : '';
 	}
 
 	private static function zenphotoDB() {
@@ -106,7 +113,7 @@ class Zenphoto extends WireData implements Module {
 
 	protected static function fetchAlbumImages($name) {
 		$db = self::zenphotoDB();
-		return $GLOBALS['wire']->cache->get("album-images--$name", 24 * 3600, function() use ($db, $name) {
+		return $GLOBALS['wire']->cache->get("album-images--$name", $GLOBALS['wire']->config->debug ? WireCache::expireNow : WireCache::expireDaily, function() use ($db, $name) {
 			$images = [];
 
 			$sth = $db->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
@@ -120,20 +127,31 @@ class Zenphoto extends WireData implements Module {
 		});
 	}
 
-	public static function slideshow($name) {
+	protected static function render($template_name, $vars) {
+		$vars['assets_url'] = $GLOBALS['wire']->config->urls->assets;
+		$vars['album_url'] = "{$GLOBALS['wire']->config->urls->root}zenphoto/albums/$vars[name]/";
+		$vars['poster'] = $vars['album_url'].$vars['images'][0]->filename;
+		return $GLOBALS['twig']->render("components/$template_name.html", $vars);
+	}
+
+	public static function slideshow(ShortcodeInterface $s) {
+		$name = $s->getParameter('name');
 		$images = array_slice(static::fetchAlbumImages($name), 0, 20);
 
 		$vars = compact('name','images');
-		$vars['root_url'] = $GLOBALS['wire']->config->urls->root;
-		return $GLOBALS['twig']->render('slideshow.html', $vars);
+		return static::render('slideshow', $vars);
 	}
 
-	public static function motion($name) {
+	public static function motion(ShortcodeInterface $s) {
+		$name = $s->getParameter('name');
+		$title = ucwords(str_replace('-', ' ', $name));
+		$js = str_replace(' ', '', $title);
+		$timing = $s->getParameter('timing', self::DEFAULT_MOTION_TIMING);
+		$start = $s->getParameter('start', self::DEFAULT_MOTION_START);
 		$images = static::fetchAlbumImages($name);
 
-		$vars = compact('name','images');
-		$vars['root_url'] = $GLOBALS['wire']->config->urls->root;
-		return $GLOBALS['twig']->render('motion.html', $vars);
+		$vars = compact('name','images','title','js','timing','start');
+		return static::render('motion', $vars);
 	}
 
 }

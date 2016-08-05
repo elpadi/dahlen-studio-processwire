@@ -90,7 +90,7 @@
 		var done = false, start = parseInt(node.dataset.start, 10);
 		node.classList.add('loading');
 		return new Promise(function(resolve, reject) {
-			loadImages(window[node.dataset.location] + node.id, slideshowInfo, function(progress) {
+			loadImages(window.ALBUMS_URL + node.id, slideshowInfo, function(progress) {
 				if (!done && progress > start) {
 					done = true;
 					resolve(node);
