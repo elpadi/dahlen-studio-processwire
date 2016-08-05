@@ -2,4 +2,8 @@
 	{% include 'snippets/play-button.html' %}
 	<img src="{{ poster }}" alt="{{ title }}">
 </section>
+{% if has_custom_info %}
 <script src="{{ assets_url }}slideshow-info/{{ name }}.js"></script>
+{% else %}
+<script>window.{{ js }} = {{ json(images) }};</script>
+{% endif %}

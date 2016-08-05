@@ -21,7 +21,7 @@
 			{% endif %}
 			{% endblock %}
     </head>
-    <body>
+		<body class="page--{{ page.name }} template--{{ page.template.get('name') }} parent--{{ page.parent.name }}">
 			<div id="container">
 				<header id="main-header">
 					{% block main_menu %}

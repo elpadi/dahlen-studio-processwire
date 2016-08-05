@@ -104,8 +104,8 @@
 		$slideshows.each(function(i, el) {
 			var slideshowInfo = window[this.dataset.info];
 			if (!('position' in slideshowInfo[0])) setInfoDefaults(slideshowInfo, this);
-			createImages(this, slideshowInfo);
 			$(el).on('click', '.play-button', function(e) {
+				createImages(el, slideshowInfo);
 				loadSlideshow(el, slideshowInfo).then(function() {
 					el.classList.add('playing');
 					play(slideshowInfo, parseInt(el.dataset.timing, 10));

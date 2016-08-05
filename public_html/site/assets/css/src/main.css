@@ -34,6 +34,9 @@ h2.page-title {
 	padding: 0 1em;
 	min-height: calc(100vh - 220px);
 }
+#main-content > p:empty {
+	display: none;
+}
 
 h2.page-title,
 #main-content > h3,
