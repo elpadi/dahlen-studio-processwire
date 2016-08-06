@@ -5,7 +5,7 @@
 	</nav>
 	<main class="images">
 		{% for img in images %}
-		<article class="image"><a href="{{ root_url }}zenphoto/albums/{{ name }}/{{ img.filename }}" data-width="{{ img.width }}" data-height="{{ img.height }}"><img data-lazy="{{ root_url }}zenphoto/zp-core/i.php?a={{ name }}&i={{ img.filename }}" alt="{{ img.filename }}"></a></article>
+		<article class="image"><a href="{{ album_url }}{{ img.filename }}" data-width="{{ img.width }}" data-height="{{ img.height }}"><img data-lazy="{{ album_url }}{{ img.filename }}" alt="{{ img.filename }}"></a></article>
 		{% endfor %}
 	</main>
 </article>

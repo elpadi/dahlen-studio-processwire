@@ -31,7 +31,7 @@ h2.page-title {
 	position: relative;
 	margin: 0 auto;
 	max-width: 980px;
-	padding: 0 1em;
+	padding: 0 1em 50px;
 	min-height: calc(100vh - 220px);
 }
 #main-content > p:empty {
