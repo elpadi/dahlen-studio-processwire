@@ -118,19 +118,29 @@ class Zenphoto extends WireData implements Module {
 
 			$sth = $db->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
 			$sth->execute([$name]);
-			$id = intval($sth->fetch(\PDO::FETCH_OBJ)->id);
+			if (!($row = $sth->fetch(\PDO::FETCH_OBJ))) {
+				site_error("Album with name '$name' does not exist.");
+				return $images;
+			}
 
-			$sth = $db->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$id ORDER BY `sort_order` ASC");
-			while ($img = $sth->fetch(\PDO::FETCH_OBJ)) $images[] = $img;
+			$sth = $db->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$row->id ORDER BY `sort_order` ASC");
+			while ($img = $sth->fetch(\PDO::FETCH_OBJ)) {
+				$img->width = intval($img->width);
+				$img->height = intval($img->height);
+				$images[] = $img;
+			}
 
 			return $images;
 		});
 	}
 
 	protected static function render($template_name, $vars) {
+		$vars['width'] = max(F\pluck($vars['images'], 'width'));
+		$vars['height'] = max(F\pluck(F\filter($vars['images'], function($img) use ($vars) { return $img->width === $vars['width']; }), 'height'));
 		$vars['assets_url'] = $GLOBALS['wire']->config->urls->assets;
 		$vars['album_url'] = "{$GLOBALS['wire']->config->urls->root}zenphoto/albums/$vars[name]/";
-		$vars['poster'] = $vars['album_url'].$vars['images'][0]->filename;
+		$vars['poster'] = $vars['images'][0];
+		$vars['id'] = str_replace('/', '--', $vars['name']);
 		return $GLOBALS['twig']->render("components/$template_name.html", $vars);
 	}
 
@@ -144,8 +154,8 @@ class Zenphoto extends WireData implements Module {
 
 	public static function motion(ShortcodeInterface $s) {
 		$name = $s->getParameter('name');
-		$title = ucwords(str_replace('-', ' ', $name));
-		$js = str_replace(' ', '', $title);
+		$title = ucwords(str_replace(['-','/'], ' ', $name));
+		$js = str_replace([' ','/'], '', $title);
 		$timing = $s->getParameter('timing', self::DEFAULT_MOTION_TIMING);
 		$start = $s->getParameter('start', self::DEFAULT_MOTION_START);
 		$has_custom_info = is_readable($GLOBALS['wire']->config->paths->assets."slideshow-info/$name.js");

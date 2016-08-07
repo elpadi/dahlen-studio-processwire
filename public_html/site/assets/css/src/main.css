@@ -32,7 +32,7 @@ h2.page-title {
 	margin: 0 auto;
 	max-width: 980px;
 	padding: 0 1em 50px;
-	min-height: calc(100vh - 220px);
+	min-height: calc(100vh - 240px);
 }
 #main-content > p:empty {
 	display: none;
@@ -64,6 +64,11 @@ h2.page-title {
 #main-content a {
 	text-decoration: none;
 	color: lightblue;
+}
+
+.page--project .slideshow,
+.page--project .motion {
+	margin: 50px auto;
 }
 
 .js h2.page-title,

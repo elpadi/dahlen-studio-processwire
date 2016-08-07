@@ -1,6 +1,6 @@
-<section id="{{ name }}" class="motion" data-info="{{ js }}" data-timing="{{ timing }}" data-start="{{ start }}">
+<section id="{{ name }}" class="motion" data-info="{{ js }}" data-timing="{{ timing }}" data-start="{{ start }}" style="max-width:{{ width }}px; max-height:{{ height }}px;" data-width="{{ width }}" data-height="{{ height }}">
 	{% include 'snippets/play-button.html' %}
-	<img src="{{ poster }}" alt="{{ title }}">
+	<img src="{{ album_url }}{{ poster.filename }}" alt="{{ title }}" data-width="{{ poster.width }}" data-height="{{ poster.height }}">
 </section>
 {% if has_custom_info %}
 <script src="{{ assets_url }}slideshow-info/{{ name }}.js"></script>

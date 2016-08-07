@@ -10,6 +10,14 @@
 	}
 }
 
+.motion {
+	width: 100%;
+	position: relative;
+	margin: 0 auto;
+}
+.parent--motion .motion {
+	position: absolute;
+}
 .parent--motion .motion:not(.playing) {
 	visibility: hidden;
 }

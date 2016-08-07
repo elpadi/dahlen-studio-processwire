@@ -5,6 +5,7 @@ var Motion = (function($) {
 		this.EVENT_NAMES = ['started','loaded','finished'];
 		this.EVENT_NAMES.forEach(this._eventPromise.bind(this));
 		
+		console.log('Motion.constructor', dom_node.id);
 		this.dom_node = dom_node;
 		this._slideshowInfo = window[dom_node.dataset.info];
 		this.imageCount = this._slideshowInfo.length;
