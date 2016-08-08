@@ -92,7 +92,7 @@ class Zenphoto extends WireData implements Module {
 		if ($field->name !== 'content') return;
 
 		$handlers = new HandlerContainer();
-		foreach (['slideshow','motion'] as $method) $handlers->add($method, [__CLASS__, $method]);
+		foreach (['slideshow','motion','video'] as $method) $handlers->add($method, [__CLASS__, $method]);
 		$processor = new Processor(new RegularParser(), $handlers);
 
 		$event->return = $processor->withRecursionDepth(0)->process($value);
@@ -163,6 +163,18 @@ class Zenphoto extends WireData implements Module {
 
 		$vars = compact('name','images','title','js','timing','start','has_custom_info');
 		return static::render('motion', $vars);
+	}
+
+	public static function video(ShortcodeInterface $s) {
+		$name = $s->getParameter('name');
+		$width = intval($s->getParameter('width'));
+		$height = intval($s->getParameter('height'));
+
+		$path = "{$GLOBALS['wire']->config->urls->assets}videos/$name/";
+		$swf_path = "{$GLOBALS['wire']->config->urls->assets}media-element/build/flashmediaelement.swf";
+		
+		$vars = compact('name','width','height','path','swf_path');
+		return $GLOBALS['twig']->render("components/video.html", $vars);
 	}
 
 }

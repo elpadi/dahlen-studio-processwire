@@ -4,6 +4,7 @@
 @import "base/fonts.css";
 @import "components/menu.css";
 @import "components/slick.css";
+@import "../../media-element/build/mediaelementplayer.css";
 @import "components/slideshow.css";
 @import "components/motion.css";
 @import "components/jigsaw.css";
@@ -57,6 +58,10 @@ h2.page-title {
 #main-content > h3 {
 	margin: 3em auto 1em;
 }
+.page--project #main-content > h3 {
+	max-width: 100%;
+	margin: 100px auto;
+}
 #main-content > p:first-child {
 	margin-top: 3em;
 }
@@ -66,6 +71,12 @@ h2.page-title {
 	color: lightblue;
 }
 
+video {
+	display: block;
+	margin: auto;
+}
+
+.page--project video,
 .page--project .slideshow,
 .page--project .motion {
 	margin: 50px auto;
