@@ -6,7 +6,6 @@
 	background-color: black;
 }
 .slick-arrow {
-	z-index: 2;
 	width: 40px;
 	height: 80px;
 }
@@ -48,6 +47,14 @@
 .slideshow a {
 	display: block;
 	outline: none;
+}
+.slideshow > nav {
+	z-index: 2;
+	max-width: calc(100vw - 40px);
+	width: calc(100% + 80px);
+	height: 80px;
+	left: -40px;
+	right: -40px;
 }
 .slideshow img {
 	width: 100%;
