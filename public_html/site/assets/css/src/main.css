@@ -42,7 +42,6 @@ h2.page-title {
 h2.page-title,
 #main-content > h3,
 #main-menu {
-	font-family: Arial Black,Arial,sans-serif;
 	font-weight: 100;
 	text-transform: uppercase;
 }

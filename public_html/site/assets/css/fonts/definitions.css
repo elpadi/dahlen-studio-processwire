@@ -1,0 +1,116 @@
+/* Headings */
+@font-face {
+	src: url('Classical Garamond Bold BT.ttf');
+	font-family: GaramondBold;
+}
+/*
+@font-face {
+	src: url('Zapf Humanist 601 Bold BT.ttf');
+	font-family: ZapfHumanist;
+}
+@font-face {
+	src: url('Zapf Calligraphic 801 Bold BT.ttf');
+	font-family: ZapfCalli;
+}
+@font-face {
+	src: url(AGaramondPro-Semibold.otf);
+	font-family: GaramondSemiBold;
+}
+@font-face {
+	src: url(AJensonPro-Bold.otf);
+	font-family: JensonBold;
+}
+@font-face {
+	src: url(AJensonPro-Semibold.otf);
+	font-family: JensonSemiBold;
+}
+@font-face {
+	src: url(AJensonPro-BoldCapt.otf);
+	font-family: Jenson;
+}
+@font-face {
+	src: url(ChaparralPro-BoldDisp.otf);
+}
+@font-face {
+	src: url(ChaparralPro-BoldSubh.otf);
+	font-family: ChaparralProBold;
+}
+*/
+
+/* Body */
+@font-face {
+	src: url('Aldine 721 BT.ttf');
+	font-family: Aldine;
+}
+
+/* Menu */
+@font-face {
+	src: url(MyriadPro-BoldSemiExt.otf);
+	font-family: MyriadSemiBold;
+}
+@font-face {
+	src: url(STOSNB__.ttf);
+	font-family: StoneSansBold;
+}
+/*
+@font-face {
+	src: url(STOSNOB_.ttf);
+	font-family: StoneSansOSBold;
+}
+*/
+
+/* Scripts */
+@font-face {
+	src: url(JP-Hand-Straight.ttf);
+	font-family: JPHand;
+}
+/*
+@font-face {
+	src: url(SammysHand-Regular.ttf);
+	font-family: SammysHand;
+}
+@font-face {
+	src: url(RogersHand-Regular.ttf);
+	font-family: RogersHand;
+}
+@font-face {
+	src: url(Bickley-Script-LET-Plain.ttf);
+	font-family: Bickley;
+}
+@font-face {
+	src: url(Cancellaresca-Script.ttf);
+	font-family: Cancellaresca;
+}
+@font-face {
+	src: url(PetraScriptEF-Regular-Regular.ttf);
+	font-family: PetraScript;
+}
+@font-face {
+	src: url(RamseysHand-Regular.ttf);
+	font-family: RamseysHand;
+}
+@font-face {
+	src: url(VolutaScript-Regular.ttf);
+	font-family: VolutaScript;
+}
+*/
+
+#main-menu {
+	font-family: MyriadSemiBold;
+}
+#main-menu > ul > li > a {
+	font-family: StoneSansBold;
+}
+
+#main-content {
+	font-family: Aldine;
+}
+h1, h2, h3, h4 {
+	font-family: GaramondBold;
+}
+
+.template--home #main-content > p:last-child > strong {
+	font-family: JPHand;
+	font-weight: 100;
+	font-size: 2em;
+}
