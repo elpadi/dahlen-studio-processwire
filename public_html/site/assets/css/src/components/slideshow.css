@@ -1,3 +1,8 @@
+.slick-slide,
+.slideshow a,
+.slideshow img {
+	outline: none;
+}
 .slick-list, .slick-track, .images {
 	height: 100%;
 }
@@ -46,7 +51,6 @@
 }
 .slideshow a {
 	display: block;
-	outline: none;
 }
 .slideshow > nav {
 	z-index: 2;

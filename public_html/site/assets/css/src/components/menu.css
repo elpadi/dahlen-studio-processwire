@@ -24,6 +24,9 @@
 	line-height: 1.6;
 }
 /* Root menu */
+body:not(.submenu-open) #main-menu > ul > li > ul {
+	height: auto !important;
+}
 #main-menu > ul > li > ul {
 	position: absolute;
 	right: 0;

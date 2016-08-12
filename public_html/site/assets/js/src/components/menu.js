@@ -7,7 +7,10 @@
 		$menu.css('height', ($menu.height() + Math.max.apply(window, $menu.find('ul').map(function(i, ul) { return ul.offsetHeight; })) + 20) + 'px');
 
 		$(document).on('click', function(e) {
-			if (!$menu.get(0).contains(e.target)) $submenus.removeClass('open');
+			if (!$menu.get(0).contains(e.target)) {
+				$submenus.removeClass('open');
+				document.body.classList.remove('submenu-open');
+			}
 		});
 
 		$menu.on('click', 'a', function(e) {
@@ -16,6 +19,9 @@
 				e.preventDefault();
 				$submenus.not($button.next()).removeClass('open');
 				$button.next().toggleClass('open');
+				setTimeout(function() {
+					document.body.classList.toggle('submenu-open', Boolean($submenus.filter('.open').length));
+				}, 100);
 			}
 		});
 

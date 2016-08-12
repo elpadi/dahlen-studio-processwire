@@ -41,7 +41,7 @@ try {
 	// Bootstrap ProcessWire's core and make the API available with $wire
 	$wire = new ProcessWire($config);
 
-	$loader = new \Twig_Loader_Filesystem($config->paths->templates.'/twig');
+	$loader = new \Twig_Loader_Filesystem($config->paths->templates.'twig');
 	$twig = new \Twig_Environment($loader, array(
 			'debug' => $config->debug,
 			'auto_reload' => true,
