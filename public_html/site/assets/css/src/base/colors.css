@@ -1,0 +1,18 @@
+body {
+	background-color: black;
+	color: white;
+}
+
+#main-menu { color: white; }
+.breadcrumb,
+#main-menu > ul > li > ul { color:#888; }
+
+#main-menu a[href^="/about"]:hover, #main-menu li.selected a[href^="/about"] { color: #FF2526; }
+#main-menu a[href^="/still"]:hover, #main-menu li.selected a[href^="/still"] { color: #FF5583; }
+#main-menu a[href^="/motion"]:hover, #main-menu li.selected a[href^="/motion"] { color: #FFF23A; }
+#main-menu a[href^="/project"]:hover, #main-menu li.selected a[href^="/project"] { color: #00FFA2; }
+#main-menu a[href^="/new"]:hover, #main-menu li.selected a[href^="/new"] { color: #35D7DD; }
+#main-menu a[href^="/contact"]:hover, #main-menu li.selected a[href^="/contact"] { color: #5DB0DB; }
+
+.parent--still .breadcrumb > .current { color: #FF5583; }
+.parent--motion .breadcrumb > .current { color: #FFF23A; }

@@ -28,7 +28,9 @@
 					{% block main_menu %}
 					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu }}</ul></nav>
 					{% endblock %}
+					{% block page_title %}
 					<h2 class="page-title">{{ page.title }}</h2>
+					{% endblock %}
 				</header>
 				{% block main_content %}
 				<main id="main-content">{{ page.content }}</main>

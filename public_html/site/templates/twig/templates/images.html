@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+<h2 class="page-title breadcrumb">{% if page.parent.get('id') %}<span class="parent">{{ page.parent.get('title') }}</span> ➤ {% endif %}<span class="current">{{ page.title }}</span></h2>
+{% endblock %}

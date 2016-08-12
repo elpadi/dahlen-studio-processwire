@@ -1,7 +1,7 @@
 @import "base/normalize.css";
 @import "base/default.css";
 @import "base/classes.css";
-@import "base/fonts.css";
+@import "base/colors.css";
 @import "components/menu.css";
 @import "components/slick.css";
 @import "../../media-element/build/mediaelementplayer.css";
@@ -13,10 +13,6 @@ body,html {
 	margin: 0;
 	padding: 0;
 }
-body {
-	background-color: black;
-	color: white;
-}
 #container {
 	position: relative;
 	margin: 0 auto;
@@ -27,6 +23,16 @@ h2.page-title {
 	max-width: 980px;
 	padding: 0 20px;
 }
+h2.page-title.breadcrumb {
+	margin: 15px;
+	position: fixed;
+	bottom: 0;
+	font-size: 12px;
+	width: 100%;
+}
+h2.page-title.breadcrumb > span {
+	margin:0 2px;
+}
 
 #main-content {
 	position: relative;
@@ -34,6 +40,9 @@ h2.page-title {
 	max-width: 980px;
 	padding: 0 1em;
 	min-height: calc(100vh - 240px);
+}
+.template--images #main-content {
+	min-height: calc(100vh - 150px);
 }
 #main-content > p:empty {
 	display: none;

@@ -1,5 +1,6 @@
 .slideshow > nav,
 .slideshow a,
+.parent--still .slideshow,
 .parent--motion .motion,
 .absolute-center {
 	position: absolute;
