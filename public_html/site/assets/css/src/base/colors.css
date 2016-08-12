@@ -1,6 +1,6 @@
 body {
 	background-color: black;
-	color: white;
+	color: #ddd;
 }
 
 #main-menu { color: white; }
@@ -16,3 +16,22 @@ body {
 
 .parent--still .breadcrumb > .current { color: #FF5583; }
 .parent--motion .breadcrumb > .current { color: #FFF23A; }
+
+body.theme--white {
+	background-color: white;
+	color: #333;
+}
+
+body.theme--white #main-menu { color: black; }
+body.theme--white .breadcrumb,
+body.theme--white #main-menu > ul > li > ul { color:#666; }
+
+body.theme--white #main-menu a[href^="/about"]:hover, #main-menu li.selected a[href^="/about"] { color: #FF2526; }
+body.theme--white #main-menu a[href^="/still"]:hover, #main-menu li.selected a[href^="/still"] { color: #FF5583; }
+body.theme--white #main-menu a[href^="/motion"]:hover, #main-menu li.selected a[href^="/motion"] { color: #FFF23A; }
+body.theme--white #main-menu a[href^="/project"]:hover, #main-menu li.selected a[href^="/project"] { color: #00FFA2; }
+body.theme--white #main-menu a[href^="/new"]:hover, #main-menu li.selected a[href^="/new"] { color: #35D7DD; }
+body.theme--white #main-menu a[href^="/contact"]:hover, #main-menu li.selected a[href^="/contact"] { color: #5DB0DB; }
+
+body.theme--white .parent--still .breadcrumb > .current { color: #FF5583; }
+body.theme--white .parent--motion .breadcrumb > .current { color: #FFF23A; }
