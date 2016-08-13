@@ -38,7 +38,7 @@
 			</div>
 
 			{% block css_js_foot %}
-			<script>window.ASSETS_URL = "{{ ASSETS_URL }}"; window.ALBUMS_URL = "{{ ALBUMS_URL }}";</script>
+			{% include 'snippets/definitions.js' %}
 			{% if config.debug %}
 			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
 			<script src="{{ config.urls.assets }}js/src/vendor/slick.js"></script>
