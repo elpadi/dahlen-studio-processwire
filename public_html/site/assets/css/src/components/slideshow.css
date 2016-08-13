@@ -10,8 +10,8 @@
 	position: relative;
 }
 .slick-arrow {
-	width: 40px;
-	height: 80px;
+	width: 30px;
+	height: 55px;
 }
 .slick-prev {
 	left: 15px;
@@ -58,6 +58,10 @@
 	height: 80px;
 	left: -40px;
 	right: -40px;
+	opacity: 0;
+}
+.slideshow:hover > nav {
+	opacity: 1;
 }
 .slideshow img {
 	width: 100%;
