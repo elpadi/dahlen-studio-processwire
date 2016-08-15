@@ -108,6 +108,7 @@
 #main-menu {
 	font-family: MyriadSemiBold;
 }
+input[type="submit"],
 #main-menu > ul > li > a {
 	font-family: StoneSansBold;
 }

@@ -16,6 +16,7 @@
 	opacity: 1;
 	transition: opacity 0.3s;
 }
+input,
 .clean-button,
 .icon-button {
 	background-color: transparent;
