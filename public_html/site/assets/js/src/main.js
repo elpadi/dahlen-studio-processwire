@@ -51,6 +51,19 @@
 			setTimeout(function() { el.style.opacity = ('opacity' in el.dataset) ? el.dataset.opacity : '1'; }, i * 100);
 		});
 		onResize();
+		if (document.body.classList.contains('template--home')) {
+			var slide = Motion.list.head().data;
+			setTimeout(slide.init.bind(slide), 4500);
+			slide.getPromise('finished').then(function() {
+				window.location += '/motion/introduction';
+			});
+			setTimeout(function() {
+				$('#logo').add($('#main-menu > ul > li > ul > li'))
+				.each(function(i, el) {
+					setTimeout(function() { el.style.opacity = '1'; }, i * 250);
+				});
+			}, 2000);
+		}
 	});
 
 })(jQuery);

@@ -1,5 +1,6 @@
 .slideshow > nav,
 .slideshow a,
+.template--home .motion,
 .template--images .slideshow,
 .parent--motion .motion,
 .absolute-center {
@@ -11,6 +12,8 @@
 	margin: auto;
 	z-index: 2;
 }
+.template--home #logo,
+.template--home #main-menu > ul > li > ul > li,
 .slideshow > nav,
 .fade {
 	opacity: 1;

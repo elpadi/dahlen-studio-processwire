@@ -76,11 +76,11 @@ class Zenphoto extends WireData implements Module {
 	public function init() {
 
 		$this->addHook('Page::slideshowImages', $this, 'slideshowImages'); 
-		$this->addHookAfter('Fieldtype::wakeupValue', $this, 'parseShortcodes'); 
+		$this->addHookAfter('Fieldtype::wakeupValue', $this, 'parseFieldShortcodes'); 
 
 	}
 
-	public function parseShortcodes($event) {
+	public function parseFieldShortcodes($event) {
 		$page = $event->arguments[0];
 		$field = $event->arguments[1];
 		$value = $event->arguments[2];
@@ -91,11 +91,15 @@ class Zenphoto extends WireData implements Module {
 		// only run on content field
 		if ($field->name !== 'content') return;
 
+		$event->return = static::parseShortcodes($value);
+	}
+
+	public static function parseShortcodes($s) {
 		$handlers = new HandlerContainer();
 		foreach (['slideshow','motion','video'] as $method) $handlers->add($method, [__CLASS__, $method]);
 		$processor = new Processor(new RegularParser(), $handlers);
 
-		$event->return = $processor->withRecursionDepth(0)->process($value);
+		return $processor->withRecursionDepth(0)->process($s);
 	}
 
 	public function slideshowImages($event) {

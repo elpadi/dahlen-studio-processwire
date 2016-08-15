@@ -89,7 +89,7 @@ var Motion = (function($) {
 	Object.defineProperty(Motion.prototype, '_loadSingle', {
 		value: function(index, onLoad) {
 			this._slideshowInfo[index].img.addEventListener('load', onLoad.bind(this));
-			this._slideshowInfo[index].img.src = window.ALBUMS_URL + this.dom_node.id + '/' + this._slideshowInfo[index].filename;
+			this._slideshowInfo[index].img.src = window.ALBUMS_URL + this.dom_node.dataset.name + '/' + this._slideshowInfo[index].filename;
 		}
 	});
 

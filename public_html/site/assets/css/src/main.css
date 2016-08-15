@@ -51,6 +51,7 @@ h2.page-title.breadcrumb > span {
 	padding: 0 1em;
 	min-height: calc(100vh - 240px);
 }
+.template--home #main-content,
 .template--images #main-content {
 	min-height: calc(100vh - 138px);
 }
@@ -66,6 +67,9 @@ h2.page-title,
 }
 h2.page-title {
 	text-align: center;
+}
+.js .template--home .page-title {
+	display: none;
 }
 #main-content > form,
 #main-content > blockquote,
@@ -104,6 +108,14 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
 	border-bottom: 1px solid white;
+}
+
+.js .template--home #logo,
+.js .template--home #main-menu > ul > li > ul > li {
+	opacity: 0;
+}
+.template--home .motion > button {
+	display: none;
 }
 
 .page--project video,
