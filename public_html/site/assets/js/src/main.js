@@ -48,7 +48,7 @@
 		.add('#main-content')
 		.add($('#main-content').children())
 		.each(function(i, el) {
-			setTimeout(function() { el.style.opacity = '1'; }, i * 100);
+			setTimeout(function() { el.style.opacity = ('opacity' in el.dataset) ? el.dataset.opacity : '1'; }, i * 100);
 		});
 		onResize();
 	});
