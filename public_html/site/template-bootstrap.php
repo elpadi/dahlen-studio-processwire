@@ -2,7 +2,7 @@
 use Functional as F;
 global $twig;
 
-if ($user->isGuest() && !$session->get('entered_password')) {
+if (!empty($config->contentPassword) && $user->isGuest() && !$session->get('entered_password')) {
 	if ($page->name === 'password' && $input->post('password')) {
 		if (password_verify($input->post('password'), $config->contentPassword)) {
 			$session->set('entered_password', TRUE);
