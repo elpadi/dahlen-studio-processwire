@@ -23,6 +23,7 @@
 	font-size: 34px;
 	line-height: 1.4;
 	letter-spacing: -1px;
+	visibility: hidden;
 }
 /* Root menu */
 body:not(.submenu-open) #main-menu > ul > li > ul {

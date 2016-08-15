@@ -26,6 +26,7 @@
 			<div id="container">
 				<header id="main-header">
 					{% block main_menu %}
+					<a id="logo" href="{{ config.urls.get('root') }}">{% include 'snippets/logo.svg' %}</a>
 					<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu }}</ul></nav>
 					{% endblock %}
 					{% block page_title %}

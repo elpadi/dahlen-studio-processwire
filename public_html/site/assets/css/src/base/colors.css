@@ -6,6 +6,7 @@ input {
 	color: white;
 }
 
+#logo path { fill: white; }
 #main-menu { color: white; }
 .breadcrumb,
 #main-menu > ul > li > ul { color:#888; }
@@ -26,6 +27,7 @@ body.theme--white {
 	color: #333;
 }
 
+body.theme--white #logo path { fill: black; }
 body.theme--white #main-menu { color: black; }
 body.theme--white .breadcrumb,
 body.theme--white #main-menu > ul > li > ul { color:#666; }
