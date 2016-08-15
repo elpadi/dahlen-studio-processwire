@@ -1,3 +1,9 @@
+.js .page--new #main-content > p,
+.js .page--new #main-content > h3 {
+	visibility: hidden;
+	position: absolute;
+}
+
 .slick-slide,
 .slideshow a,
 .slideshow img {

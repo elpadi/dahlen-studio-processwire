@@ -1,6 +1,6 @@
 .slideshow > nav,
 .slideshow a,
-.parent--still .slideshow,
+.template--images .slideshow,
 .parent--motion .motion,
 .absolute-center {
 	position: absolute;

@@ -42,7 +42,7 @@ h2.page-title.breadcrumb > span {
 	min-height: calc(100vh - 240px);
 }
 .template--images #main-content {
-	min-height: calc(100vh - 150px);
+	min-height: calc(100vh - 138px);
 }
 #main-content > p:empty {
 	display: none;

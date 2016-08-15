@@ -25,10 +25,13 @@
 	};
 
 	var resizeSlideshow = function(node, images) {
-		var max = { w: parseInt(node.dataset.width, 10), h: parseInt(node.dataset.height, 10) };
-		var c = contain(max, { w: $main.width(), h: document.documentElement.clientHeight - 240 });
-		c.w = Math.min(c.w, max.w);
-		c.h = Math.min(c.h, max.h);
+		var c, max = { w: parseInt(node.dataset.width, 10), h: parseInt(node.dataset.height, 10) }, v = { w: $main.width(), h: document.documentElement.clientHeight - 198 };
+		if (!document.body.classList.contains('template--images')) {
+			c = contain(max, v);
+			c.w = Math.min(c.w, max.w);
+			c.h = Math.min(c.h, max.h);
+		}
+		else c = v;
 		node.style.width = c.w + 'px';
 		node.style.height = c.h + 'px';
 		images.forEach(function(img) { resizeImage(img, c); });
