@@ -113,11 +113,17 @@ input[type="submit"],
 	font-family: StoneSansBold;
 }
 
+/*
 #main-content {
 	font-family: Aldine;
 }
 h1, h2, h3, h4 {
 	font-family: GaramondBold;
+}
+*/
+#main-content,
+h1, h2, h3, h4 {
+	font-family: Helvetica,sans-serif;
 }
 
 .template--home #main-content > p:last-child > strong {

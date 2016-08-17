@@ -1,6 +1,6 @@
 body {
 	background-color: black;
-	color: #ddd;
+	color: black;
 }
 input {
 	color: white;
@@ -9,11 +9,11 @@ input {
 #logo path { fill: white; }
 #main-menu { color: white; }
 .breadcrumb,
-#main-menu > ul > li > ul a { color: #888; }
+#main-menu > ul > li > ul a { color: #ccc; }
+#main-menu.intro-colors li.color--normal > a { color: #ccc !important; }
 #main-menu > ul > li > ul > li > ul > li > a { color: white; }
 #main-menu > ul > li > ul ul a:hover { color: #ccc; }
 #main-menu > ul > li > ul > li.selected > ul > li.selected > a { color: #aaa; }
-#main-menu.intro-colors li.color--normal > a { color: #888 !important; }
 
 #main-menu.intro-colors a[href^="/about"], #main-menu a[href^="/about"]:hover, #main-menu li.selected a[href^="/about"] { color: #FF2526; }
 #main-menu.intro-colors a[href^="/still"], #main-menu a[href^="/still"]:hover, #main-menu li.selected a[href^="/still"] { color: #FF5583; }
@@ -33,6 +33,12 @@ input {
 body.theme--white {
 	background-color: white;
 	color: #333;
+}
+body.theme--white input {
+	color: black;
+}
+body.theme--white input[type="text"], body.theme--white input[type="email"], body.theme--white input[type="password"] {
+	border-bottom-color: black;
 }
 
 body.theme--white #logo path { fill: black; }

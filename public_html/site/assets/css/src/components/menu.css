@@ -15,7 +15,7 @@
 }
 
 #main-menu {
-	font-size: 27px;
+	font-size: 37px;
 	text-transform: uppercase;
 }
 /* Home button */
@@ -32,7 +32,7 @@ body:not(.submenu-open) #main-menu > ul > li > ul {
 #main-menu > ul > li > ul {
 	position: absolute;
 	right: 0;
-	top: 11px;
+	top: 1px;
 	overflow: hidden;
 }
 /* Top items */

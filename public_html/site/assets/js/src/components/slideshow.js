@@ -8,8 +8,8 @@
 			setTimeout(function() { $s.find('.images').slick({
 				pauseOnFocus: false,
 				pauseOnHover: false,
-				autoplayDuration: 2000,
-				lazyLoad: 'progressive',
+				autoplayDuration: 1000,
+				lazyLoad: $slideshows.length === 1 ? 'progressive' : 'ondemand',
 				prevArrow: $nav.first(),
 				nextArrow: $nav.last()
 			}); }, 100);

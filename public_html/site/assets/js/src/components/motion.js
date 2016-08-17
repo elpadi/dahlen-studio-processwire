@@ -234,12 +234,14 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Motion.list = new DLL.DoublyLinkedList();
 	$(document).ready(function() {
-		var $slideshows = $('.motion');
-		Motion.list.autoplay = !document.body.classList.contains('template--basic-page') && $slideshows.length > 1;
-		$slideshows.each(function(i, el) {
-			var motion = new Motion(el);
-			motion.list_node = Motion.list.append(motion);
-		});
+		setTimeout(function() {
+			var $slideshows = $('.motion');
+			Motion.list.autoplay = !document.body.classList.contains('template--basic-page') && $slideshows.length > 1;
+			$slideshows.each(function(i, el) {
+				var motion = new Motion(el);
+				motion.list_node = Motion.list.append(motion);
+			});
+		}, 100);
 	});
 
 })(jQuery);

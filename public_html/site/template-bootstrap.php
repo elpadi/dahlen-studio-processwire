@@ -2,11 +2,11 @@
 use Functional as F;
 global $twig;
 
-if (!empty($config->contentPassword) && $user->isGuest() && !$session->get('entered_password')) {
+if ($page->name === 'password' || (!empty($config->contentPassword) && $user->isGuest() && !$session->get('entered_password'))) {
 	if ($page->name === 'password' && $input->post('password')) {
 		if (password_verify($input->post('password'), $config->contentPassword)) {
 			$session->set('entered_password', TRUE);
-			header('Location: http://'.$_SERVER['HTTP_HOST'].($session->get('password_referrer') ? $session->get('password_referrer') : '/'));
+			header('Location: http://'.$_SERVER['HTTP_HOST'].($session->get('password_referrer') && !strstr($session->get('password_referrer'), 'password') ? $session->get('password_referrer') : '/'));
 			exit(302);
 		}
 		else {

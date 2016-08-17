@@ -26,7 +26,7 @@
 
 	var resizeSlideshow = function(node, images) {
 		var c, max = { w: parseInt(node.dataset.width, 10), h: parseInt(node.dataset.height, 10) }, v = { w: $main.width(), h: document.documentElement.clientHeight - 198 };
-		if (!node.classList.contains('slideshow')) {
+		if (!document.body.classList.contains('template--images')) {
 			c = contain(max, v);
 			c.w = Math.min(c.w, max.w);
 			c.h = Math.min(c.h, max.h);
@@ -59,7 +59,7 @@
 				setTimeout(function() { el.style.opacity = ('opacity' in el.dataset) ? el.dataset.opacity : '1'; }, i * 100);
 			});
 		onResize();
-		if (document.body.classList.contains('template--home')) {
+		if (document.body.classList.contains('template--home')) setTimeout(function() {
 			var bed = Motion.list.head().data;
 			setTimeout(function() {
 				Motion.AUTOPLAY_DELAY = 9000;
@@ -71,7 +71,7 @@
 				setTimeout(showMenu, 5000);
 				setTimeout(function() { document.getElementById('main-menu').classList.remove('intro-colors'); }, 11000);
 			});
-		}
+		}, 200);
 	});
 
 })(jQuery);
