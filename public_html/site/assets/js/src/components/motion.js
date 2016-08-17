@@ -9,6 +9,7 @@ var Motion = (function($) {
 		this.dom_node = dom_node;
 		this._slideshowInfo = window[dom_node.dataset.info];
 		this.imageCount = this._slideshowInfo.length;
+		this.poster = dom_node.getElementsByTagName('img')[0];
 		this.isInitialized = false;
 
 		if (!('position' in this._slideshowInfo[0])) this._setInfoDefaults();
@@ -16,6 +17,10 @@ var Motion = (function($) {
 	};
 
 })(jQuery);
+
+Motion.CONTAINER_FADE_DURATION = 3000;
+Motion.LAST_IMAGE_DELAY = 1000;
+Motion.AUTOPLAY_DELAY = 500;
 
 (function() {
 	var contain = function(inner, outer) {
@@ -126,8 +131,10 @@ var Motion = (function($) {
 
 	Object.defineProperty(Motion.prototype, '_onImageChange', {
 		value: function(index) {
+			if (index === 1) this.poster.remove();
 			if (index === this.imageCount - 1) {
 				this.dom_node.classList.add('finished');
+				this.dom_node.classList.remove('playing');
 				this._resolve('finished');
 			}
 		}
@@ -178,7 +185,8 @@ var Motion = (function($) {
 			this.isInitialized = true;
 			this._createImages();
 			this._load();
-			if (Motion.list.autoplay && this.list_node.prev) Promise.all([this.list_node.prev.data.getPromise('finished'), this.getPromise('started')]).then(this.play.bind(this));
+			this.getPromise('loaded').then(function() { this.dom_node.classList.remove('loading'); }.bind(this));
+			if (Motion.list.autoplay && this.list_node.prev) Promise.all([this.list_node.prev.data.getPromise('finished'), this.getPromise('started')]).then(this.next.bind(this));
 			else this.getPromise('started').then(this.play.bind(this));
 			if (Motion.list.autoplay && this.list_node.next) this.getPromise('loaded').then(this.init.bind(this.list_node.next.data));
 		}
@@ -190,6 +198,15 @@ var Motion = (function($) {
 		}
 	});
 
+	Object.defineProperty(Motion.prototype, 'next', {
+		value: function(name) {
+			
+			setTimeout(function() { this.list_node.prev.data.dom_node.style.opacity = 0; }.bind(this), Motion.LAST_IMAGE_DELAY);
+			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY);
+			setTimeout(this.play.bind(this), Motion.CONTAINER_FADE_DURATION * 2 + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY);
+		}
+	});
+
 	Object.defineProperty(Motion.prototype, 'play', {
 		value: function() {
 			var lastDelay = 0, defaultTiming = parseInt(this.dom_node.dataset.timing, 10);
@@ -197,13 +214,16 @@ var Motion = (function($) {
 				if (imageInfo.delay === 0) imageInfo.delay = lastDelay + defaultTiming;
 				if (imageInfo.duration === 0) imageInfo.duration = defaultTiming + 100;
 
-				this._showImage(index)
-					.then(this._hideImage.bind(this))
-					.then(this._removeImage.bind(this))
-					.then(this._onImageChange.bind(this));
+				if (index < this.imageCount - 1)
+					this._showImage(index)
+						.then(this._hideImage.bind(this))
+						.then(this._removeImage.bind(this))
+						.then(this._onImageChange.bind(this));
+				else this._showImage(index).then(this._onImageChange.bind(this));
 
 				lastDelay = imageInfo.delay;
 			}.bind(this));
+			this.dom_node.classList.add('started');
 			this.dom_node.classList.add('playing');
 		}
 	});
@@ -213,9 +233,9 @@ var Motion = (function($) {
 (function($) {
 
 	Motion.list = new DLL.DoublyLinkedList();
-	Motion.list.autoplay = document.body.classList.contains('parent--motion');
 	$(document).ready(function() {
 		var $slideshows = $('.motion');
+		Motion.list.autoplay = !document.body.classList.contains('template--basic-page') && $slideshows.length > 1;
 		$slideshows.each(function(i, el) {
 			var motion = new Motion(el);
 			motion.list_node = Motion.list.append(motion);

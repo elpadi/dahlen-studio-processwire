@@ -46,7 +46,6 @@
 
 .slideshow {
 	position: relative;
-	opacity: 0;
 	margin: auto;
 	transition: opacity 0.5s 0.3s;
 }

@@ -13,14 +13,14 @@ input {
 #main-menu > ul > li > ul > li > ul > li > a { color: white; }
 #main-menu > ul > li > ul ul a:hover { color: #ccc; }
 #main-menu > ul > li > ul > li.selected > ul > li.selected > a { color: #aaa; }
-#main-menu li.color--normal > a { color: #888 !important; }
+#main-menu.intro-colors li.color--normal > a { color: #888 !important; }
 
-.template--home #main-menu a[href^="/about"], #main-menu a[href^="/about"]:hover, #main-menu li.selected a[href^="/about"] { color: #FF2526; }
-.template--home #main-menu a[href^="/still"], #main-menu a[href^="/still"]:hover, #main-menu li.selected a[href^="/still"] { color: #FF5583; }
-.template--home #main-menu a[href^="/motion"], #main-menu a[href^="/motion"]:hover, #main-menu li.selected a[href^="/motion"] { color: #FFF23A; }
-.template--home #main-menu a[href^="/project"], #main-menu a[href^="/project"]:hover, #main-menu li.selected a[href^="/project"] { color: #00FFA2; }
-.template--home #main-menu a[href^="/new"], #main-menu a[href^="/new"]:hover, #main-menu li.selected a[href^="/new"] { color: #35D7DD; }
-.template--home #main-menu a[href^="/contact"], #main-menu a[href^="/contact"]:hover, #main-menu li.selected a[href^="/contact"] { color: #5DB0DB; }
+#main-menu.intro-colors a[href^="/about"], #main-menu a[href^="/about"]:hover, #main-menu li.selected a[href^="/about"] { color: #FF2526; }
+#main-menu.intro-colors a[href^="/still"], #main-menu a[href^="/still"]:hover, #main-menu li.selected a[href^="/still"] { color: #FF5583; }
+#main-menu.intro-colors a[href^="/motion"], #main-menu a[href^="/motion"]:hover, #main-menu li.selected a[href^="/motion"] { color: #FFF23A; }
+#main-menu.intro-colors a[href^="/project"], #main-menu a[href^="/project"]:hover, #main-menu li.selected a[href^="/project"] { color: #00FFA2; }
+#main-menu.intro-colors a[href^="/new"], #main-menu a[href^="/new"]:hover, #main-menu li.selected a[href^="/new"] { color: #35D7DD; }
+#main-menu.intro-colors a[href^="/contact"], #main-menu a[href^="/contact"]:hover, #main-menu li.selected a[href^="/contact"] { color: #5DB0DB; }
 
 .parent--still .breadcrumb > .current { color: #FF5583; }
 .parent--motion .breadcrumb > .current { color: #FFF23A; }

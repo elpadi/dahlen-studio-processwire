@@ -9,6 +9,7 @@
 				pauseOnFocus: false,
 				pauseOnHover: false,
 				autoplayDuration: 2000,
+				lazyLoad: 'progressive',
 				prevArrow: $nav.first(),
 				nextArrow: $nav.last()
 			}); }, 100);
