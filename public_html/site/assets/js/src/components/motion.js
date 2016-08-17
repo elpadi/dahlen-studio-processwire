@@ -36,7 +36,6 @@ Motion.AUTOPLAY_DELAY = 500;
 			c.h = outer.h;
 		}
 		return c.w > inner.w || c.h > inner.h ? inner : c;
-		return c;
 	};
 
 	var center = function(inner, outer) {
