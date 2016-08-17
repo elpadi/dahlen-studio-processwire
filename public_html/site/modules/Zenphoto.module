@@ -140,7 +140,7 @@ class Zenphoto extends WireData implements Module {
 
 	protected static function render($template_name, $vars) {
 		$vars['width'] = max(F\pluck($vars['images'], 'width'));
-		$vars['height'] = max(F\pluck(F\filter($vars['images'], function($img) use ($vars) { return $img->width === $vars['width']; }), 'height'));
+		$vars['height'] = max(F\pluck($vars['images'], 'height'));
 		$vars['assets_url'] = $GLOBALS['wire']->config->urls->assets;
 		$vars['album_url'] = "{$GLOBALS['wire']->config->urls->root}zenphoto/albums/$vars[name]/";
 		$vars['poster'] = $vars['images'][0];

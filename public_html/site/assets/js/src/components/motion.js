@@ -13,7 +13,7 @@ var Motion = (function($) {
 		this.isInitialized = false;
 
 		if (!('position' in this._slideshowInfo[0])) this._setInfoDefaults();
-		$(dom_node).on('click', '.play-button', this.init.bind(this));
+		$(dom_node).on('click', '.play-button', this.onPlayButtonClick.bind(this));
 	};
 
 })(jQuery);
@@ -35,6 +35,7 @@ Motion.AUTOPLAY_DELAY = 500;
 			c.w = Math.round(outer.h * inner.r);
 			c.h = outer.h;
 		}
+		return c.w > inner.w || c.h > inner.h ? inner : c;
 		return c;
 	};
 
@@ -179,6 +180,12 @@ Motion.AUTOPLAY_DELAY = 500;
 		}
 	});
 
+	Object.defineProperty(Motion.prototype, 'onPlayButtonClick', {
+		value: function() {
+			return this.isInitialized ? this.play() : this.init();
+		}
+	});
+
 	Object.defineProperty(Motion.prototype, 'init', {
 		value: function() {
 			if (this.isInitialized) return;
@@ -200,10 +207,10 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'next', {
 		value: function(name) {
-			
+			this.list_node.prev.data.dom_node.classList.remove('current');		
+			this.dom_node.classList.add('current');		
 			setTimeout(function() { this.list_node.prev.data.dom_node.style.opacity = 0; }.bind(this), Motion.LAST_IMAGE_DELAY);
 			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY);
-			setTimeout(this.play.bind(this), Motion.CONTAINER_FADE_DURATION * 2 + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY);
 		}
 	});
 
@@ -236,6 +243,7 @@ Motion.AUTOPLAY_DELAY = 500;
 	$(document).ready(function() {
 		setTimeout(function() {
 			var $slideshows = $('.motion');
+			$slideshows.first().addClass('current');
 			Motion.list.autoplay = !document.body.classList.contains('template--basic-page') && $slideshows.length > 1;
 			$slideshows.each(function(i, el) {
 				var motion = new Motion(el);

@@ -128,7 +128,7 @@ input[type="password"] {
 #main-menu.intro-colors li.color--normal > a {
 	transition: color 1s 1s;
 }
-.template--home .motion > button {
+.template--home .motion:nth-of-type(1) > button {
 	display: none;
 }
 body.template--home .motion:nth-of-type(1) {

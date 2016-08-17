@@ -24,7 +24,9 @@ body:not(.template--basic-page) .motion {
 }
 body:not(.template--basic-page) .motion:nth-of-type(1) {
 	opacity: 1;
-	z-index: 2;
+}
+.motion.current {
+	z-index: 3;
 }
 .motion > img {
 	position: absolute;
@@ -48,6 +50,7 @@ body:not(.template--basic-page) .motion:nth-of-type(1) {
 	margin: auto;
 	transition: opacity 0.3s, visibility 0s 0.3s;
 }
+.motion.finished > button,
 .motion.playing > button {
 	opacity: 0;
 	visibility: hidden;

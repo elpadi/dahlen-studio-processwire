@@ -15,7 +15,7 @@
 			c.w = Math.round(outer.h * inner.r);
 			c.h = outer.h;
 		}
-		return c;
+		return c.w > inner.w || c.h > inner.h ? inner : c;
 	};
 
 	var resizeImage = function(node, dims) {
@@ -24,22 +24,17 @@
 		node.style.height = c.h + 'px';
 	};
 
-	var resizeSlideshow = function(node, images) {
-		var c, max = { w: parseInt(node.dataset.width, 10), h: parseInt(node.dataset.height, 10) }, v = { w: $main.width(), h: document.documentElement.clientHeight - 198 };
-		if (!document.body.classList.contains('template--images')) {
-			c = contain(max, v);
-			c.w = Math.min(c.w, max.w);
-			c.h = Math.min(c.h, max.h);
-		}
-		else c = v;
+	var resizeSlideshow = function(v, node, images) {
+		var c = { w: Math.min(parseInt(node.dataset.width, 10), v.w), h: Math.min(parseInt(node.dataset.height, 10), v.h) };
 		node.style.width = c.w + 'px';
 		node.style.height = c.h + 'px';
 		images.forEach(function(img) { resizeImage(img, c); });
 	};
 
 	var onResize = function() {
-		$stills.each(function() { resizeSlideshow(this, Array.from(this.getElementsByTagName('a'))); });
-		$motions.each(function() { resizeSlideshow(this, [this.getElementsByTagName('img')[0]]); });
+		var v = { w: $main.width(), h: document.documentElement.clientHeight - 198 };
+		$stills.each(function() { resizeSlideshow(v, this, Array.from(this.getElementsByTagName('a'))); });
+		$motions.each(function() { resizeSlideshow(v, this, [this.getElementsByTagName('img')[0]]); });
 	}
 	$(window).on('resize', onResize);
 
