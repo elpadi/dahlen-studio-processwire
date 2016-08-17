@@ -26,7 +26,7 @@
 
 	var resizeSlideshow = function(node, images) {
 		var c, max = { w: parseInt(node.dataset.width, 10), h: parseInt(node.dataset.height, 10) }, v = { w: $main.width(), h: document.documentElement.clientHeight - 198 };
-		if (!document.body.classList.contains('template--images')) {
+		if (!node.classList.contains('slideshow')) {
 			c = contain(max, v);
 			c.w = Math.min(c.w, max.w);
 			c.h = Math.min(c.h, max.h);
@@ -53,16 +53,15 @@
 		onResize();
 		if (document.body.classList.contains('template--home')) {
 			var slide = Motion.list.head().data;
-			setTimeout(slide.init.bind(slide), 4500);
+			setTimeout(slide.init.bind(slide), 1000);
 			slide.getPromise('finished').then(function() {
-				window.location += '/motion/introduction';
+				setTimeout(function() {
+					$('#logo').add($('#main-menu > ul > li > ul > li'))
+					.each(function(i, el) {
+						setTimeout(function() { el.style.opacity = '1'; el.classList.add('color--normal'); }, i * 3000);
+					});
+				}, 500);
 			});
-			setTimeout(function() {
-				$('#logo').add($('#main-menu > ul > li > ul > li'))
-				.each(function(i, el) {
-					setTimeout(function() { el.style.opacity = '1'; }, i * 250);
-				});
-			}, 2000);
 		}
 	});
 

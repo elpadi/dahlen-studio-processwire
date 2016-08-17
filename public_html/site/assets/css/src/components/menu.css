@@ -54,15 +54,6 @@ body:not(.submenu-open) #main-menu > ul > li > ul {
 	transform: translateY(-100%);
 	transition: transform 0s 0.2s, opacity 0.2s, visibility 0s 0.2s;
 }
-#main-menu > ul > li > ul > li > ul > li > a {
-	color: white;
-}
-#main-menu > ul > li > ul ul a:hover {
-	color: #ccc;
-}
-#main-menu > ul > li > ul > li.selected > ul > li.selected > a {
-	color: #aaa;
-}
 #main-menu > ul > li > ul ul.open {
 	visibility: visible;
 	opacity: 1;

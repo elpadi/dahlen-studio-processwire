@@ -34,11 +34,14 @@ h2.page-title {
 	padding: 0 20px;
 }
 h2.page-title.breadcrumb {
-	margin: 15px;
+	margin: 0;
+	padding: 0;
 	position: fixed;
-	bottom: 0;
+	bottom: 15px;
+	left: 0;
 	font-size: 10px;
 	width: 100%;
+	max-width: none;
 }
 h2.page-title.breadcrumb > span {
 	margin:0 2px;
@@ -68,6 +71,7 @@ h2.page-title,
 h2.page-title {
 	text-align: center;
 }
+.js .page--project .page-title,
 .js .template--home .page-title {
 	display: none;
 }
@@ -113,9 +117,13 @@ input[type="password"] {
 .js .template--home #logo,
 .js .template--home #main-menu > ul > li > ul > li {
 	opacity: 0;
+	transition: opacity 2s;
 }
 .template--home .motion > button {
 	display: none;
+}
+#main-menu li.color--normal > a {
+	transition: color 2s 2.5s;
 }
 
 .page--project video,

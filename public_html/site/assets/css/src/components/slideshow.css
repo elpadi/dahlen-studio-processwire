@@ -35,7 +35,6 @@
 }
 .slick-arrow path {
 	fill: none;
-	stroke: white;
 	stroke-width: 10;
 	stroke-linecap: round;
 	opacity: 0.5;
