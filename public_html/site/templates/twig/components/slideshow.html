@@ -5,7 +5,7 @@
 	</nav>
 	<main class="images">
 		{% for img in images %}
-		<article class="image"><a href="{{ album_url }}{{ img.filename }}" data-width="{{ img.width }}" data-height="{{ img.height }}"><img data-lazy="{{ imageUrl(name, img.filename) }}" alt="{{ img.filename }}"></a></article>
+		<article class="image"><a href="{{ album_url }}{{ img.filename }}" data-width="{{ img.width }}" data-height="{{ img.height }}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy="{{ imageUrl(name, img.filename) }}" alt=""></a></article>
 		{% endfor %}
 	</main>
 </article>
