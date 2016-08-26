@@ -19,6 +19,8 @@ if ($page->name === 'password' || (!empty($config->contentPassword) && $user->is
 	}
 }
 
+if ($user->isGuest() && $page->name === 'about') $page->set('content', '<p>Coming soon.</p>');
+
 $vars = compact('page','user','config');
 $vars['menu'] = $pages->get('/')->menuHtml();
 
