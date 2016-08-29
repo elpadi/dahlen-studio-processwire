@@ -9,8 +9,8 @@ public_html/site/assets/videos
 public_html/site/assets/heart-collage-jigsaw
 public_html/site/assets/ana-lisboa-steps/*.jpg
 
-public_html/site/assets/media-element/*
-!public_html/site/assets/media-element/build
+public_html/site/assets/bower_components
+
 public_html/site/assets/css/fonts/AGaramondPro-Semibold.otf
 public_html/site/assets/css/fonts/AJensonPro-Bold.otf
 public_html/site/assets/css/fonts/AJensonPro-BoldCapt.otf

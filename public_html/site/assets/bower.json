@@ -1,0 +1,28 @@
+{
+  "name": "dahlen-studio",
+  "homepage": "https://github.com/elpadi/dahlen-studio-processwire",
+  "authors": [
+    "Carlos Padilla <padi_05@yahoo.com>"
+  ],
+  "description": "Assets for dahlenstudio.com",
+  "main": [
+    "src/js/main.js",
+    "src/css/main.css"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mediaelement": "^2.22.1",
+    "jquery": "^3.1.0",
+    "doubly-linked-list-js": "https://github.com/andrewrjones/doubly-linked-list-js.git",
+    "normalize-css": "^4.2.0",
+    "slick-carousel": "slick.js#^1.6.0"
+  }
+}

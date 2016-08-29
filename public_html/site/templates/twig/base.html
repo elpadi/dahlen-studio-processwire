@@ -12,15 +12,20 @@
 			<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 			{% block css_js_head %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}css/fonts/definitions.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}fonts/definitions.css">
+			<style>
+				.slick-slide { background: transparent url({{ config.urls.assets }}bower_components/slick-carousel/slick/ajax-loader.gif) center center no-repeat; }
+			</style>
 			{% if config.debug %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}css/src/main.css">
-			<script src="{{ config.urls.assets }}js/src/vendor/modernizr.js"></script>
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/normalize-css/normalize.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelementplayer.min.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/main.css">
 			{% else %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}css/dist/main.css">
-			<script src="{{ config.urls.assets }}js/dist/modernizr.js"></script>
 			{% endif %}
 			{% endblock %}
+			<script>document.documentElement.className = 'js';</script>
     </head>
 		<body class="page--{{ page.name }} template--{{ page.template.get('name') }} parent--{{ page.parent.name ? page.parent.name : 'none' }} theme--white">
 			<div id="container">
@@ -41,15 +46,15 @@
 			{% block css_js_foot %}
 			{% include 'snippets/definitions.js' %}
 			{% if config.debug %}
-			<script src="{{ config.urls.assets }}js/src/vendor/jquery.js"></script>
-			<script src="{{ config.urls.assets }}js/src/vendor/slick.js"></script>
-			<script src="{{ config.urls.assets }}media-element/build/mediaelement-and-player.js"></script>
-			<script src="{{ config.urls.assets }}js/src/vendor/doubly-linked-list.js"></script>
-			<script src="{{ config.urls.assets }}js/src/components/menu.js"></script>
-			<script src="{{ config.urls.assets }}js/src/components/slideshow.js"></script>
-			<script src="{{ config.urls.assets }}js/src/components/motion.js"></script>
-			<script src="{{ config.urls.assets }}js/src/components/jigsaw.js"></script>
-			<script src="{{ config.urls.assets }}js/src/main.js"></script>
+			<script src="{{ config.urls.assets }}bower_components/jquery/dist/jquery.min.js"></script>
+			<script src="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.min.js"></script>
+			<script src="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelement-and-player.min.js"></script>
+			<script src="{{ config.urls.assets }}bower_components/doubly-linked-list-js/doubly-linked-list.js"></script>
+			<script src="{{ config.urls.assets }}src/js/components/menu.js"></script>
+			<script src="{{ config.urls.assets }}src/js/components/slideshow.js"></script>
+			<script src="{{ config.urls.assets }}src/js/components/motion.js"></script>
+			<script src="{{ config.urls.assets }}src/js/components/jigsaw.js"></script>
+			<script src="{{ config.urls.assets }}src/js/main.js"></script>
 			{% else %}
 			<script src="{{ config.urls.assets }}js/dist/main.js"></script>
 			{% endif %}

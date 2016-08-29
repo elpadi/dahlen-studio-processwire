@@ -19,11 +19,14 @@
 }
 input,
 .clean-button,
+.slick-arrow,
 .icon-button {
 	background-color: transparent;
 	border-style: none;
 	box-shadow: none;
 	outline-style: none;
+	padding: 0;
+	cursor: pointer;
 }
 .icon-button {
 	cursor: pointer;

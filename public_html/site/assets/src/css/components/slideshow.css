@@ -18,6 +18,8 @@
 .slick-arrow {
 	width: 20px;
 	height: 35px;
+	position: absolute;
+	top: 0;
 }
 .slick-prev {
 	left: 15px;
