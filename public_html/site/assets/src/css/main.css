@@ -2,6 +2,7 @@
 @import "base/classes.css";
 @import "base/colors.css";
 @import "components/menu.css";
+@import "components/intro.css";
 @import "components/slideshow.css";
 @import "components/motion.css";
 @import "components/jigsaw.css";
@@ -115,21 +116,6 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
 	border-bottom: 1px solid white;
-}
-
-.js .template--home #logo,
-.js .template--home #main-menu > ul > li > ul > li {
-	opacity: 0;
-	transition: opacity 1.5s;
-}
-#main-menu.intro-colors li.color--normal > a {
-	transition: color 1s 1s;
-}
-.template--home .motion:nth-of-type(1) > button {
-	display: none;
-}
-body.template--home .motion:nth-of-type(1) {
-	opacity: 0;
 }
 
 .page--project video,

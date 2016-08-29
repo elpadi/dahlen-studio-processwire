@@ -22,7 +22,7 @@ body:not(.template--basic-page) .motion {
 	opacity: 0;
 	transition: opacity 3s;
 }
-body:not(.template--basic-page) .motion:nth-of-type(1) {
+body.template--images .motion:nth-of-type(1) {
 	opacity: 1;
 }
 .motion.current {

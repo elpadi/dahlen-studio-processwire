@@ -2,7 +2,7 @@ var Motion = (function($) {
 	
 	return function Motion(dom_node) {
 		this.promises = {}; this._resolvers = {};
-		this.EVENT_NAMES = ['started','loaded','finished'];
+		this.EVENT_NAMES = ['buffered','loaded','finished'];
 		this.EVENT_NAMES.forEach(this._eventPromise.bind(this));
 		
 		console.log('Motion.constructor', dom_node.id);
@@ -115,7 +115,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, '_load', {
 		value: function() {
-			var markers = { started: parseInt(this.dom_node.dataset.start, 10), loaded: 100 };
+			var markers = { buffered: parseInt(this.dom_node.dataset.start, 10), loaded: 100 };
 			var reached = Object.keys(markers).map(function() { return false; });
 			this._loadImages(function(progress) {
 				Object.keys(markers).forEach(function(key, index) {
@@ -179,9 +179,32 @@ Motion.AUTOPLAY_DELAY = 500;
 		}
 	});
 
+	Object.defineProperty(Motion.prototype, 'initList', {
+		value: function(list_node) {
+			this.list_node = list_node;
+			if (Motion.list.autoload) this.list_node.prev ? this.addToLoadingQueue() : this.init();
+			if (Motion.list.autoplay) this.list_node.prev ? this.addToPlayingQueue() : this.getPromise('buffered').then(this.play.bind(this));
+		}
+	});
+
 	Object.defineProperty(Motion.prototype, 'onPlayButtonClick', {
 		value: function() {
 			return this.isInitialized ? this.play() : this.init();
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, 'addToLoadingQueue', {
+		value: function() {
+			this.list_node.prev.data.getPromise('loaded').then(this.init.bind(this));
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, 'addToPlayingQueue', {
+		value: function() {
+			Promise.all([
+				this.list_node.prev ? this.list_node.prev.data.getPromise('finished') : Promise.resolve(),
+				this.getPromise('buffered')
+			]).then(this.next.bind(this));
 		}
 	});
 
@@ -192,9 +215,6 @@ Motion.AUTOPLAY_DELAY = 500;
 			this._createImages();
 			this._load();
 			this.getPromise('loaded').then(function() { this.dom_node.classList.remove('loading'); }.bind(this));
-			if (Motion.list.autoplay && this.list_node.prev) Promise.all([this.list_node.prev.data.getPromise('finished'), this.getPromise('started')]).then(this.next.bind(this));
-			else this.getPromise('started').then(this.play.bind(this));
-			if (Motion.list.autoplay && this.list_node.next) this.getPromise('loaded').then(this.init.bind(this.list_node.next.data));
 		}
 	});
 
@@ -204,12 +224,23 @@ Motion.AUTOPLAY_DELAY = 500;
 		}
 	});
 
+	Object.defineProperty(Motion.prototype, 'remove', {
+		value: function(name) {
+			this.dom_node.classList.remove('current');
+			setTimeout(function() { this.dom_node.style.opacity = 0; }.bind(this), Motion.LAST_IMAGE_DELAY);
+		}
+	});
+
 	Object.defineProperty(Motion.prototype, 'next', {
 		value: function(name) {
-			this.list_node.prev.data.dom_node.classList.remove('current');		
+			var prevDelay = 0;
+			if (this.list_node.prev) {
+				this.list_node.prev.data.remove();
+				prevDelay += Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY;
+			}
 			this.dom_node.classList.add('current');		
-			setTimeout(function() { this.list_node.prev.data.dom_node.style.opacity = 0; }.bind(this), Motion.LAST_IMAGE_DELAY);
-			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY);
+			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), prevDelay);
+			setTimeout(this.play.bind(this), prevDelay + Motion.CONTAINER_FADE_DURATION);
 		}
 	});
 
@@ -229,7 +260,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 				lastDelay = imageInfo.delay;
 			}.bind(this));
-			this.dom_node.classList.add('started');
+			this.dom_node.classList.add('buffered');
 			this.dom_node.classList.add('playing');
 		}
 	});
@@ -240,15 +271,14 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Motion.list = new DLL.DoublyLinkedList();
 	$(document).ready(function() {
-		setTimeout(function() {
-			var $slideshows = $('.motion');
-			$slideshows.first().addClass('current');
-			Motion.list.autoplay = !document.body.classList.contains('template--basic-page') && $slideshows.length > 1;
-			$slideshows.each(function(i, el) {
-				var motion = new Motion(el);
-				motion.list_node = Motion.list.append(motion);
-			});
-		}, 100);
+		var $slideshows = $('.motion');
+		$slideshows.first().addClass('current');
+		Motion.list.autoplay = document.body.classList.contains('template--images');
+		Motion.list.autoload = !document.body.classList.contains('template--basic-page');
+		$slideshows.each(function(i, el) {
+			var motion = new Motion(el);
+			motion.initList(Motion.list.append(motion));
+		});
 	});
 
 })(jQuery);

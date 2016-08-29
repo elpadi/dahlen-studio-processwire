@@ -1,0 +1,34 @@
+.js .template--home #logo path,
+.js .template--home #main-menu > ul > li > ul > li {
+	opacity: 0;
+	transition: opacity 1.5s linear;
+}
+#logo #dahlen-d { transition-delay: 0s }
+#logo #dahlen-a { transition-delay: 0.1s }
+#logo #dahlen-h { transition-delay: 0.2s }
+#logo #dahlen-l { transition-delay: 0.3s }
+#logo #dahlen-e { transition-delay: 0.4s }
+#logo #dahlen-n { transition-delay: 0.5s }
+#logo #studio-s { transition-delay: 0.6s }
+#logo #studio-t { transition-delay: 0.7s }
+#logo #studio-u { transition-delay: 0.8s }
+#logo #studio-d { transition-delay: 0.9s }
+#logo #studio-i { transition-delay: 1s }
+#logo #studio-o { transition-delay: 1.1s }
+
+.js .template--home #logo.visible path,
+.js .template--home #main-menu > ul > li > ul > li.visible {
+	opacity: 1;
+}
+.menu-intro #main-menu {
+	pointer-events: none;
+}
+.menu-intro #main-menu a {
+	transition: color 1s 1s;
+}
+.template--home .motion > button {
+	display: none;
+}
+body.template--home .motion:nth-of-type(1) {
+	opacity: 0;
+}
