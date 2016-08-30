@@ -13,6 +13,10 @@ public_html/site/assets/slideshows/**
 
 public_html/site/assets/bower_components
 
+public_html/site/assets/dist/*
+!public_html/site/assets/dist/main.min.js
+!public_html/site/assets/dist/main.min.css
+
 public_html/site/assets/css/fonts/AGaramondPro-Semibold.otf
 public_html/site/assets/css/fonts/AJensonPro-Bold.otf
 public_html/site/assets/css/fonts/AJensonPro-BoldCapt.otf
