@@ -1,13 +1,15 @@
 {% extends "base.html" %}
+{% set path = config.paths.assets ~ 'slideshows/pat-field-keith-haring/heart-collage-jigsaw' %}
+{% set url = config.urls.assets ~ 'slideshows/pat-field-keith-haring/heart-collage-jigsaw' %}
 
 {% block main_content %}
 <main id="main-content">
-	<section id="heart-collage" class="jigsaw" data-after-pieces="color,outline,people,heart,full" data-url="{{ config.urls.assets }}heart-collage-jigsaw" data-pieces="{{ files(config.paths.assets ~ 'heart-collage-jigsaw/piece*') | join(',') }}">
-		<img id="full" data-delay="14" src="{{ config.urls.assets }}heart-collage-jigsaw/full.jpg" alt="Keith Haring Heart Collage">
-		<img id="outline" data-delay="3" src="{{ config.urls.assets }}heart-collage-jigsaw/outline.gif" alt="">
-		<img id="heart" data-delay="12" src="{{ config.urls.assets }}heart-collage-jigsaw/heart-inside.png" alt="">
-		<img id="people" data-delay="10" src="{{ config.urls.assets }}heart-collage-jigsaw/people-inside.png" alt="">
-		<img id="color" data-delay="1" src="{{ config.urls.assets }}heart-collage-jigsaw/background-color.jpg" alt="">
+	<section id="heart-collage" class="jigsaw" data-after-pieces="color,outline,people,heart,full" data-url="{{ url }}" data-pieces="{{ files(path ~ '/piece*') | join(',') }}" data-music="{{ json(files(path ~ '/*mp3', '.mp3')) | e }}">
+		<img id="full" data-delay="14" src="{{ url }}/full.jpg" alt="Keith Haring Heart Collage">
+		<img id="outline" data-delay="3" src="{{ url }}/outline.gif" alt="">
+		<img id="heart" data-delay="12" src="{{ url }}/heart-inside.png" alt="">
+		<img id="people" data-delay="10" src="{{ url }}/people-inside.png" alt="">
+		<img id="color" data-delay="1" src="{{ url }}/background-color.jpg" alt="">
 	</section>
 </main>
 {% endblock %}

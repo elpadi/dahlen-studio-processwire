@@ -56,13 +56,15 @@
 			var pieces = this.dataset.pieces.split(',').shuffle();
 			var loaders = pieces.map(loadPiece.curry(this.dataset.url));
 			this.classList.add('loading');
+			Music.play(JSON.parse(this.dataset.music).map(function(name) { return this.dataset.url + '/' + name; }.bind(this)));
 			Promise.all(loaders).then(function(images) {
 				var endPieces = new Promise(function(resolve, reject) {
 					el.classList.remove('loading');
 					nextPiece(resolve, el, images, images.length, 500);
 				});
 				endPieces.then(function() {
-					el.dataset.afterPieces.split(',').forEach(function(id, index) {
+					var latters = el.dataset.afterPieces.split(',');
+					latters.forEach(function(id, index) {
 						var img = new Image();
 						img.className = 'jsimg anim';
 						img.style.zIndex = index + 2;
@@ -72,30 +74,9 @@
 							img.classList.add('visible');
 						}, parseInt(document.getElementById(id).dataset.delay, 10) * 1000);
 					});
+					setTimeout(Music.stop, Math.max.apply(window, latters.map(function(id) { return parseInt(document.getElementById(id).dataset.delay, 10); })) * 1000);
 				});
 			});
 		});
-		/*
-		$('.slideshow').each(function() {
-			var $s = $(this);
-			var w = $s.width();
-			var h = Math.max($(window).height() - 200, w * (9 / 16));
-			$s.find('a').each(function(i, el) {
-				var dims = contain({ w: parseInt(this.dataset.width, 10), h: parseInt(this.dataset.height, 10) }, { w: w, h: h });
-				var pos = center(dims, { w: w, h: h });
-				$(this).css({
-					width: dims.w + 'px',
-					height: dims.h + 'px',
-					left: pos.x + 'px',
-					top: pos.y + 'px'
-				});
-			});
-			$s.css({ height: h + 'px' });
-			setTimeout(function() { $s.slick({
-				prevArrow: $s.prev(),
-				nextArrow: $s.next()
-			}); }, 100);
-		});
-		*/
 	});
 })(jQuery);

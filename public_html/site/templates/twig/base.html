@@ -15,6 +15,7 @@
 			<link rel="stylesheet" href="{{ config.urls.assets }}fonts/definitions.css">
 			<style>
 				.slick-slide { background: transparent url({{ config.urls.assets }}bower_components/slick-carousel/slick/ajax-loader.gif) center center no-repeat; }
+				#sound-button { background-image: url({{ config.urls.assets }}img/sound-red.png) !important; }
 			</style>
 			{% if config.debug %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/normalize-css/normalize.css">
@@ -41,6 +42,7 @@
 				{% block main_content %}
 				<main id="main-content">{{ page.content }}</main>
 				{% endblock %}
+				<button id="sound-button" class="clean-button img-button state--on"><img src="{{ config.urls.assets }}img/sound.png" alt="Toggle sound"></button>
 			</div>
 
 			{% block css_js_foot %}
@@ -50,6 +52,7 @@
 			<script src="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.min.js"></script>
 			<script src="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelement-and-player.min.js"></script>
 			<script src="{{ config.urls.assets }}bower_components/doubly-linked-list-js/doubly-linked-list.js"></script>
+			<script src="{{ config.urls.assets }}bower_components/buzz/dist/buzz.min.js"></script>
 			<script src="{{ config.urls.assets }}src/js/components/intro.js"></script>
 			<script src="{{ config.urls.assets }}src/js/components/menu.js"></script>
 			<script src="{{ config.urls.assets }}src/js/components/slideshow.js"></script>

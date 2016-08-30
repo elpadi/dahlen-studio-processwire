@@ -132,6 +132,24 @@ input[type="password"] {
 	display: none;
 }
 
+#sound-button {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	display: none;
+	background: transparent none center center no-repeat;
+	background-size: 100% auto;
+}
+.music-playing #sound-button {
+	display: block;
+}
+#sound-button > img {
+	width: 30px;
+}
+#sound-button.state--off > img {
+	opacity: 0.5;
+}
+
 .js .template--basic-page h2.page-title,
 .js .template--basic-page #main-content,
 .js .template--basic-page #main-content > * {

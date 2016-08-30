@@ -12,6 +12,8 @@ var Motion = (function($) {
 		this.poster = dom_node.getElementsByTagName('img')[0];
 		this.isInitialized = false;
 
+		this.sounds = JSON.parse(dom_node.dataset.music).map(function(name) { return ASSETS_URL + 'slideshows/' + dom_node.dataset.name + '/' + name; });
+
 		if (!('position' in this._slideshowInfo[0])) this._setInfoDefaults();
 		$(dom_node).on('click', '.play-button', this.onPlayButtonClick.bind(this));
 	};
@@ -38,21 +40,13 @@ Motion.AUTOPLAY_DELAY = 500;
 		return c.w > inner.w || c.h > inner.h ? inner : c;
 	};
 
-	var center = function(inner, outer) {
-		return {
-			x: Math.round((outer.w - inner.w) / 2),
-			y: Math.round((outer.h - inner.h) / 2)
-		};
-	};
-
 	Object.defineProperty(Motion.prototype, '_setInfoDefaults', {
 		value: function() {
 			var t = parseInt(this.dom_node.dataset.timing, 10), w = this.dom_node.offsetWidth, h = this.dom_node.offsetHeight, durations = [1000,700,500,400];
 			this._slideshowInfo.forEach(function(imageInfo, index) {
 				var dims = (imageInfo.width > w || imageInfo.height > h) ? contain({ w: imageInfo.width, h: imageInfo.height }, { w: w, h: h }) : { w: imageInfo.width, h: imageInfo.height };
-				var pos = center(dims, { w: w, h: h });
 				imageInfo.size = [dims.w, dims.h];
-				imageInfo.position = [pos.x, pos.y];
+				imageInfo.position = [-1, -1];
 				imageInfo.fade = [t,t];
 				imageInfo.delay = index < durations.length && index > 0 ? this._slideshowInfo[index - 1].delay + durations[index] : 0;
 				imageInfo.duration = index < durations.length ? durations[index] : t + 50;
@@ -78,8 +72,9 @@ Motion.AUTOPLAY_DELAY = 500;
 		value: function() {
 			this._slideshowInfo.forEach(function(imageInfo) {
 				var img = new Image();
-				img.style.left = imageInfo.position[0] + 'px';
-				img.style.top = imageInfo.position[1] + 'px';
+				img.style.left = imageInfo.position[0] > 0 ? (imageInfo.position[0] + 'px') : '0';
+				img.style.top = imageInfo.position[1] > 0 ? (imageInfo.position[1] + 'px') : '0';
+				if (imageInfo.position[0] >= 0) img.style.margin = '0';
 				if ('size' in imageInfo) {
 					img.style.width = imageInfo.size[0] + 'px';
 					img.style.height = imageInfo.size[1] + 'px';
@@ -136,6 +131,7 @@ Motion.AUTOPLAY_DELAY = 500;
 				this.dom_node.classList.add('finished');
 				this.dom_node.classList.remove('playing');
 				this._resolve('finished');
+				Music.stop();
 			}
 		}
 	});
@@ -189,7 +185,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'onPlayButtonClick', {
 		value: function() {
-			return this.isInitialized ? this.play() : this.init();
+			return this.isInitialized ? this.play() : (this.init(), this.getPromise('buffered').then(this.play.bind(this)));
 		}
 	});
 
@@ -262,6 +258,7 @@ Motion.AUTOPLAY_DELAY = 500;
 			}.bind(this));
 			this.dom_node.classList.add('buffered');
 			this.dom_node.classList.add('playing');
+			Music.play(this.sounds);
 		}
 	});
 
@@ -273,8 +270,8 @@ Motion.AUTOPLAY_DELAY = 500;
 	$(document).ready(function() {
 		var $slideshows = $('.motion');
 		$slideshows.first().addClass('current');
-		Motion.list.autoplay = document.body.classList.contains('template--images');
-		Motion.list.autoload = !document.body.classList.contains('template--basic-page');
+		Motion.list.autoplay = false;
+		Motion.list.autoload = document.body.classList.contains('template--home');
 		$slideshows.each(function(i, el) {
 			var motion = new Motion(el);
 			motion.initList(Motion.list.append(motion));

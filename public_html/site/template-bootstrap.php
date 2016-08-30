@@ -28,8 +28,8 @@ $twig->addFilter(new Twig_SimpleFilter('zp_shortcode', ['\ProcessWire\Zenphoto',
 $twig->addFunction(new Twig_SimpleFunction('imageUrl', function($album, $filename, $size=980) use ($config) {
 	return sprintf('%szenphoto/zp-core/i.php?a=%s&i=%s&s=%d&cw=0&ch=0&q=75&check=%s', $config->urls->root, $album, $filename, $size, $config->get("hash$size"));
 }));
-$twig->addFunction(new Twig_SimpleFunction('files', function($pattern) {
-	return array_map('basename', glob($pattern));
+$twig->addFunction(new Twig_SimpleFunction('files', function($pattern, $ext='') {
+	return array_map(function($s) use ($ext) { return basename($s, $ext); }, glob($pattern));
 }));
 $twig->addFunction(new Twig_SimpleFunction('json', 'json_encode'));
 $twig->addGlobal('ASSETS_URL', $config->urls->assets);

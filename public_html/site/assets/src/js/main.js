@@ -1,3 +1,16 @@
+window.Music = {
+	play: function(paths) {
+		buzz.all().stop();
+		if (!paths.length || document.getElementById('sound-button').classList.contains('state--off')) return;
+		document.body.classList.add('music-playing');
+		new buzz.sound(paths[0], { formats: ['ogg','mp3'], autoplay: true, preload: true, loop: true });
+	},
+	stop: function() {
+		buzz.all().fadeOut(5000);
+		document.body.classList.remove('music-playing');
+	}
+};
+
 (function($) {
 	var $main = $('#main-content');
 	var $stills = $('.slideshow');
@@ -47,6 +60,12 @@
 				setTimeout(function() { el.style.opacity = ('opacity' in el.dataset) ? el.dataset.opacity : '1'; }, i * 100);
 			});
 		onResize();
+
+		document.getElementById('sound-button').addEventListener('click', function(e) {
+			buzz.all().togglePlay();
+			this.classList.toggle('state--on');
+			this.classList.toggle('state--off');
+		});
 	});
 
 })(jQuery);
