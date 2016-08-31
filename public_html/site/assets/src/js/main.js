@@ -3,7 +3,8 @@ window.Music = {
 		if (!paths.length || document.getElementById('sound-button').classList.contains('state--off')) return;
 		buzz.all().stop();
 		document.body.classList.add('music-playing');
-		new buzz.sound(paths[0], { formats: ['ogg','mp3'], autoplay: true, preload: true, loop: true });
+		var sound = new buzz.sound(paths[0], { formats: ['ogg','mp3'], autoplay: true, volume:0, preload: true, loop: true });
+		sound.bindOnce('play', function() { sound.fadeIn(5000); });
 	},
 	stop: function() {
 		buzz.all().fadeOut(5000);
