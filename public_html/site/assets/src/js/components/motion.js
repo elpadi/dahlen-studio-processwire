@@ -7,7 +7,7 @@ var Motion = (function($) {
 		
 		console.log('Motion.constructor', dom_node.id);
 		this.dom_node = dom_node;
-		this._slideshowInfo = window[dom_node.dataset.info];
+		this._slideshowInfo = Motion.DEBUG ? window[dom_node.dataset.info].slice(0, Motion.DEBUG_IMG_COUNT) : window[dom_node.dataset.info];
 		this.imageCount = this._slideshowInfo.length;
 		this.poster = dom_node.getElementsByTagName('img')[0];
 		this.isInitialized = false;
@@ -20,6 +20,8 @@ var Motion = (function($) {
 
 })(jQuery);
 
+Motion.DEBUG = false;
+Motion.DEBUG_IMG_COUNT = 10;
 Motion.CONTAINER_FADE_DURATION = 3000;
 Motion.LAST_IMAGE_DELAY = 1000;
 Motion.AUTOPLAY_DELAY = 500;
@@ -72,9 +74,11 @@ Motion.AUTOPLAY_DELAY = 500;
 		value: function() {
 			this._slideshowInfo.forEach(function(imageInfo) {
 				var img = new Image();
-				img.style.left = imageInfo.position[0] > 0 ? (imageInfo.position[0] + 'px') : '0';
-				img.style.top = imageInfo.position[1] > 0 ? (imageInfo.position[1] + 'px') : '0';
-				if (imageInfo.position[0] >= 0) img.style.margin = '0';
+				if (imageInfo.position[0] >= 0) {
+					img.style.left = imageInfo.position[0] + 'px';
+					img.style.top = imageInfo.position[1] + 'px';
+					img.style.margin = '0';
+				}
 				if ('size' in imageInfo) {
 					img.style.width = imageInfo.size[0] + 'px';
 					img.style.height = imageInfo.size[1] + 'px';
@@ -247,12 +251,17 @@ Motion.AUTOPLAY_DELAY = 500;
 				if (imageInfo.delay === 0) imageInfo.delay = lastDelay + defaultTiming;
 				if (imageInfo.duration === 0) imageInfo.duration = defaultTiming + 100;
 
-				if (index < this.imageCount - 1)
-					this._showImage(index)
-						.then(this._hideImage.bind(this))
-						.then(this._removeImage.bind(this))
-						.then(this._onImageChange.bind(this));
-				else this._showImage(index).then(this._onImageChange.bind(this));
+				if (Motion.DEBUG) {
+					this._showImage(index);
+				}
+				else {
+					if (index < this.imageCount - 1)
+						this._showImage(index)
+							.then(this._hideImage.bind(this))
+							.then(this._removeImage.bind(this))
+							.then(this._onImageChange.bind(this));
+					else this._showImage(index).then(this._onImageChange.bind(this));
+				}
 
 				lastDelay = imageInfo.delay;
 			}.bind(this));
@@ -268,14 +277,17 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Motion.list = new DLL.DoublyLinkedList();
 	$(document).ready(function() {
-		var $slideshows = $('.motion');
-		$slideshows.first().addClass('current');
-		Motion.list.autoplay = false;
-		Motion.list.autoload = document.body.classList.contains('template--home');
-		$slideshows.each(function(i, el) {
-			var motion = new Motion(el);
-			motion.initList(Motion.list.append(motion));
-		});
+		// allow time for the resize trigger
+		setTimeout(function() {
+			var $slideshows = $('.motion');
+			$slideshows.first().addClass('current');
+			Motion.list.autoplay = false;
+			Motion.list.autoload = document.body.classList.contains('template--home');
+			$slideshows.each(function(i, el) {
+				var motion = new Motion(el);
+				motion.initList(Motion.list.append(motion));
+			});
+		}, 50);
 	});
 
 })(jQuery);

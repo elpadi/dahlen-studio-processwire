@@ -45,11 +45,15 @@
 		if (!document.body.classList.contains('template--home')) return;
 		document.body.classList.add('menu-intro');
 		
-		showBed()
-		.then(hideBed)
-		.then(showMenu)
-		.then(showAnaLisboa)
-		.then(showIntro)
-		.then(function() {});
+		// allow time for motion init code
+		setTimeout(function() {
+			showBed()
+			.then(hideBed)
+			.then(showMenu)
+			.then(showAnaLisboa)
+			.then(showIntro)
+			.then(function() {});
+		}, 100);
+
 	});
 })(jQuery);
