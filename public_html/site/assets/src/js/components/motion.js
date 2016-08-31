@@ -131,7 +131,7 @@ Motion.AUTOPLAY_DELAY = 500;
 				this.dom_node.classList.add('finished');
 				this.dom_node.classList.remove('playing');
 				this._resolve('finished');
-				Music.stop();
+				if (Motion.list.size() === 1) Music.stop();
 			}
 		}
 	});

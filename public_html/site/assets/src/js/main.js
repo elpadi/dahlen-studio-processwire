@@ -1,7 +1,7 @@
 window.Music = {
 	play: function(paths) {
-		buzz.all().stop();
 		if (!paths.length || document.getElementById('sound-button').classList.contains('state--off')) return;
+		buzz.all().stop();
 		document.body.classList.add('music-playing');
 		new buzz.sound(paths[0], { formats: ['ogg','mp3'], autoplay: true, preload: true, loop: true });
 	},
