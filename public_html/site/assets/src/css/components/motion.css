@@ -46,12 +46,16 @@ body.template--images .motion:nth-of-type(1) {
 	width: 60px;
 	height: 60px;
 	margin: auto;
+	opacity: 0.65;
 	transition: opacity 0.3s, visibility 0s 0.3s;
 }
 .motion.finished > button,
 .motion.playing > button {
 	opacity: 0;
 	visibility: hidden;
+}
+.motion[data-autoplay="true"] {
+	display: none;
 }
 
 .play-icon .outer {

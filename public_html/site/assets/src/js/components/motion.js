@@ -13,6 +13,7 @@ var Motion = (function($) {
 		this.isInitialized = false;
 
 		this.sounds = JSON.parse(dom_node.dataset.music).map(function(name) { return ASSETS_URL + 'slideshows/' + dom_node.dataset.name + '/' + name; });
+		this.autoplay = ('autoplay' in dom_node.dataset) && dom_node.dataset.autoplay === 'true';
 
 		if (!('position' in this._slideshowInfo[0])) this._setInfoDefaults();
 		$(dom_node).on('click', '.play-button', this.onPlayButtonClick.bind(this));
@@ -156,6 +157,10 @@ Motion.AUTOPLAY_DELAY = 500;
 	Object.defineProperty(Motion.prototype, '_hideImage', {
 		value: function(index) {
 			var imageInfo = this._slideshowInfo[index];
+			if (!imageInfo) {
+				console.error("Motion._hideImage: Bad index", index, this.dom_node.id);
+				return Promise.resolve(index);
+			}
 			return new Promise(function(resolve, reject) {
 				imageInfo.hideTimeoutId = setTimeout(function() {
 					var img = imageInfo.img;
@@ -180,16 +185,17 @@ Motion.AUTOPLAY_DELAY = 500;
 	});
 
 	Object.defineProperty(Motion.prototype, 'initList', {
-		value: function(list_node) {
+		value: function(list_node, index) {
 			this.list_node = list_node;
-			if (Motion.list.autoload) this.list_node.prev ? this.addToLoadingQueue() : this.init();
-			if (Motion.list.autoplay) this.list_node.prev ? this.addToPlayingQueue() : this.getPromise('buffered').then(this.play.bind(this));
+			if (Motion.list.autoload) index > 0 ? this.addToLoadingQueue() : this.init();
+			if (this.autoplay) index > 0 ? this.addToPlayingQueue() : this.getPromise('buffered').then(this.play.bind(this));
 		}
 	});
 
 	Object.defineProperty(Motion.prototype, 'onPlayButtonClick', {
 		value: function() {
-			return this.isInitialized ? this.play() : (this.init(), this.getPromise('buffered').then(this.play.bind(this)));
+			if (!this.isInitialized) this.init();
+			this.getPromise('buffered').then(this.play.bind(this));
 		}
 	});
 
@@ -233,6 +239,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'next', {
 		value: function(name) {
+			console.log('Motion.next', this.dom_node.id);
 			var prevDelay = 0;
 			if (this.list_node.prev) {
 				this.list_node.prev.data.remove();
@@ -240,12 +247,13 @@ Motion.AUTOPLAY_DELAY = 500;
 			}
 			this.dom_node.classList.add('current');		
 			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), prevDelay);
-			setTimeout(this.play.bind(this), prevDelay + Motion.CONTAINER_FADE_DURATION);
+			if (this.autoplay) setTimeout(this.play.bind(this), prevDelay + Motion.CONTAINER_FADE_DURATION);
 		}
 	});
 
 	Object.defineProperty(Motion.prototype, 'play', {
 		value: function() {
+			console.log('Motion.play', 'autoplay', this.autoplay, this.dom_node.id);
 			var lastDelay = 0, defaultTiming = parseInt(this.dom_node.dataset.timing, 10);
 			this._slideshowInfo.forEach(function(imageInfo, index) {
 				if (imageInfo.delay === 0) imageInfo.delay = lastDelay + defaultTiming;
@@ -267,7 +275,7 @@ Motion.AUTOPLAY_DELAY = 500;
 			}.bind(this));
 			this.dom_node.classList.add('buffered');
 			this.dom_node.classList.add('playing');
-			Music.play(this.sounds);
+			setTimeout(function() { Music.play(this.sounds); }.bind(this), parseInt(this.dom_node.dataset.musicDelay, 10));
 		}
 	});
 
@@ -281,11 +289,10 @@ Motion.AUTOPLAY_DELAY = 500;
 		setTimeout(function() {
 			var $slideshows = $('.motion');
 			$slideshows.first().addClass('current');
-			Motion.list.autoplay = false;
 			Motion.list.autoload = document.body.classList.contains('template--home');
 			$slideshows.each(function(i, el) {
 				var motion = new Motion(el);
-				motion.initList(Motion.list.append(motion));
+				motion.initList(Motion.list.append(motion), i);
 			});
 		}, 50);
 	});
