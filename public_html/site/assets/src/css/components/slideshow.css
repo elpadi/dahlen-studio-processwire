@@ -39,11 +39,6 @@
 	fill: none;
 	stroke-width: 10;
 	stroke-linecap: round;
-	opacity: 0.5;
-	transition: opacity 0.2s
-}
-.slick-arrow:hover path {
-	opacity: 1;
 }
 
 .slideshow {

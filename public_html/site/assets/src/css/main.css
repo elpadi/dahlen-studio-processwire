@@ -94,7 +94,7 @@ h2.page-title {
 	max-width: 100%;
 	margin: 100px auto;
 }
-#main-content > p:first-child {
+body:not(.template--images) #main-content > p:first-child {
 	margin-top: 3em;
 }
 

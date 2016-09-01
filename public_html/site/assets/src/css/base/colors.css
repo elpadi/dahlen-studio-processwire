@@ -48,6 +48,6 @@ body.theme--white #main-menu > ul > li > ul { color:#666; }
 body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: black; }
 
 body.theme--white .slick-arrow path {
-	stroke: black;
+	stroke: #ccc;
 }
 
