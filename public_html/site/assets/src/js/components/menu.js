@@ -25,5 +25,17 @@
 			}
 		});
 
+		(function() {
+			var timeoutId = 0;
+			$submenus.on('mouseenter', function() {
+				clearTimeout(timeoutId);
+			}).on('mouseleave', function() {
+				timeoutId = setTimeout(function() {
+					$submenus.removeClass('open');
+					document.body.classList.remove('submenu-open');
+				}, 1000);
+			});
+		})();
+
 	});
 })(jQuery);
