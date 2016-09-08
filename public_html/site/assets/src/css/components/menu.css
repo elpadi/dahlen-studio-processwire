@@ -45,11 +45,13 @@ body:not(.submenu-open) #main-menu > ul > li > ul {
 #main-menu > ul > li > ul > li > a {
 	position: relative;
 	overflow: hidden;
+	z-index: 2;
 }
 
 /* Submenus */
 #main-menu > ul > li > ul ul {
 	position: absolute;
+	z-index: 1;
 	font-size: 14px;
 	overflow: visible;
 	padding: 0 4px 4px;
