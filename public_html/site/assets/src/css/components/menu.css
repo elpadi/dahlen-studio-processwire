@@ -52,6 +52,7 @@ body:not(.submenu-open) #main-menu > ul > li > ul {
 	position: absolute;
 	font-size: 14px;
 	overflow: visible;
+	padding: 0 4px 4px;
 	visibility: hidden;
 	opacity: 0;
 	transform: translateY(-100%);

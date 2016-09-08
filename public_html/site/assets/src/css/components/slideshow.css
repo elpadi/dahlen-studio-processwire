@@ -54,11 +54,11 @@
 }
 .slideshow > nav {
 	z-index: 2;
-	max-width: calc(100vw - 40px);
-	width: calc(100% + 80px);
-	height: 80px;
-	left: -40px;
-	right: -40px;
+	max-width: calc(100vw - 20px);
+	width: calc(100% + 40px);
+	height: 40px;
+	left: -20px;
+	right: -20px;
 	opacity: 0;
 }
 .slideshow:hover > nav {

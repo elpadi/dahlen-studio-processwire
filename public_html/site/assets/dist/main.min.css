@@ -584,6 +584,7 @@ input {
 #main-menu { color: white; }
 .breadcrumb,
 #main-menu > ul > li > ul a { color: #ccc; }
+#main-menu > ul > li > ul ul { background-color: rgba(0,0,0,0.85); }
 #main-menu.intro-colors li.color--normal > a { color: #ccc !important; }
 #main-menu > ul > li > ul > li > ul > li > a { color: white; }
 #main-menu > ul > li > ul ul a:hover { color: #ccc; }
@@ -619,6 +620,7 @@ body.theme--white #logo path { fill: black; }
 body.theme--white #main-menu { color: black; }
 body.theme--white .breadcrumb,
 body.theme--white #main-menu > ul > li > ul { color:#666; }
+body.theme--white #main-menu > ul > li > ul ul { background-color: rgba(255,255,255,0.85); }
 body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: #999; }
 
 body.theme--white .slick-arrow path {
@@ -1024,6 +1026,7 @@ body:not(.submenu-open) #main-menu > ul > li > ul {
 	position: absolute;
 	font-size: 14px;
 	overflow: visible;
+	padding: 0 4px 4px;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transform: translateY(-100%);
@@ -1282,11 +1285,11 @@ body.template--images .motion:nth-of-type(1) {
 }
 .slideshow > nav {
 	z-index: 2;
-	max-width: calc(100vw - 40px);
-	width: calc(100% + 80px);
-	height: 80px;
-	left: -40px;
-	right: -40px;
+	max-width: calc(100vw - 20px);
+	width: calc(100% + 40px);
+	height: 40px;
+	left: -20px;
+	right: -20px;
 	opacity: 0;
 }
 .slideshow:hover > nav {
