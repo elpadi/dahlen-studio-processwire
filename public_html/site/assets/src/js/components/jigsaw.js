@@ -14,8 +14,8 @@
 	});
 
 	Object.defineProperty(Function.prototype, 'curry', {
-		value: function(...saved) {
-			var fn = this;
+		value: function() {
+			var fn = this, saved = Array.from(arguments);
 			return function() {
 				return fn.apply(this, saved.concat(Array.from(arguments)));
 			};
