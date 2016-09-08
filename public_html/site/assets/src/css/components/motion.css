@@ -46,7 +46,7 @@ body.template--images .motion:nth-of-type(1) {
 	width: 60px;
 	height: 60px;
 	margin: auto;
-	opacity: 0.65;
+	opacity: 0.45;
 	transition: opacity 0.3s, visibility 0s 0.3s;
 }
 .motion.finished > button,
@@ -54,7 +54,7 @@ body.template--images .motion:nth-of-type(1) {
 	opacity: 0;
 	visibility: hidden;
 }
-.motion[data-autoplay="true"] {
+.motion[data-autoplay="true"] > button {
 	display: none;
 }
 

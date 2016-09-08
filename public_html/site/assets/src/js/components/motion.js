@@ -294,7 +294,7 @@ Motion.AUTOPLAY_DELAY = 500;
 				var motion = new Motion(el);
 				motion.initList(Motion.list.append(motion), i);
 			});
-		}, 50);
+		}, 200);
 	});
 
 })(jQuery);

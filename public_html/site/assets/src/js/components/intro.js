@@ -37,8 +37,12 @@
 
 	var showIntro = function() {
 		var intro = Motion.list.item(2).data;
-		intro.addToPlayingQueue();
 		return intro.getPromise('finished');
+	};
+
+	var finishIntro = function() {
+		Motion.list.item(2).data.remove();
+		Music.stop();
 	};
 
 	$(window).on('load', function() {
@@ -52,8 +56,8 @@
 			.then(showMenu)
 			.then(showAnaLisboa)
 			.then(showIntro)
-			.then(function() {});
-		}, 100);
+			.then(finishIntro);
+		}, 400);
 
 	});
 })(jQuery);
