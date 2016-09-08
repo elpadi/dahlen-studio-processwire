@@ -27,7 +27,7 @@ class Zenphoto extends WireData implements Module {
 	private static $zdb;
 
 	const DEFAULT_MOTION_TIMING = 250;
-	const DEFAULT_MOTION_START = 20;
+	const DEFAULT_MOTION_START = 50;
 
 	/**
 	 * getModuleInfo is a module required by all modules to tell ProcessWire about them
