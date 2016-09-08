@@ -619,7 +619,7 @@ body.theme--white #logo path { fill: black; }
 body.theme--white #main-menu { color: black; }
 body.theme--white .breadcrumb,
 body.theme--white #main-menu > ul > li > ul { color:#666; }
-body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: black; }
+body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: #999; }
 
 body.theme--white .slick-arrow path {
 	stroke: #ccc;
@@ -1110,7 +1110,7 @@ body.template--images .motion:nth-of-type(1) {
 	width: 60px;
 	height: 60px;
 	margin: auto;
-	opacity: 0.65;
+	opacity: 0.45;
 	-webkit-transition: opacity 0.3s, visibility 0s 0.3s;
 	transition: opacity 0.3s, visibility 0s 0.3s;
 }
@@ -1119,7 +1119,7 @@ body.template--images .motion:nth-of-type(1) {
 	opacity: 0;
 	visibility: hidden;
 }
-.motion[data-autoplay="true"] {
+.motion[data-autoplay="true"] > button {
 	display: none;
 }
 
@@ -1357,6 +1357,7 @@ h2.page-title.breadcrumb > span {
 	max-width: 980px;
 	padding: 0 1em;
 	min-height: calc(100vh - 240px);
+	z-index: 1;
 }
 .template--home #main-content,
 .template--images #main-content {

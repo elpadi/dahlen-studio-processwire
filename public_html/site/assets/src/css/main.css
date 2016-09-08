@@ -58,6 +58,7 @@ h2.page-title.breadcrumb > span {
 	max-width: 980px;
 	padding: 0 1em;
 	min-height: calc(100vh - 240px);
+	z-index: 1;
 }
 .template--home #main-content,
 .template--images #main-content {

@@ -45,7 +45,7 @@ body.theme--white #logo path { fill: black; }
 body.theme--white #main-menu { color: black; }
 body.theme--white .breadcrumb,
 body.theme--white #main-menu > ul > li > ul { color:#666; }
-body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: black; }
+body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: #999; }
 
 body.theme--white .slick-arrow path {
 	stroke: #ccc;
