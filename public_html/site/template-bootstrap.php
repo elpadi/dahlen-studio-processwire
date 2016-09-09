@@ -2,9 +2,9 @@
 use Functional as F;
 global $twig;
 
-if ($page->name === 'password' || (!empty($config->contentPassword) && $user->isGuest() && !$session->get('entered_password'))) {
+if ($page->name === 'password' || (!empty($config->contentPasswords) && $user->isGuest() && !$session->get('entered_password'))) {
 	if ($page->name === 'password' && $input->post('password')) {
-		if (password_verify($input->post('password'), $config->contentPassword)) {
+		if (F\some($config->contentPasswords, function($p) use ($input) { return password_verify($input->post('password'), $p); })) {
 			$session->set('entered_password', TRUE);
 			header('Location: http://'.$_SERVER['HTTP_HOST'].($session->get('password_referrer') && !strstr($session->get('password_referrer'), 'password') ? $session->get('password_referrer') : '/'));
 			exit(302);
