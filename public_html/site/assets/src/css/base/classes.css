@@ -1,3 +1,5 @@
+.tc { text-align: center; }
+
 .slideshow > nav,
 .slideshow a,
 .template--home .motion,
@@ -27,8 +29,9 @@ input,
 	box-shadow: none;
 	outline-style: none;
 	padding: 0;
-	cursor: pointer;
 }
+.clean-button,
+.slick-arrow,
 .icon-button {
 	cursor: pointer;
 }

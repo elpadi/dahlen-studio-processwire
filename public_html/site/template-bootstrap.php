@@ -19,8 +19,6 @@ if ($page->name === 'password' || (!empty($config->contentPassword) && $user->is
 	}
 }
 
-if ($user->isGuest() && $page->name === 'about') $page->set('content', '<p>Coming soon.</p>');
-
 $vars = compact('page','user','config');
 $vars['menu'] = $pages->get('/')->menuHtml();
 
@@ -37,8 +35,14 @@ $twig->addGlobal('ALBUMS_URL', $config->urls->root.'zenphoto/albums/');
 
 if (isset($template_vars) && is_array($template_vars)) $vars = array_merge($vars, $template_vars);
 
-$html = $twig->render(F\first(F\select(F\map([
-	"pages/$page->name",
-	"templates/{$page->template->name}",
-	"templates/basic-page",
-], function($path) { return "$path.html"; }), function($s) { return is_readable(__DIR__."/templates/twig/$s"); })), $vars);
+if ($user->isGuest() && $page->id !== 1 && $page->name !== 'password') {
+	$vars['page']->set('content', '<p class="tc">Coming soon.</p>');
+	$html = $twig->render("templates/basic-page.html", $vars);
+}
+else {
+	$html = $twig->render(F\first(F\select(F\map([
+		"pages/$page->name",
+		"templates/{$page->template->name}",
+		"templates/basic-page",
+	], function($path) { return "$path.html"; }), function($s) { return is_readable(__DIR__."/templates/twig/$s"); })), $vars);
+}

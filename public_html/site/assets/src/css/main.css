@@ -85,8 +85,10 @@ h2.page-title {
 #main-content > h3,
 #main-content > p {
 	max-width: 640px;
-	text-align: justify;
 	margin: 1em auto;
+}
+#main-content > p:not(.tc) {
+	text-align: justify;
 }
 #main-content > h3 {
 	margin: 3em auto 1em;
