@@ -15,17 +15,20 @@ var Motion = (function($) {
 		this.sounds = JSON.parse(dom_node.dataset.music).map(function(name) { return ASSETS_URL + 'slideshows/' + dom_node.dataset.name + '/' + name; });
 		this.autoplay = ('autoplay' in dom_node.dataset) && dom_node.dataset.autoplay === 'true';
 
+		this.isPaused = false;
+	
 		if (!('position' in this._slideshowInfo[0])) this._setInfoDefaults();
-		$(dom_node).on('click', '.play-button', this.onPlayButtonClick.bind(this));
+		$(dom_node).on('click', function() { if (dom_node.classList.contains('playing')) this.togglePlay(); }.bind(this))
+			.on('click', '.play-button', this.onPlayButtonClick.bind(this));
 	};
 
 })(jQuery);
 
 Motion.DEBUG = false;
 Motion.DEBUG_IMG_COUNT = 10;
-Motion.CONTAINER_FADE_DURATION = 3000;
+Motion.CONTAINER_FADE_DURATION = 4000;
 Motion.LAST_IMAGE_DELAY = 1000;
-Motion.AUTOPLAY_DELAY = 500;
+Motion.AUTOPLAY_DELAY = 1000;
 
 (function() {
 	var contain = function(inner, outer) {
@@ -84,8 +87,7 @@ Motion.AUTOPLAY_DELAY = 500;
 					img.style.width = imageInfo.size[0] + 'px';
 					img.style.height = imageInfo.size[1] + 'px';
 				}
-				img.style.transition = 'opacity ' + imageInfo.fade[0] + 'ms';
-				this.dom_node.appendChild(img);
+				img.style.transition = img.style.WebkitTransition = img.style.MozTransition = 'opacity ' + imageInfo.fade[0] + 'ms';
 				imageInfo.img = img;
 			}.bind(this));
 		}
@@ -129,61 +131,6 @@ Motion.AUTOPLAY_DELAY = 500;
 		}
 	});
 
-	Object.defineProperty(Motion.prototype, '_onImageChange', {
-		value: function(index) {
-			if (index === 1) this.poster.remove();
-			if (index === this.imageCount - 1) {
-				this.dom_node.classList.add('finished');
-				this.dom_node.classList.remove('playing');
-				this._resolve('finished');
-				if (Motion.list.size() === 1) Music.stop();
-			}
-		}
-	});
-
-	Object.defineProperty(Motion.prototype, '_removeImage', {
-		value: function(index) {
-			var imageInfo = this._slideshowInfo[index], slideshowInfo = this._slideshowInfo;
-			return new Promise(function(resolve, reject) {
-				imageInfo.removeTimeoutId = setTimeout(function() {
-					imageInfo.img.remove();
-					delete slideshowInfo[index];
-					resolve(index);
-				}, imageInfo.fade[1] + 100);
-			});
-		}
-	});
-
-	Object.defineProperty(Motion.prototype, '_hideImage', {
-		value: function(index) {
-			var imageInfo = this._slideshowInfo[index];
-			if (!imageInfo) {
-				console.error("Motion._hideImage: Bad index", index, this.dom_node.id);
-				return Promise.resolve(index);
-			}
-			return new Promise(function(resolve, reject) {
-				imageInfo.hideTimeoutId = setTimeout(function() {
-					var img = imageInfo.img;
-					img.style.transition = 'opacity ' + imageInfo.fade[1] + 'ms';
-					requestAnimationFrame(function() { img.style.opacity = 0; });
-					resolve(index);
-				}, imageInfo.duration + imageInfo.fade[0]);
-			});
-		}
-	});
-
-	Object.defineProperty(Motion.prototype, '_showImage', {
-		value: function(index) {
-			var imageInfo = this._slideshowInfo[index];
-			return new Promise(function(resolve, reject) {
-				imageInfo.showTimeoutId = setTimeout(function() {
-					imageInfo.img.style.opacity = 1;
-					resolve(index);
-				}, imageInfo.delay);
-			});
-		}
-	});
-
 	Object.defineProperty(Motion.prototype, 'initList', {
 		value: function(list_node, index) {
 			this.list_node = list_node;
@@ -194,6 +141,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'onPlayButtonClick', {
 		value: function() {
+			console.log('Motion.onPlayButtonClick', this.dom_node.id);
 			if (!this.isInitialized) this.init();
 			this.getPromise('buffered').then(this.play.bind(this));
 		}
@@ -201,12 +149,14 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'addToLoadingQueue', {
 		value: function() {
+			console.log('Motion.addToLoadingQueue', this.dom_node.id);
 			this.list_node.prev.data.getPromise('loaded').then(this.init.bind(this));
 		}
 	});
 
 	Object.defineProperty(Motion.prototype, 'addToPlayingQueue', {
 		value: function() {
+			console.log('Motion.addToPlayingQueue', this.dom_node.id);
 			Promise.all([
 				this.list_node.prev ? this.list_node.prev.data.getPromise('finished') : Promise.resolve(),
 				this.getPromise('buffered')
@@ -216,6 +166,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'init', {
 		value: function() {
+			console.log('Motion.init', this.dom_node.id);
 			if (this.isInitialized) return;
 			this.isInitialized = true;
 			this._createImages();
@@ -232,47 +183,125 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, 'remove', {
 		value: function(name) {
+			console.log('Motion.remove', this.dom_node.id);
 			this.dom_node.classList.remove('current');
-			setTimeout(function() { this.dom_node.style.opacity = 0; }.bind(this), Motion.LAST_IMAGE_DELAY);
+			requestAnimationFrame(function() { this.dom_node.style.opacity = 0; }.bind(this), Motion.LAST_IMAGE_DELAY);
 		}
 	});
 
 	Object.defineProperty(Motion.prototype, 'next', {
 		value: function(name) {
 			console.log('Motion.next', this.dom_node.id);
-			var prevDelay = 0;
+			var delay = Motion.AUTOPLAY_DELAY;
 			if (this.list_node.prev) {
 				this.list_node.prev.data.remove();
-				prevDelay += Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + Motion.AUTOPLAY_DELAY;
+				delay += Motion.CONTAINER_FADE_DURATION;
 			}
 			this.dom_node.classList.add('current');		
-			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), prevDelay);
-			if (this.autoplay) setTimeout(this.play.bind(this), prevDelay + Motion.CONTAINER_FADE_DURATION);
+			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), delay);
+			if (this.autoplay) setTimeout(this.play.bind(this), delay + Motion.CONTAINER_FADE_DURATION);
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, '_onShowTick', {
+		value: function(index) {
+			var img = this._slideshowInfo[index].img;
+			this.dom_node.appendChild(img);
+			requestAnimationFrame(function() { img.style.opacity = '1'; });
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, '_onHideTick', {
+		value: function(index) {
+			if (index === 1) this.poster.remove();
+			if (index === this.imageCount - 1) return;
+			var img = this._slideshowInfo[index].img;
+			img.style.transition = img.style.WebkitTransition = img.style.MozTransition = 'opacity ' + this._slideshowInfo[index].fade[1] + 'ms';
+			requestAnimationFrame(function() { img.style.opacity = '0'; });
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, '_onRemoveTick', {
+		value: function(index) {
+			if (index === this.imageCount - 1) return this.finished();
+			this._slideshowInfo[index].img.remove();
+			delete this._slideshowInfo[index];
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, '_onTick', {
+		value: function() {
+			var animationTime = Date.now() - (this.animationStart + this.animationPauseOffset), total = 0;
+			['show','hide','remove'].filter(function(key) {
+				return this.animationDelays[key].length;
+			}.bind(this)).forEach(function(key) {
+				var delays = this.animationDelays[key];
+				total += delays.length;
+				while (delays.length && delays[0].delay < animationTime) {
+					this['_on' + key[0].toUpperCase() + key.substr(1) + 'Tick'].call(this, delays.shift().index);
+				}
+			}.bind(this));
+			if (total && !this.isPaused) requestAnimationFrame(this._onTick.bind(this));
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, '_computeAnimationDelays', {
+		value: function() {
+			var lastDelay = 0, defaultTiming = parseInt(this.dom_node.dataset.timing, 10),
+					animationDelays = { show: [], hide: [], remove: [] };
+			this._slideshowInfo.forEach(function(imageInfo, index) {
+				if (imageInfo.delay === 0) imageInfo.delay = lastDelay + defaultTiming;
+				if (imageInfo.duration === 0) imageInfo.duration = defaultTiming + 100;
+				animationDelays.show.push({ delay: imageInfo.delay, index: index });
+				animationDelays.hide.push({ delay: imageInfo.delay + imageInfo.duration + imageInfo.fade[0], index: index });
+				animationDelays.remove.push({ delay: imageInfo.delay + imageInfo.duration + imageInfo.fade[0] + imageInfo.fade[1] + 100, index: index });
+				lastDelay = imageInfo.delay;
+			});
+			['show','hide','remove'].forEach(function(key) {
+				animationDelays[key].sort(function(a, b) { return a.delay - b.delay; });
+			});
+			this.animationDelays = animationDelays;
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, 'finished', {
+		value: function() {
+			this.dom_node.classList.add('finished');
+			this.dom_node.classList.remove('playing');
+			this._resolve('finished');
+			if (Motion.list.size() === 1) Music.stop();
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, 'pause', {
+		value: function() {
+			this.isPaused = true;
+			this.animationPauseOffset += (Date.now() - this.animationStart);
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, 'resume', {
+		value: function() {
+			if (!this.isPaused) return;
+			this.isPaused = false;
+			this.animationStart = Date.now();
+			requestAnimationFrame(this._onTick.bind(this));
+		}
+	});
+
+	Object.defineProperty(Motion.prototype, 'togglePlay', {
+		value: function() {
+			return this.isPaused ? this.resume() : this.pause();
 		}
 	});
 
 	Object.defineProperty(Motion.prototype, 'play', {
 		value: function() {
 			console.log('Motion.play', 'autoplay', this.autoplay, this.dom_node.id);
-			var lastDelay = 0, defaultTiming = parseInt(this.dom_node.dataset.timing, 10);
-			this._slideshowInfo.forEach(function(imageInfo, index) {
-				if (imageInfo.delay === 0) imageInfo.delay = lastDelay + defaultTiming;
-				if (imageInfo.duration === 0) imageInfo.duration = defaultTiming + 100;
-
-				if (Motion.DEBUG) {
-					this._showImage(index);
-				}
-				else {
-					if (index < this.imageCount - 1)
-						this._showImage(index)
-							.then(this._hideImage.bind(this))
-							.then(this._removeImage.bind(this))
-							.then(this._onImageChange.bind(this));
-					else this._showImage(index).then(this._onImageChange.bind(this));
-				}
-
-				lastDelay = imageInfo.delay;
-			}.bind(this));
+			this._computeAnimationDelays();
+			this.animationPauseOffset = 0;
+			this.animationStart = Date.now();
+			requestAnimationFrame(this._onTick.bind(this));
 			this.dom_node.classList.add('buffered');
 			this.dom_node.classList.add('playing');
 			setTimeout(function() { Music.play(this.sounds); }.bind(this), parseInt(this.dom_node.dataset.musicDelay, 10));
@@ -294,6 +323,7 @@ Motion.AUTOPLAY_DELAY = 500;
 				var motion = new Motion(el);
 				motion.initList(Motion.list.append(motion), i);
 			});
+			if (document.body.classList.contains('template--home')) window.runIntro();
 		}, 200);
 	});
 

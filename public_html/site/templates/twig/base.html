@@ -19,11 +19,11 @@
 			</style>
 			{% if config.debug %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/normalize-css/normalize.css">
-			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelementplayer.min.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelementplayer.css">
 			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.css">
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/main.css">
 			{% else %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}css/dist/main.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}dist/main.min.css">
 			{% endif %}
 			{% endblock %}
 			<script>document.documentElement.className = 'js';</script>
@@ -60,7 +60,7 @@
 			<script src="{{ config.urls.assets }}src/js/components/jigsaw.js"></script>
 			<script src="{{ config.urls.assets }}src/js/main.js"></script>
 			{% else %}
-			<script src="{{ config.urls.assets }}js/dist/main.js"></script>
+			<script src="{{ config.urls.assets }}dist/main.min.js"></script>
 			{% endif %}
 			{% endblock %}
     </body>

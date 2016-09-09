@@ -20,7 +20,7 @@
 body:not(.template--basic-page) .motion {
 	position: absolute;
 	opacity: 0;
-	transition: opacity 3s;
+	transition: opacity 4s;
 }
 body.template--images .motion:nth-of-type(1) {
 	opacity: 1;
@@ -54,7 +54,7 @@ body.template--images .motion:nth-of-type(1) {
 	opacity: 0;
 	visibility: hidden;
 }
-.motion[data-autoplay="true"] > button {
+.motion.loaded[data-autoplay="true"] > button {
 	display: none;
 }
 

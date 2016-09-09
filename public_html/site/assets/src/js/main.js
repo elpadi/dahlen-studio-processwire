@@ -1,14 +1,32 @@
 window.Music = {
+	FADE_DURATION: 5000,
+	isPlaying: false,
 	play: function(paths) {
 		if (!paths.length || document.getElementById('sound-button').classList.contains('state--off')) return;
 		buzz.all().stop();
 		document.body.classList.add('music-playing');
+		console.log('Music.play', paths[0].split('/').pop());
 		var sound = new buzz.sound(paths[0], { formats: ['ogg','mp3'], autoplay: true, volume:0, preload: true, loop: false });
-		sound.bindOnce('play', function() { sound.fadeIn(5000); });
+		sound.bindOnce('play', function() {
+			sound.fadeIn(Music.FADE_DURATION);
+		});
+		sound.bindOnce('ended', Music.onEnd);
+		Music.isPlaying = true;
 	},
 	stop: function() {
-		buzz.all().fadeOut(5000);
+		console.log('Music.stop', 'isPlaying', Music.isPlaying);
+		if (Music.isPlaying) {
+			buzz.all().fadeOut(Music.FADE_DURATION);
+			setTimeout(Music.onEnd, Music.FADE_DURATION);
+			Music.isPlaying = false;
+		}
+		else Music.onEnd();
+	},
+	onEnd: function() {
+		console.log('Music.onEnd');
+		buzz.all().stop();
 		document.body.classList.remove('music-playing');
+		Music.isPlaying = false;
 	}
 };
 

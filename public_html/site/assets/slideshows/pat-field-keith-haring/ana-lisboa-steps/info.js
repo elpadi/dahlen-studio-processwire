@@ -132,5 +132,5 @@ window.PatFieldKeithHaringAnaLisboaSteps = [
 {filename:"brighter31.jpg",position:[0,0],fade:[0,0],delay:0,duration:0},
 {filename:"brighter32.jpg",position:[0,0],fade:[0,0],delay:0,duration:0},
 {filename:"brighter34.jpg",position:[0,0],fade:[0,0],delay:0,duration:0},
-{filename:"brighter33.jpg",position:[0,0],fade:[0,4000],delay:0,duration:4000}
+{filename:"brighter33.jpg",position:[0,0],fade:[0,0],delay:0,duration:0}
 ];
