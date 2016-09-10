@@ -28,7 +28,7 @@ Motion.DEBUG = false;
 Motion.DEBUG_IMG_COUNT = 10;
 Motion.CONTAINER_FADE_DURATION = 4000;
 Motion.LAST_IMAGE_DELAY = 1000;
-Motion.AUTOPLAY_DELAY = 1000;
+Motion.AUTOPLAY_DELAY = 500;
 
 (function() {
 	var contain = function(inner, outer) {
