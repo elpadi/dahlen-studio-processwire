@@ -192,14 +192,16 @@ Motion.AUTOPLAY_DELAY = 500;
 	Object.defineProperty(Motion.prototype, 'next', {
 		value: function(name) {
 			console.log('Motion.next', this.dom_node.id);
-			var delay = Motion.AUTOPLAY_DELAY;
+			var delay = Motion.AUTOPLAY_DELAY,
+					fadeDuration = ('fadeDuration' in this.dom_node.dataset) ? parseInt(this.dom_node.dataset.fadeDuration, 10) : Motion.CONTAINER_FADE_DURATION;
 			if (this.list_node.prev) {
 				this.list_node.prev.data.remove();
-				delay += Motion.CONTAINER_FADE_DURATION;
+				delay += fadeDuration;
 			}
-			this.dom_node.classList.add('current');		
+			this.dom_node.classList.add('current');
+			this.dom_node.style.transition = this.dom_node.style.WebkitTransition = this.dom_node.style.MozTransition = 'opacity ' + fadeDuration + 'ms';
 			setTimeout(function() { this.dom_node.style.opacity = 1; }.bind(this), delay);
-			if (this.autoplay) setTimeout(this.play.bind(this), delay + Motion.CONTAINER_FADE_DURATION);
+			if (this.autoplay) setTimeout(this.play.bind(this), delay + fadeDuration);
 		}
 	});
 

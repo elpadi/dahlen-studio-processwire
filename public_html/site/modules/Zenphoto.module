@@ -165,11 +165,12 @@ class Zenphoto extends WireData implements Module {
 		$timing = $s->getParameter('timing', self::DEFAULT_MOTION_TIMING);
 		$start = $s->getParameter('start', self::DEFAULT_MOTION_START);
 		$autoplay = $s->getParameter('autoplay', false);
+		$fade_duration = intval($s->getParameter('fade-duration'));
 		$music_delay = $s->getParameter('music-delay', 0);
 		$has_custom_info = is_readable($GLOBALS['wire']->config->paths->assets."slideshows/$name/info.js");
 		$images = static::fetchAlbumImages($name);
 
-		$vars = compact('name','images','title','js','timing','start','has_custom_info','autoplay','music_delay');
+		$vars = compact('name','images','title','js','timing','start','has_custom_info','autoplay','music_delay','fade_duration');
 		return static::render('motion', $vars);
 	}
 
