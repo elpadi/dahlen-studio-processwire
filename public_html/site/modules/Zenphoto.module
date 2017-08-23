@@ -115,9 +115,18 @@ class Zenphoto extends WireData implements Module {
 		return self::$zdb;
 	}
 
+	protected static function fetchTestAlbumImages() {
+		include($GLOBALS['wire']->config->paths->assets.'test-album/info.php');
+		array_walk($TEST_ALBUM, function(&$row) {
+			$row['filename'] = basename($row['filename']);
+		});
+		return $TEST_ALBUM;
+	}
+
 	protected static function fetchAlbumImages($name) {
+		if ($GLOBALS['wire']->config->debug) return static::fetchTestAlbumImages();
 		$db = self::zenphotoDB();
-		return $GLOBALS['wire']->cache->get("album-images--$name", $GLOBALS['wire']->config->debug ? WireCache::expireNow : WireCache::expireDaily, function() use ($db, $name) {
+		return $GLOBALS['wire']->cache->get("album-images--$name", getenv('ENABLE_IMAGE_QUERY_CACHE') ? WireCache::expireDaily : WireCache::expireNow, function() use ($db, $name) {
 			$images = [];
 
 			$sth = $db->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
@@ -151,7 +160,7 @@ class Zenphoto extends WireData implements Module {
 	}
 
 	public static function slideshow(ShortcodeInterface $s) {
-		$name = $s->getParameter('name');
+		$name = $GLOBALS['wire']->config->debug ? 'test-album' : $s->getParameter('name');
 		$images = static::fetchAlbumImages($name);
 
 		$vars = compact('name','images');
