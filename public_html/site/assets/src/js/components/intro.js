@@ -3,7 +3,7 @@
 		console.log('Intro.showBed');
 		var bed = Motion.list.head().data;
 		bed.dom_node.style.opacity = 1;
-		setTimeout(function() { bed.play(); }, 1000);
+		setTimeout(function() { bed.onPlayButtonClick(); }, 1000);
 		return bed.getPromise('finished');
 	};
 

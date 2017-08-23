@@ -26,7 +26,7 @@ var Motion = (function($) {
 
 Motion.DEBUG = false;
 Motion.DEBUG_IMG_COUNT = 10;
-Motion.CONTAINER_FADE_DURATION = 4000;
+Motion.CONTAINER_FADE_DURATION = 1000;
 Motion.LAST_IMAGE_DELAY = 1000;
 Motion.AUTOPLAY_DELAY = 500;
 
@@ -70,6 +70,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, '_resolve', {
 		value: function(name) {
+			console.log('Motion._resolve', this.dom_node.id, name);
 			return this._resolvers[name](this);
 		}
 	});
@@ -95,6 +96,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, '_loadSingle', {
 		value: function(index, onLoad) {
+			if (!this._slideshowInfo[index]) return onLoad();
 			this._slideshowInfo[index].img.addEventListener('load', onLoad.bind(this));
 			this._slideshowInfo[index].img.src = window.ALBUMS_URL + this.dom_node.dataset.name + '/' + this._slideshowInfo[index].filename;
 		}
@@ -117,6 +119,7 @@ Motion.AUTOPLAY_DELAY = 500;
 
 	Object.defineProperty(Motion.prototype, '_load', {
 		value: function() {
+			console.log('Motion._load', this.dom_node.id);
 			var markers = { buffered: parseInt(this.dom_node.dataset.start, 10), loaded: 100 };
 			var reached = Object.keys(markers).map(function() { return false; });
 			this._loadImages(function(progress) {
@@ -193,7 +196,7 @@ Motion.AUTOPLAY_DELAY = 500;
 		value: function(name) {
 			console.log('Motion.next', this.dom_node.id);
 			var delay = Motion.AUTOPLAY_DELAY,
-					fadeDuration = ('fadeDuration' in this.dom_node.dataset) ? parseInt(this.dom_node.dataset.fadeDuration, 10) : Motion.CONTAINER_FADE_DURATION;
+					fadeDuration = ('fadeDuration' in this.dom_node.dataset) && this.dom_node.dataset.fadeDuration != '0' ? parseInt(this.dom_node.dataset.fadeDuration, 10) : Motion.CONTAINER_FADE_DURATION;
 			if (this.list_node.prev) {
 				this.list_node.prev.data.remove();
 				delay += fadeDuration;

@@ -1,3 +1,35 @@
+Redirect permanent "/slideshows/motion/introduction" "/motion/introduction"
+Redirect permanent "/slideshows/motion/ana-lisboa-steps" "/motion/ana-lisboa-steps"
+Redirect permanent "/slideshows/motion/heart-collage-jigsaw" "/motion/heart-collage-jigsaw"
+Redirect permanent "/slideshows/motion/charles-jourdan-film" "/motion/charles-jourdan-film"
+
+Redirect permanent "/slideshows/still/advertising" "/still/advertising"
+Redirect permanent "/slideshows/still/beauty" "/still/beauty"
+Redirect permanent "/slideshows/still/fashion" "/still/fashion"
+Redirect permanent "/slideshows/still/stars" "/still/stars"
+
+<IfModule mod_env.c>
+	SetEnv CSS_VERSION 1
+	SetEnv JS_VERSION 1
+	SetEnv BOWER_VERSION 1
+	#SetEnv SKIP_PASSWORD_PAGES password,about,contact
+	SetEnv SKIP_PASSWORD_PAGES password,contact
+	SetEnv CONTENT_PASSWORDS a
+</IfModule>
+
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+Header set Cache-Control "max-age=290304000, public"
+</FilesMatch>
+
+<FilesMatch "i.php$">
+Header set Cache-Control "max-age=290304000, public"
+</FilesMatch>
+
+# 2 HOURS
+<FilesMatch "\.(html|htm|php)$">
+Header set Cache-Control "max-age=7200, must-revalidate"
+</FilesMatch>
+
 #################################################################################################
 # START PROCESSWIRE HTACCESS DIRECTIVES
 # @version 3.0

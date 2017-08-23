@@ -4,13 +4,16 @@ public_html/wire
 public_html/site/config.php
 public_html/site/assets/logs
 public_html/site/assets/cache
+public_html/site/assets/sessions
 public_html/zenphoto
 public_html/site/assets/videos
+public_html/site/assets/media-element
 public_html/site/assets/slideshows/**
 !public_html/site/assets/slideshows/pat-field-keith-haring
 !public_html/site/assets/slideshows/pat-field-keith-haring/ana-lisboa-steps
 !public_html/site/assets/slideshows/pat-field-keith-haring/ana-lisboa-steps/info.js
 
+public_html/site/.env
 public_html/site/assets/bower_components
 
 public_html/site/assets/dist/*

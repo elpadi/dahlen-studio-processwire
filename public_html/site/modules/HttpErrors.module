@@ -1,0 +1,69 @@
+<?php
+namespace ProcessWire;
+
+class HttpErrors extends WireData implements Module {
+
+	const REGEXP = '/^http([0-9]{3})$/';
+
+	/**
+	 * getModuleInfo is a module required by all modules to tell ProcessWire about them
+	 *
+	 * @return array
+	 *
+	 */
+	public static function getModuleInfo() {
+
+		return array(
+
+			// The module'ss title, typically a little more descriptive than the class name
+			'title' => 'HTTP Errors', 
+
+			// version number 
+			'version' => 1, 
+
+			// summary is brief description of what this module is
+			'summary' => 'Page methods for info about HTTP error code',
+			
+			// Optional URL to more information about the module
+			'href' => '',
+
+			// singular=true: indicates that only one instance of the module is allowed.
+			// This is usually what you want for modules that attach hooks. 
+			'singular' => true, 
+
+			// autoload=true: indicates the module should be started with ProcessWire.
+			// This is necessary for any modules that attach runtime hooks, otherwise those
+			// hooks won't get attached unless some other code calls the module on it's own.
+			// Note that autoload modules are almost always also 'singular' (seen above).
+			'autoload' => true, 
+		
+			// Optional font-awesome icon name, minus the 'fa-' part
+			'icon' => 'smile-o', 
+			);
+	}
+
+	/**
+	 * Initialize the module
+	 *
+	 * ProcessWire calls this when the module is loaded. For 'autoload' modules, this will be called
+	 * when ProcessWire's API is ready. As a result, this is a good place to attach hooks. 
+	 *
+	 */
+	public function init() {
+
+		$this->addHook('Page::isHttpError', $this, 'isHttpError'); 
+		$this->addHook('Page::getHttpCode', $this, 'getHttpCode'); 
+
+	}
+
+	public function isHttpError($event) {
+		$page = $event->object;
+		$event->return = preg_match(self::REGEXP, $page->name);
+	}
+
+	public function getHttpCode($event) {
+		$page = $event->object;
+		$event->return = preg_match(self::REGEXP, $page->name, $matches) ? $matches[1] : 200;
+	}
+
+}

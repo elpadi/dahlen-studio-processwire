@@ -1,21 +1,25 @@
 <?php
 use Functional as F;
-global $twig;
+use Symfony\Component\Debug\Debug as SymfonyDebug;
+use DahlenStudio\ContentPassword;
 
-if ($page->name === 'password' || (!empty($config->contentPasswords) && $user->isGuest() && !$session->get('entered_password'))) {
-	if ($page->name === 'password' && $input->post('password')) {
-		if (F\some($config->contentPasswords, function($p) use ($input) { return password_verify($input->post('password'), $p); })) {
-			$session->set('entered_password', TRUE);
-			header('Location: http://'.$_SERVER['HTTP_HOST'].($session->get('password_referrer') && !strstr($session->get('password_referrer'), 'password') ? $session->get('password_referrer') : '/'));
-			exit(302);
-		}
-		else {
-			$template_vars['bad_password'] = TRUE;
-		}
+global $twig;
+if ($config->debug) SymfonyDebug::enable();
+$dotenv = new \Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+ContentPassword::$allowedPages = explode(',', getenv('SKIP_PASSWORD_PAGES'));
+ContentPassword::$passwords = array_map(function($plain) {
+	return password_hash($plain, \PASSWORD_DEFAULT);
+}, explode(',', getenv('CONTENT_PASSWORDS')));
+$contentPassword = new ContentPassword($session);
+
+if ($page->name === 'password' && $input->post('password')) {
+	if ($contentPassword->match($input->post('password'))) {
+		$contentPassword->onSuccess();
 	}
-	elseif ($page->name !== 'password') {
-		if (strstr($_SERVER['HTTP_HOST'], 'dahlenstudio.com')) $session->set('password_referrer', $_SERVER['REQUEST_URI']);
-		$session->redirect('/password', false);
+	else {
+		$template_vars['bad_password'] = TRUE;
 	}
 }
 
@@ -32,11 +36,21 @@ $twig->addFunction(new Twig_SimpleFunction('files', function($pattern, $ext='') 
 $twig->addFunction(new Twig_SimpleFunction('json', 'json_encode'));
 $twig->addGlobal('ASSETS_URL', $config->urls->assets);
 $twig->addGlobal('ALBUMS_URL', $config->urls->root.'zenphoto/albums/');
+array_map(function($type) use ($twig) {
+	$key = strtoupper($type).'_VERSION';
+	$version = getenv($key);
+	$twig->addGlobal($key, $version ? $version : '1');
+}, ['css','js','bower']);
 
 if (isset($template_vars) && is_array($template_vars)) $vars = array_merge($vars, $template_vars);
 
-if ($user->isGuest() && $page->id !== 1 && $page->name !== 'password') {
-	$vars['page']->set('content', '<p class="tc">Coming soon.</p>');
+if ($page->isHttpError()) {
+	$code = $page->getHttpCode();
+	$vars['page']->set('content', $twig->render("errors/$code.html"));
+	$html = $twig->render("templates/basic-page.html", $vars);
+}
+elseif (!$contentPassword->canViewPage($user, $page)) {
+	$vars['page']->set('content', $twig->render("snippets/password-wall.html", ['password_url' => $pages->get('name=password')->url]));
 	$html = $twig->render("templates/basic-page.html", $vars);
 }
 else {

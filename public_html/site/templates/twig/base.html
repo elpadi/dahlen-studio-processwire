@@ -12,19 +12,17 @@
 			<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 			{% block css_js_head %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}fonts/definitions.css">
+			<link rel="stylesheet" href="{{ config.urls.assets }}fonts/definitions.css?v={{ CSS_VERSION }}">
 			<style>
-				.slick-slide { background: transparent url({{ config.urls.assets }}bower_components/slick-carousel/slick/ajax-loader.gif) center center no-repeat; }
+				.slick-slide { background: transparent url({{ config.urls.assets }}bower_components/slick-carousel/slick/ajax-loader.gif?v={{ BOWER_VERSION }}) center center no-repeat; }
 				#sound-button { background-image: url({{ config.urls.assets }}img/sound-red.png) !important; }
 			</style>
-			{% if config.debug %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/normalize-css/normalize.css">
-			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelementplayer.css">
-			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.css">
-			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/main.css">
-			{% else %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}dist/main.min.css">
-			{% endif %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/normalize-css/normalize.css?v={{ BOWER_VERSION }}">
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelementplayer.css?v={{ BOWER_VERSION }}">
+			<link rel="stylesheet" href="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.css?v={{ BOWER_VERSION }}">
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/main.css?v={{ CSS_VERSION }}">
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/templates/{{ page.template }}.css?v={{ CSS_VERSION }}">
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/pages/{{ page.name }}.css?v={{ CSS_VERSION }}">
 			{% endblock %}
 			<script>document.documentElement.className = 'js';</script>
     </head>
@@ -47,21 +45,17 @@
 
 			{% block css_js_foot %}
 			{% include 'snippets/definitions.js' %}
-			{% if config.debug %}
-			<script src="{{ config.urls.assets }}bower_components/jquery/dist/jquery.min.js"></script>
-			<script src="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.min.js"></script>
-			<script src="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelement-and-player.min.js"></script>
-			<script src="{{ config.urls.assets }}bower_components/doubly-linked-list-js/doubly-linked-list.js"></script>
-			<script src="{{ config.urls.assets }}bower_components/buzz/dist/buzz.min.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/intro.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/menu.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/slideshow.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/motion.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/jigsaw.js"></script>
-			<script src="{{ config.urls.assets }}src/js/main.js"></script>
-			{% else %}
-			<script src="{{ config.urls.assets }}dist/main.min.js"></script>
-			{% endif %}
+			<script src="{{ config.urls.assets }}bower_components/jquery/dist/jquery.min.js?v={{ BOWER_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}bower_components/slick-carousel/slick/slick.min.js?v={{ BOWER_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}bower_components/mediaelement/build/mediaelement-and-player.min.js?v={{ BOWER_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}bower_components/doubly-linked-list-js/doubly-linked-list.js?v={{ BOWER_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}bower_components/buzz/dist/buzz.min.js?v={{ BOWER_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}src/js/components/intro.js?v={{ JS_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}src/js/components/menu.js?v={{ JS_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}src/js/components/slideshow.js?v={{ JS_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}src/js/components/motion.js?v={{ JS_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}src/js/components/jigsaw.js?v={{ JS_VERSION }}"></script>
+			<script src="{{ config.urls.assets }}src/js/main.js?v={{ JS_VERSION }}"></script>
 			{% endblock %}
     </body>
 </html>
