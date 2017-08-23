@@ -15,7 +15,6 @@
 	margin: auto;
 	z-index: 2;
 }
-.slideshow > nav,
 .fade {
 	opacity: 1;
 	transition: opacity 0.3s;

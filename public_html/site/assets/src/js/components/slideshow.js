@@ -4,13 +4,14 @@
 		var $slideshows = $('.slideshow');
 		$slideshows.each(function() {
 			var $s = $(this);
-			var $nav = $s.find('nav > button');
+			var $nav = $s.children('button');
 			setTimeout(function() { $s.find('.images').slick({
 				pauseOnFocus: false,
 				pauseOnHover: false,
 				autoplayDuration: 1000,
 				lazyLoad: $slideshows.length === 1 ? 'progressive' : 'ondemand',
 				prevArrow: $nav.first(),
+				speed: 200,
 				nextArrow: $nav.last()
 			}); }, 100);
 		});

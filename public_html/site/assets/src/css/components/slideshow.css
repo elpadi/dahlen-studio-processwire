@@ -52,16 +52,18 @@
 .slideshow a {
 	display: block;
 }
-.slideshow > nav {
+.slideshow > .slick-prev,
+.slideshow > .slick-next {
 	z-index: 2;
-	max-width: calc(100vw - 20px);
-	width: calc(100% + 40px);
+	width: 25px;
 	height: 40px;
-	left: -20px;
-	right: -20px;
+	top: 50%;
 	opacity: 0;
+	transition: opacity 0.2s;
+	margin-top: -20px;
 }
-.slideshow:hover > nav {
+.slideshow:hover > .slick-prev,
+.slideshow:hover > .slick-next {
 	opacity: 1;
 }
 .slideshow img {
