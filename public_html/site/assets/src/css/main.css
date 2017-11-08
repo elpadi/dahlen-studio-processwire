@@ -1,12 +1,3 @@
-@import "base/default.css";
-@import "base/classes.css";
-@import "base/colors.css";
-@import "components/menu.css";
-@import "components/intro.css";
-@import "components/slideshow.css";
-@import "components/motion.css";
-@import "components/jigsaw.css";
-
 body,html {
 	margin: 0;
 	padding: 0;

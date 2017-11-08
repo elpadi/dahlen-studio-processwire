@@ -24,6 +24,7 @@
     "doubly-linked-list-js": "https://github.com/andrewrjones/doubly-linked-list-js.git",
     "normalize-css": "^4.2.0",
     "slick-carousel": "slick.js#^1.6.0",
-    "buzz": "^1.2.0"
+    "buzz": "^1.2.0",
+    "featherlight": "^1.7.8"
   }
 }
