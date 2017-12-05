@@ -5,7 +5,7 @@
     font-style: normal;
 
     src: url('slick.eot');
-    src: url('slick.eot?#iefix') format('embedded-opentype'), url('fonts/slick.woff') format('woff'), url('fonts/slick.ttf') format('truetype'), url('slick.svg#slick') format('svg');
+    src: url('slick.eot?#iefix') format('embedded-opentype'), url('slick.woff') format('woff'), url('slick.ttf') format('truetype'), url('slick.svg#slick') format('svg');
 }
 
 /* Headings */
