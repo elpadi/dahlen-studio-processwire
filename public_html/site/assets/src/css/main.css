@@ -100,6 +100,7 @@ body:not(.template--images) #main-content > p:first-child {
 video {
 	display: block;
 	margin: auto;
+	outline-style: none;
 }
 
 input[type="submit"] {
