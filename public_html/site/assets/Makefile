@@ -1,41 +1,27 @@
-CSS_SRC := $(shell find src/css -type f -name '*.css' | grep -v 'main')
-JS_SRC := $(shell find src/js -type f -name '*.js' | grep -v 'main')
-MUSIC_MP3 := $(shell find slideshows -type f -name '*.wav' | sed 's/\.wav/.mp3/')
-MUSIC_OGG := $(shell find slideshows -type f -name '*.wav' | sed 's/\.wav/.ogg/')
+CSS_SRC := $(shell grep 'stylesheet' ../templates/twig/base.html | grep -v 'not-in-build' | perl -pe 's/.*}}(.*\.css).*/\1/')
+JS_SRC := $(shell grep 'script src' ../templates/twig/base.html | grep -v 'not-in-build' | perl -pe 's/.*}}(.*\.js).*/\1/')
+MUSIC := $(shell find slideshows -type f -name '*.wav')
 
-CSS_VENDOR := $(shell grep 'link.*bower_components' ../templates/twig/base.html | sed -e 's/.*bower/bower/' -e 's/">//')
-JS_VENDOR := $(shell grep 'script.*bower_components' ../templates/twig/base.html | sed -e 's/.*bower/bower/' -e 's/">.*//')
+.PHONY: all css js music
 
-.PHONY: all music css js
+all: css js music
 
-all: dist/main.min.css dist/main.min.js music
+css: src/css/build.css
 
-css: dist/main.min.css
+js: src/js/build.js
 
-dist/main.css: $(CSS_VENDOR) $(CSS_SRC) src/css/main.css
+music: $(patsubst %.wav, %.mp3, $(MUSIC)) $(patsubst %.wav, %.ogg, $(MUSIC))
+
+src/css/build.css: $(CSS_SRC)
 	cat $^ |  tr -d '\15\32' > $@
+	postcss --use postcss-cssnext -o $@ $@
+	cssnano $@ $@ --safe
 
-dist/main.prefixed.css: dist/main.css
-	postcss --use autoprefixer -o $@ $^
-
-dist/main.min.css: dist/main.prefixed.css
-	cssnano $^ $@ --safe
-
-js: dist/main.min.js
-
-dist/main.src.js: $(JS_SRC) src/js/main.js
+src/js/build.js: $(JS_SRC)
 	cat $^ |  tr -d '\15\32' > $@
+	#babel -o $@ $^
+	uglifyjs $@ -o $@ -c
 
-dist/main.es5.js: dist/main.src.js
-	babel -o $@ $^
-
-dist/main.js: $(JS_VENDOR) dist/main.es5.js
-	cat $^ |  tr -d '\15\32' > $@
-
-dist/main.min.js: dist/main.js
-	uglifyjs $^ -o $@ -c
-
-music: $(MUSIC_MP3) $(MUSIC_OGG)
 
 %.mp3: %.wav
 	ffmpeg -i $^ -aq 8 $@
