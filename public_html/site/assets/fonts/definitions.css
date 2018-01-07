@@ -9,11 +9,11 @@
 }
 
 /* Headings */
+/*
 @font-face {
 	src: url('Classical Garamond Bold BT.ttf');
 	font-family: GaramondBold;
 }
-/*
 @font-face {
 	src: url('Zapf Humanist 601 Bold BT.ttf');
 	font-family: ZapfHumanist;
@@ -70,11 +70,11 @@
 */
 
 /* Scripts */
+/*
 @font-face {
 	src: url(JP-Hand-Straight.ttf);
 	font-family: JPHand;
 }
-/*
 @font-face {
 	src: url(SammysHand-Regular.ttf);
 	font-family: SammysHand;
@@ -106,11 +106,11 @@
 */
 
 #main-menu {
-	font-family: MyriadSemiBold;
+	font-family: MyriadSemiBold, Arial, sans-serif;
 }
 input[type="submit"],
 #main-menu > ul > li > a {
-	font-family: StoneSansBold;
+	font-family: StoneSansBold, Arial, sans-serif;
 }
 
 /*
@@ -123,11 +123,13 @@ h1, h2, h3, h4 {
 */
 #main-content,
 h1, h2, h3, h4 {
-	font-family: Helvetica,sans-serif;
+	font-family: Helvetica,Arial,sans-serif;
 }
 
+/*
 .template--home #main-content > p:last-child > strong {
 	font-family: JPHand;
 	font-weight: 100;
 	font-size: 2em;
 }
+*/
