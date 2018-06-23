@@ -1,4 +1,0 @@
-[submodule "ProcessWire"]
-	path = ProcessWire
-	url = https://github.com/ryancramerdesign/ProcessWire.git
-	branch = devns
