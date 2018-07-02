@@ -42,6 +42,8 @@ h2.page-title.breadcrumb > span {
 .js h2.page-title:not(.breadcrumb) {
 	display: none;
 }
+.template--images #main-content {
+}
 
 #main-content {
 	position: relative;
@@ -51,8 +53,7 @@ h2.page-title.breadcrumb > span {
 	min-height: calc(100vh - 240px);
 	z-index: 1;
 }
-.template--home #main-content,
-.template--images #main-content {
+.template--home #main-content {
 	min-height: calc(100vh - 138px);
 }
 #main-content > p:empty {

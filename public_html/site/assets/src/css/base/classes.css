@@ -1,10 +1,11 @@
 .tc { text-align: center; }
 
+/*
 .slideshow > nav,
 .slideshow a,
+*/
 .template--home .motion,
 .template--images video,
-.template--images .slideshow,
 .parent--motion .motion,
 .absolute-center {
 	position: absolute;
@@ -15,9 +16,17 @@
 	margin: auto;
 	z-index: 2;
 }
+.featherlight-next:hover span, .featherlight-previous:hover span,
 .fade {
 	opacity: 1;
-	transition: opacity 0.3s;
+	visibility: visible;
+	transition: opacity 0.3s, visibility 0s 0s;
+}
+.featherlight-next span, .featherlight-previous span,
+.fade.fade-out {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s, visibility 0s 0.3s;
 }
 input,
 .clean-button,
@@ -36,4 +45,20 @@ input,
 }
 .icon-button > svg {
 	pointer-events: none;
+}
+.loading {
+	background: transparent url(/site/assets/img/ajax-loader.gif) center center no-repeat;
+}
+.full-window {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+}
+.sound-button {
+	background: transparent url(/site/assets/img/sound.png) center center no-repeat;
+}
+.mute .sound-button {
+	background-image: url(/site/assets/img/sound-red.png);
 }

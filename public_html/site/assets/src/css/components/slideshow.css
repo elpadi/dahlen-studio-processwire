@@ -4,70 +4,40 @@
 	position: absolute;
 }
 
-.slick-slide,
-.slideshow a,
 .slideshow img {
 	outline: none;
-}
-.slick-list, .slick-track, .images {
-	height: 100%;
-}
-.slick-slide {
-	position: relative;
-}
-.slick-arrow {
-	width: 20px;
-	height: 35px;
-	position: absolute;
-	top: 0;
-}
-.slick-prev {
-	left: 15px;
-}
-.slick-next {
-	right: 15px;
-}
-.slick-arrow:before {
-	display: none;
-}
-.slick-arrow svg {
-	width: 100%;
-	height: 100%;
-	overflow: visible;
-}
-.slick-arrow path {
-	fill: none;
-	stroke-width: 10;
-	stroke-linecap: round;
 }
 
-.slideshow {
-	position: relative;
-	margin: auto;
-	transition: opacity 0.5s 0.3s;
+/* Featherlight Gallery */
+.featherlight {
+	width: 100vw;
+	height: 100vh;
 }
-.slideshow.slick-initialized {
-	opacity: 1;
+.featherlight .featherlight-content {
+	overflow: visible;
+	background-color: transparent;
 }
-.slideshow a {
-	display: block;
+.featherlight .featherlight-close-icon {
+	background-color: transparent;
+	color: white;
 }
-.slideshow > .slick-prev,
-.slideshow > .slick-next {
-	z-index: 2;
-	width: 25px;
-	height: 40px;
-	top: 50%;
-	opacity: 0;
-	transition: opacity 0.2s;
-	margin-top: -20px;
+.featherlight-next, .featherlight-previous {
+	background-color: transparent !important;
 }
-.slideshow:hover > .slick-prev,
-.slideshow:hover > .slick-next {
-	opacity: 1;
+.featherlight-previous {
+	left: -40px;
+	right: calc(100% - 40px);
 }
-.slideshow img {
-	width: 100%;
-	height: 100%;
-	outline: none;
+.featherlight-next {
+	right: -40px;
+	left: calc(100% - 40px);
+}
+.featherlight-next span, .featherlight-previous span {
+	font-size: 30px;
+	display: inline-block !important;
+}
+
+/* Zoom */
+.zoomImg {
+	cursor: zoom-in;
 }

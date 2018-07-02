@@ -1,82 +1,71 @@
-(function() {
-	var imageProto = (new Image()).constructor.prototype;
-	if ('hasLoaded' in imageProto) return;
-	Object.defineProperty(imageProto, 'hasLoaded', {
-		value: function hasLoaded() {
-			return this.complete && this.naturalWidth > 1 && this.naturalHeight > 1;
-		}
-	});
-})();
+class Gallery {
 
+	constructor() {
+		this.initialSetup();
+		this.pagesLoaded = 1;
+		this.isFetchingImages = false;
+	}
+
+	initialSetup() {
+		let gallery = document.querySelector('.gallery');
+		if (!gallery) throw "Could not find the gallery element in the DOM.";
+		$(gallery).justifiedGallery({
+			rowHeight : 150,
+			lastRow : 'nojustify',
+			margins : 8
+		});
+		this.onWindowScroll = _.throttle(_.bindKey(this, 'checkScroll'), 300);
+		window.addEventListener('scroll', this.onWindowScroll);
+		$.featherlight.defaults.afterContent = this.onSliderChange.bind(this);
+	}
+
+	onScrollDown() {
+		if (this.isFetchingImages || this.pagesLoaded >= app.config.SLIDESHOW_PAGE_COUNT) {
+			window.removeEventListener('scroll', this.onWindowScroll);
+			return;
+		}
+		console.log('Gallery.onScrollDown');
+		this.isFetchingImages = true;
+		this.pagesLoaded++;
+		fetch(Gallery.THUMBS_URL)
+			.then(response => response.json())
+			.then(this.addImages.bind(this));
+	}
+
+	checkScroll() {
+		if (window.scrollY >= document.body.scrollHeight - window.innerHeight) this.onScrollDown();
+	}
+
+	addImage(image, index, images) {
+		console.log('Gallery.addImage', index);
+		let a = document.createElement('a');
+		a.href = images[index].url;
+		a.appendChild(image);
+		document.querySelector('.gallery').appendChild(a);
+	}
+
+	addImages(images) {
+		console.log('Gallery.addImages', images);
+		let loader = new ImageLoader(_.map(images, 'thumb.url'));
+		loader.events.addEventListener('imageloaded', e => this.addImage(e.detail.image, e.detail.index, images));
+		loader.loadAll().then(() => $('.gallery').justifiedGallery('norewind'));
+	}
+
+	onSliderChange() {
+		console.log('Gallery.onSliderChange');
+		let img = document.querySelector('.featherlight-image');
+		img.dataset.action = 'zoom';
+		$(img.parentNode).zoom({ url: img.src });
+	}
+
+}
+
+Gallery.THUMBS_URL = '/sample-gallery/images.php';
 
 (function($) {
 
-	var SLICK_OPTIONS = {
-		pauseOnFocus: false,
-		pauseOnHover: false,
-		autoplayDuration: 500,
-		speed: 200
-	};
-
-	var prepareSlideLoading = function(slick, index) {
-		var real = index % slick.$slides.length;
-		if (real < 1) return;
-		var item = slick.$slides[real].getElementsByTagName('img');
-		if (!item.length) return;
-		var img = item[0];
-		if (img.hasLoaded()) return;
-		var src = img.getAttribute('data-lazier');
-		if (!src) return;
-		//console.log('Preparing slide for lazy loading', index, src);
-		img.setAttribute('data-lazy', src);
-		img.removeAttribute('data-lazier');
-	};
-
-	$(document).ready(function() {
-	
-		var $slideshows = $('.slideshow');
-		var IS_SLIDESHOW_PAGE = $slideshows.length === 1;
-
-		$slideshows.each(function() {
-			var $s = $(this);
-			var $nav = $s.children('button');
-			setTimeout(function() {
-				$s.find('.images').slick($.extend(SLICK_OPTIONS, {
-					lazyLoad: IS_SLIDESHOW_PAGE ? 'progressive' : 'ondemand',
-					prevArrow: $nav.first(),
-					nextArrow: $nav.last()
-				})).on('beforeChange', function(e, slick, currentIndex, nextIndex) {
-					if (!IS_SLIDESHOW_PAGE || nextIndex < 1) return;
-					var item = slick.$slides[nextIndex].getElementsByTagName('img');
-					if (!item.length) return;
-					prepareSlideLoading(slick, nextIndex + 2);
-					prepareSlideLoading(slick, nextIndex + 3);
-					slick.progressiveLazyLoad();
-					var img = item[0];
-					if (img.hasLoaded()) return;
-					img.addEventListener('load', function() {
-						slick.play();
-						//console.log('The image has loaded. Lets continue', nextIndex, img.src);
-					});
-					//console.log('Next image has not loaded. Lets pause', nextIndex, img.src);
-					slick.pause();
-				});
-			}, 100);
-		});
-		
-		if (IS_SLIDESHOW_PAGE) {
-			setTimeout(function() {
-				var slick = $slideshows.find('.images').slick('getSlick');
-				prepareSlideLoading(slick, 1);
-				prepareSlideLoading(slick, 2);
-				slick.progressiveLazyLoad();
-				$.featherlight.defaults.beforeOpen = slick.pause.bind(slick);
-				$.featherlight.defaults.beforeClose = slick.play.bind(slick);
-				setTimeout(slick.play.bind(slick), 2000);
-			}, 200);
-			Music.play(JSON.parse($slideshows[0].dataset.music).map(function(name) { return ASSETS_URL + 'slideshows/' + $slideshows[0].dataset.name + '/' + name; }));
-		}
-	
+	app.init(function() {
+		app.gallery = new Gallery();
 	});
 
 })(jQuery);

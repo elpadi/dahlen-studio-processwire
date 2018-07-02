@@ -1,0 +1,19 @@
+.template--images #main-content {
+	max-width: none;
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+.gallery a {
+	overflow: hidden;
+}
+.gallery a:not(.jg-entry) img {
+	opacity: 0;
+}
+.gallery img {
+	transition: transform 0.5s, opacity 0.3s !important;
+}
+.gallery a:hover img {
+	transform: scale(1.3);
+}
