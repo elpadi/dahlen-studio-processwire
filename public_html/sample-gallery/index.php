@@ -73,8 +73,9 @@
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
@@ -91,7 +92,17 @@
 				}
 			});
 		</script>
-		<script src="/site/assets/src/js/components/image-loader.js"></script>
+	
+		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
+		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
+		
+		<script src="/site/assets/src/js/components/pager/pager.js"></script>
+		<script src="/site/assets/src/js/components/pager/infinite-scroll-pager.js"></script>
+		
+		<script src="/site/assets/src/js/components/gallery/gallery-pager.js"></script>
+		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
+		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
+		
 		<script src="/site/assets/src/js/components/slideshow.js"></script>
 	</body>
 </html>
