@@ -1,4 +1,6 @@
-<!doctype html>
+<?php
+define('MINIFY', true);
+?><!doctype html>
 <html class="no-js" lang="">
     <head>
 		<meta charset="utf-8">
@@ -8,25 +10,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" class="not-in-build" href="/site/assets/fonts/definitions.css?v=7">
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css">
-		<link rel="stylesheet" href="/site/assets/bower_components/normalize-css/normalize.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.css">
-		<link rel="stylesheet" href="https://cdn.rawgit.com/fat/zoom.js/v0.0.1/css/zoom.css">
-
+		<?php if (MINIFY): ?>
+		<link rel="stylesheet" href="/site/assets/dist/base.css">
+		<?php else: ?>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/default.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/classes.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/colors.css">
-		
 		<link rel="stylesheet" href="/site/assets/src/css/components/menu.css">
-		<link rel="stylesheet" href="/site/assets/src/css/components/intro.css">
-		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
-		<link rel="stylesheet" href="/site/assets/src/css/components/motion.css">
-		<link rel="stylesheet" href="/site/assets/src/css/components/jigsaw.css">
 		<link rel="stylesheet" href="/site/assets/src/css/main.css">
+		<?php endif; ?>
 		
-		<link rel="stylesheet" class="not-in-build" href="/site/assets/src/css/templates/images.css?v=7">
-		<link rel="stylesheet" class="not-in-build" href="/site/assets/src/css/pages/advertising.css?v=7">
+		<?php if (MINIFY): ?>
+		<link rel="stylesheet" href="/site/assets/dist/images.css">
+		<?php else: ?>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.css">
+		<link rel="stylesheet" href="https://cdn.rawgit.com/fat/zoom.js/v0.0.1/css/zoom.css">
+		
+		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
+		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css?v=7">
+		<?php endif; ?>
+		
 		<script>document.documentElement.className = 'js';</script>
     </head>
 	<body class="page--advertising template--images parent--still theme--white">
@@ -72,15 +78,14 @@
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
+		<?php if (MINIFY): ?>
+		<script src="/site/assets/dist/base.js"></script>
+		<?php else: ?>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
-		
 		<script src="/site/assets/src/js/app.js"></script>
+		<?php endif; ?>
+		
 		<script>
 			app.setConfig({
 				ALBUMS_URL: "/zenphoto/albums/",
@@ -93,16 +98,25 @@
 			});
 		</script>
 	
+		<?php if (MINIFY): ?>
+		<script src="/site/assets/dist/slideshow.js"></script>
+		<?php else: ?>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+
 		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
 		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
-		
+
 		<script src="/site/assets/src/js/components/pager/pager.js"></script>
 		<script src="/site/assets/src/js/components/pager/infinite-scroll-pager.js"></script>
-		
+
 		<script src="/site/assets/src/js/components/gallery/gallery-pager.js"></script>
 		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
 		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
-		
+
 		<script src="/site/assets/src/js/components/slideshow.js"></script>
+		<?php endif; ?>
 	</body>
 </html>

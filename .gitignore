@@ -18,8 +18,10 @@ public_html/site/.env
 public_html/site/assets/bower_components
 
 public_html/site/assets/dist/*
-!public_html/site/assets/dist/main.min.js
-!public_html/site/assets/dist/main.min.css
+!public_html/site/assets/dist/base.css
+!public_html/site/assets/dist/images.css
+!public_html/site/assets/dist/base.js
+!public_html/site/assets/dist/slideshow.js
 
 public_html/site/assets/css/fonts/AGaramondPro-Semibold.otf
 public_html/site/assets/css/fonts/AJensonPro-Bold.otf
@@ -44,3 +46,4 @@ public_html/site/assets/css/fonts/Zapf Calligraphic 801 Bold BT.ttf
 public_html/site/assets/css/fonts/Zapf Humanist 601 Bold BT.ttf
 
 put.sh
+public_html/site/assets/vendor
