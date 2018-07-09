@@ -22,7 +22,7 @@ define('MINIFY', false);
 		<?php endif; ?>
 		
 		<?php if (MINIFY): ?>
-		<link rel="stylesheet" href="/site/assets/dist/motion.css">
+		<link rel="stylesheet" href="/site/assets/dist/images.css">
 		<?php else: ?>
 		<link rel="stylesheet" href="/site/assets/src/css/components/motion.css">
 		<?php endif; ?>

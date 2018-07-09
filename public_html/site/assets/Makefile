@@ -9,9 +9,9 @@ JS_GALLERY := $(shell find src/js/components/gallery -type f -not -name '*.min.j
 
 all: css js
 
-css: dist/base.css dist/images.css
+css: dist/base.css dist/images.css dist/motion.css
 
-js: dist/base.js dist/slideshow.js
+js: dist/base.js dist/slideshow.js dist/motion.js
 
 %.min.css: %.css
 	postcss --use cssnano --no-map -o $@ $^
@@ -33,7 +33,7 @@ dist/loader.js: $(JS_EVENTS) $(JS_LOADER)
 dist/gallery.js: dist/gallery_vendor.js dist/loader.js $(JS_PAGER) $(JS_GALLERY)
 	cat $^ > $@
 
-dist/slideshow.js: dist/gallery.js src/js/components/slideshow.min.js
+dist/slideshow.js: dist/gallery.js src/js/templates/slideshow.min.js
 	cat $^ > $@
 
 dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.min.js dist/loader.js $(JS_MOTION) src/js/templates/motion.min.js
@@ -52,10 +52,10 @@ dist/base.css: vendor/normalize.min.css $(patsubst %.css, %.min.css, $(shell fin
 dist/gallery_vendor.css: vendor/justifiedGallery.min.css vendor/featherlight.min.css vendor/featherlight.gallery.min.css vendor/jquery.zoom.min.css
 	cat $^ > $@
 
-dist/images.css: dist/gallery_vendor.css src/css/components/slideshow.min.css src/css/templates/images.min.css
+dist/images.css: dist/gallery_vendor.css src/css/components/slideshow.min.css src/css/components/motion.min.css src/css/templates/images.min.css
 	cat $^ > $@
 
-dist/motion.css: src/css/components/motion.min.css
+dist/motion.css: src/css/templates/images.min.css src/css/components/motion.min.css
 	cat $^ > $@
 
 ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## 

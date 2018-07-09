@@ -1,9 +1,9 @@
-<section id="{{ id }}" class="motion" data-name="{{ name }}" data-info="{{ js }}" data-timing="{{ timing }}" data-start="{{ start }}" style="max-width:{{ width }}px; max-height:{{ height }}px;" data-width="{{ width }}" data-height="{{ height }}" data-music="{{ json(music) | e }}" data-music-delay="{{ music_delay }}" data-fade-duration="{{ fade_duration }}" {% if autoplay %}data-autoplay="true"{% endif %}>
+<section class="motion" data-name="{{ name }}" data-timing="{{ timing }}" data-start="{{ start }}" style="max-width:{{ width }}px; max-height:{{ height }}px;" data-width="{{ width }}" data-height="{{ height }}" data-music="{{ json(music) | e }}" data-music-delay="{{ music_delay }}" data-fade-duration="{{ fade_duration }}" {% if autoplay %}data-autoplay="true"{% endif %}>
 	{% include 'snippets/play-button.html' %}
 	<img src="{{ imageUrl(name, poster.filename) }}" alt="{{ title }}" data-width="{{ poster.width }}" data-height="{{ poster.height }}">
 </section>
 {% if has_custom_info %}
 <script src="{{ assets_url }}slideshows/{{ name }}/info.js"></script>
 {% else %}
-<script>window.{{ js }} = {{ json(images) }};</script>
+<script src="{{ assets_url }}slideshows/{{ name }}.js"></script>
 {% endif %}

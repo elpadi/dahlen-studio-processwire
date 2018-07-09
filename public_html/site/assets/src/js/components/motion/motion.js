@@ -101,7 +101,9 @@ class Motion extends EventEmitter {
 		let showTime = this.totalDelay;
 		let hideTime = showTime + image.fadeInDuration + image.duration;
 		let removeTime = hideTime + image.fadeOutDuration;
-		this.animation.addKeyFrame('show', showTime, index);
+		if (index > 0) {
+			this.animation.addKeyFrame('show', showTime, index);
+		}
 		this.animation.addKeyFrame('hide', hideTime , index);
 		this.animation.addKeyFrame('remove', removeTime, index);
 		this.totalDelay += image.delay;
@@ -112,6 +114,11 @@ class Motion extends EventEmitter {
 		let image = new MotionImage(this.baseUrl + '/' + info.filename);
 		image.parseInfo(defaultTiming, outerRect, initialDurations, info, index);
 		this.images[index] = image;
+		if (index == 0) {
+			image.createImageNode();
+			this.poster.style.cssText = image.node.getAttribute('style');
+			image.node = this.poster;
+		}
 		this.addImageKeyFrames(image, index);
 	}
 

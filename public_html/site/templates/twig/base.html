@@ -1,23 +1,21 @@
 <!doctype html>
 <html class="no-js" lang="">
     <head>
-			<meta charset="utf-8">
-			<meta http-equiv="x-ua-compatible" content="ie=edge">
-			{% block seo_meta %}
-			<title>{{ page.seo_title ? page.seo_title : page.title }}</title>
-			<meta name="description" content="{{ page.headline }}">
-			{% endblock %}
-			<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		{% block seo_meta %}
+		<title>{{ page.seo_title ? page.seo_title : page.title }}</title>
+		<meta name="description" content="{{ page.headline }}">
+		{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-			<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-			{% block css_js_head %}
-			<link rel="stylesheet" href="{{ config.urls.assets }}fonts/definitions.css?v=1530896390">
-			{% if config.minifyAssets %}
+		{% block head_assets_base %}
+		<link rel="stylesheet" href="{{ config.urls.assets }}fonts/definitions.css?v=1530896390">
+		{% if config.minifyAssets %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}dist/base.css?v=1530896390">
-			<link rel="stylesheet" href="{{ config.urls.assets }}dist/{{ page.template.get('name') }}.css?v=1530896390">
-			<link rel="stylesheet" href="{{ config.urls.assets }}dist/{{ page.get('name') }}.css?v=1530896390">
-			{% else %}
+		{% else %}
 			<!-- BEGIN BASE CSS -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/base/default.css">
@@ -26,6 +24,22 @@
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/components/menu.css">
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/main.css">
 			<!-- END BASE CSS -->
+		{% endif %}
+		{% endblock %}
+
+		{% block head_assets %}
+		{% if config.minifyAssets %}
+			{% if 'still' in page.get('url') %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}dist/images.css?v=1530896390">
+			{% endif %}
+			{% if 'motion' in page.get('url') %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}dist/motion.css?v=1530896390">
+			{% endif %}
+			{% if 'home' in page.template.get('name') %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}dist/motion.css?v=1530896390">
+			{% endif %}
+		{% else %}
+			{% if 'still' in page.get('url') %}
 			<!-- BEGIN IMAGES CSS -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.css">
@@ -34,14 +48,22 @@
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/components/slideshow.css">
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/templates/images.css">
 			<!-- END IMAGES CSS -->
-			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/components/intro.css">
+			{% endif %}
+			{% if 'motion' in page.get('url') %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/components/motion.css">
+			{% endif %}
+			{% if 'home' in page.template.get('name') %}
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/components/intro.css">
+			{% endif %}
 			<link rel="stylesheet" href="{{ config.urls.assets }}src/css/components/jigsaw.css">
 			<link rel="stylesheet" class="not-in-build" href="{{ config.urls.assets }}src/css/templates/{{ page.template }}.css?v={{ CSS_VERSION }}">
 			<link rel="stylesheet" class="not-in-build" href="{{ config.urls.assets }}src/css/pages/{{ page.name }}.css?v={{ CSS_VERSION }}">
-			{% endif %}
-			{% endblock %}
-			<script>document.documentElement.className = 'js';</script>
+			
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/templates/{{ page.template.get('name') }}.css?v=1530896390">
+			<link rel="stylesheet" href="{{ config.urls.assets }}src/pages/{{ page.get('name') }}.css?v=1530896390">
+		{% endif %}
+		{% endblock %}
+		<script>document.documentElement.className = 'js';</script>
     </head>
 		<body class="page--{{ page.name }} template--{{ page.template.get('name') }} parent--{{ page.parent.name ? page.parent.name : 'none' }} theme--white">
 			<div id="container">
@@ -60,8 +82,8 @@
 				<button id="sound-button" class="clean-button img-button state--on"><img src="{{ config.urls.assets }}img/sound.png" alt="Toggle sound"></button>
 			</div>
 
+			{% block foot_assets_base %}
 			{% include 'snippets/definitions.js' %}
-			{% block css_js_foot %}
 			{% if config.minifyAssets %}
 			<script src="{{ config.urls.assets }}dist/base.js?v=1530896390"></script>
 			{% else %}
@@ -72,27 +94,45 @@
 			<!-- END BASE JS -->
 			{% endif %}
 			<script>app.setConfig({{ config.appConfig | raw }});</script>
+			{% endblock %}
+			{% block foot_assets %}
 			{% if config.minifyAssets %}
-			<script src="{{ config.urls.assets }}dist/slideshow.js?v=1530896390"></script>
+				{% if 'still' in page.get('url') %}
+				<script src="{{ config.urls.assets }}dist/slideshow.js?v=1530896390"></script>
+				{% endif %}
+				{% if 'motion' in page.get('url') %}
+				<script src="{{ config.urls.assets }}dist/motion.js?v=1530896390"></script>
+				{% endif %}
+				{% if 'home' in page.template.get('name') %}
+				<script src="{{ config.urls.assets }}dist/motion.js?v=1530896390"></script>
+				{% endif %}
 			{% else %}
-			<!-- BEGIN IMAGES JS -->
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+				{% if 'still' in page.get('url') %}
+				<!-- BEGIN IMAGES JS -->
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
 
-			<script src="{{ config.urls.assets }}src/js/components/loader/image-loader.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/loader/ajax-loader.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/loader/image-loader.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/loader/ajax-loader.js"></script>
 
-			<script src="{{ config.urls.assets }}src/js/components/pager/pager.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/pager/infinite-scroll-pager.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/pager/pager.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/pager/infinite-scroll-pager.js"></script>
 
-			<script src="{{ config.urls.assets }}src/js/components/gallery/gallery-pager.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/gallery/image-listing-loader.js"></script>
-			<script src="{{ config.urls.assets }}src/js/components/gallery/gallery.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/gallery/gallery-pager.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/gallery/image-listing-loader.js"></script>
+				<script src="{{ config.urls.assets }}src/js/components/gallery/gallery.js"></script>
 
-			<script src="{{ config.urls.assets }}src/js/components/slideshow.js"></script>
-			<!-- END IMAGES JS -->
+				<script src="{{ config.urls.assets }}src/js/components/slideshow.js"></script>
+				<!-- END IMAGES JS -->
+				{% endif %}
+				{% if 'motion' in page.get('url') %}
+				<script src="{{ config.urls.assets }}dist/motion.js?v=1530896390"></script>
+				{% endif %}
+				{% if 'home' in page.template.get('name') %}
+				<script src="{{ config.urls.assets }}dist/motion.js?v=1530896390"></script>
+				{% endif %}
 			{% endif %}
 			{% endblock %}
     </body>

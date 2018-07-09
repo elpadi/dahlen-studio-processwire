@@ -124,7 +124,7 @@ class Zenphoto extends WireData implements Module {
 	}
 
 	protected static function fetchAlbumImages($name) {
-		if ($GLOBALS['wire']->config->debug) return static::fetchTestAlbumImages();
+		//if ($GLOBALS['wire']->config->debug) return static::fetchTestAlbumImages();
 		$db = self::zenphotoDB();
 		return $GLOBALS['wire']->cache->get("album-images--$name", getenv('ENABLE_IMAGE_QUERY_CACHE') ? WireCache::expireDaily : WireCache::expireNow, function() use ($db, $name) {
 			$images = [];
@@ -155,7 +155,6 @@ class Zenphoto extends WireData implements Module {
 		$vars['poster'] = $vars['images'][0];
 		$vars['id'] = str_replace('/', '--', $vars['name']);
 		$vars['music'] = F\map(glob($GLOBALS['wire']->config->paths->assets."slideshows/$vars[name]/*.mp3"), function($s) { return basename($s, '.mp3'); });
-		$has_custom_info = is_readable($GLOBALS['wire']->config->paths->assets."slideshows/$vars[name]/info.js");
 		return $GLOBALS['twig']->render("components/$template_name.html", $vars);
 	}
 
@@ -170,16 +169,22 @@ class Zenphoto extends WireData implements Module {
 	public static function motion(ShortcodeInterface $s) {
 		$name = $s->getParameter('name');
 		$title = ucwords(str_replace(['-','/'], ' ', $name));
-		$js = str_replace([' ','/'], '', $title);
 		$timing = $s->getParameter('timing', self::DEFAULT_MOTION_TIMING);
 		$start = $s->getParameter('start', self::DEFAULT_MOTION_START);
 		$autoplay = $s->getParameter('autoplay', false);
 		$fade_duration = $s->getParameter('fade-duration', 0);
 		$music_delay = $s->getParameter('music-delay', 0);
-		$has_custom_info = is_readable($GLOBALS['wire']->config->paths->assets."slideshows/$name/info.js");
 		$images = static::fetchAlbumImages($name);
 
-		$vars = compact('name','images','title','js','timing','start','has_custom_info','autoplay','music_delay','fade_duration');
+		$jsPath = $GLOBALS['wire']->config->paths->assets."slideshows/$name.js";
+		if (!is_readable($jsPath) || time() - filemtime($jsPath) > 24 * 3600) {
+			if (!is_dir(dirname($jsPath))) mkdir(dirname($jsPath), 0755, TRUE);
+			file_put_contents($jsPath, "window['$name']=".json_encode($images).';');
+		}
+		$customInfoPath = $GLOBALS['wire']->config->paths->assets."slideshows/$name/info.js";
+		$has_custom_info = is_readable($customInfoPath);
+		
+		$vars = compact('name','images','title','timing','start','has_custom_info','autoplay','music_delay','fade_duration');
 		return static::render('motion', $vars);
 	}
 
