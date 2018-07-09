@@ -1,5 +1,5 @@
 <?php
-define('MINIFY', true);
+define('MINIFY', false);
 ?><!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -13,7 +13,7 @@ define('MINIFY', true);
 		<?php if (MINIFY): ?>
 		<link rel="stylesheet" href="/site/assets/dist/base.css">
 		<?php else: ?>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+		<link rel="stylesheet" href="/site/assets/vendor/normalize.min.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/default.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/classes.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/colors.css">
@@ -22,20 +22,14 @@ define('MINIFY', true);
 		<?php endif; ?>
 		
 		<?php if (MINIFY): ?>
-		<link rel="stylesheet" href="/site/assets/dist/images.css">
+		<link rel="stylesheet" href="/site/assets/dist/motion.css">
 		<?php else: ?>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.css">
-		<link rel="stylesheet" href="https://cdn.rawgit.com/fat/zoom.js/v0.0.1/css/zoom.css">
-		
-		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
-		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css?v=7">
+		<link rel="stylesheet" href="/site/assets/src/css/components/motion.css">
 		<?php endif; ?>
 		
 		<script>document.documentElement.className = 'js';</script>
     </head>
-	<body class="page--advertising template--images parent--still theme--white">
+	<body class="page--introduction template--images parent--motion theme--white">
 		<div id="container">
 			<header id="main-header">
 				<a id="logo" href="/">
@@ -64,25 +58,38 @@ define('MINIFY', true);
 				<h2 class="page-title breadcrumb visuallyhidden" data-opacity="0.75"><span class="parent">Still</span> ➤ <span class="current">Advertising</span></h2>
 			</header>
 			<main id="main-content">
-				<article id="advertising_new" class="slideshow" style="" data-name="advertising_new" data-music="[]">
-					<main class="images gallery" data-featherlight-gallery data-featherlight-filter="a">
-						<?php foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/sample-gallery/%s"><img src="/sample-gallery/%s"></a>', $path, str_replace('originals', 'thumbs', $path)); ?>
-					</main>
-					<aside class="carousel full-window fade fade-out">
-						<span class="loader">&nbsp;</span>
-						<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Previous"><path d="M 100,0 L 0,50 L 100,100"/></svg></button>
-						<div class="slides"></div>
-						<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Next"><path d="M 0,0 L 100,50 L 0,100"/></svg></button>
-					</aside>
+				<article class="motion" data-name="general/introduction" data-timing="250" data-start="35" data-max-width="5100" data-max-height="2850">
+					<button class="play-button icon-button absolute-center fade">
+<svg xmlns="http://www.w3.org/2000/svg" class="play-icon svg-icon" width="100" height="100" viewBox="0 0 100 100" title="Play Slideshow">
+	<defs>
+		<linearGradient id="spinner-one">
+			<stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
+			<stop offset="100%" stop-color="rgba(255,255,255,0.4)"/>
+		</linearGradient>
+		<linearGradient id="spinner-two">
+			<stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+			<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+		</linearGradient>
+	</defs>
+	<circle class="outer" cx="50" cy="50" r="47"/>
+	<circle class="filler" cx="50" cy="50" r="47"/>
+	<circle class="loading-inner" cx="50" cy="50" r="37"/>
+	<path class="loading-spinner one" d="M 50,7 A 50,50,0,0,0,7,50" stroke="url(#spinner-one)"/>
+	<path class="loading-spinner two" d="M 93,50 A 50,50,0,0,0,50,7" stroke="url(#spinner-two)"/>
+	<path class="triangle" d="M 30,20 L 80,50 L 30,80 Z"/>
+</svg>
+</button>
+					<img src="/zenphoto/albums/general/introduction/3feb15_collage3.jpg" alt="General Introduction" data-width="1216" data-height="1630">
 				</article>
+				<script src="/site/assets/slideshows/general/introduction.js"></script>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/base.js"></script>
 		<?php else: ?>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+		<script src="/site/assets/vendor/jquery.min.js"></script>
+		<script src="/site/assets/vendor/lodash.min.js"></script>
 		<script src="/site/assets/src/js/app.js"></script>
 		<?php endif; ?>
 		
@@ -99,24 +106,23 @@ define('MINIFY', true);
 		</script>
 	
 		<?php if (MINIFY): ?>
-		<script src="/site/assets/dist/slideshow.js"></script>
+		<script src="/site/assets/dist/motion.js"></script>
 		<?php else: ?>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+		<script src="/site/assets/vendor/doubly-linked-list.min.js"></script>
 
+		<script src="/site/assets/src/js/components/maths/rect.js"></script>
+
+		<script src="/site/assets/src/js/components/events/event-emitter.js"></script>
 		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
-		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
 
-		<script src="/site/assets/src/js/components/pager/pager.js"></script>
-		<script src="/site/assets/src/js/components/pager/infinite-scroll-pager.js"></script>
-
-		<script src="/site/assets/src/js/components/gallery/gallery-pager.js"></script>
-		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
-		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
-
-		<script src="/site/assets/src/js/components/slideshow.js"></script>
+		<script src="/site/assets/src/js/components/motion/motion.js"></script>
+		<script src="/site/assets/src/js/components/motion/motion-image.js"></script>
+		<script src="/site/assets/src/js/components/motion/motion-animation.js"></script>
+		<script src="/site/assets/src/js/components/motion/motion-queue.js"></script>
+		<script src="/site/assets/src/js/components/motion/motion-loading-queue.js"></script>
+		<script src="/site/assets/src/js/components/motion/motion-playing-queue.js"></script>
+		
+		<script src="/site/assets/src/js/templates/motion.js"></script>
 		<?php endif; ?>
 	</body>
 </html>
