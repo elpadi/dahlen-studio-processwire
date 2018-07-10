@@ -1,5 +1,7 @@
 .PHONY: all js css
 
+JS_HEART_COLLAGE := $(shell find src/js/components/heart-collage -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
+JS_JIGSAW := $(shell find src/js/components/jigsaw -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
 JS_MOTION := $(shell find src/js/components/motion -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
 JS_INTRO := $(shell find src/js/components/intro -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
 JS_EVENTS := $(shell find src/js/components/events -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
@@ -11,7 +13,7 @@ all: css js
 
 css: dist/base.css dist/images.css dist/motion.css
 
-js: dist/base.js dist/slideshow.js dist/motion.js
+js: dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js
 
 %.min.css: %.css
 	postcss --use cssnano --no-map -o $@ $^
@@ -39,7 +41,13 @@ dist/slideshow.js: dist/gallery.js src/js/templates/slideshow.min.js
 dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.min.js dist/loader.js $(JS_MOTION) src/js/templates/motion.min.js
 	cat $^ > $@
 
-dist/home.js: dist/motion.js $(JS_INTRO) src/js/templates/home.js
+dist/home.js: dist/motion.js $(JS_INTRO) src/js/templates/home.min.js
+	cat $^ > $@
+
+dist/jigsaw.js: vendor/jquery.easing.min.js $(JS_JIGSAW)
+	cat $^ > $@
+
+dist/heart-collage.js: dist/jigsaw.js $(JS_HEART_COLLAGE) src/js/templates/heart-collage.min.js
 	cat $^ > $@
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
 ########################################################################
