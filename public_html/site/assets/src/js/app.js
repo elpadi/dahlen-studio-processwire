@@ -4,7 +4,12 @@ class App {
 		this.config = {};
 		this.initQueue = [];
 		this.isDocReady = false;
+		this.init(this.initApp.bind(this));
 		jQuery(document).ready(this.onDocumentReady.bind(this));
+	}
+
+	initApp() {
+		this.mainMenu = MainDropdown.create();
 	}
 
 	init(fn) {

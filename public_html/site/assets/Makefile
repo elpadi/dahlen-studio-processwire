@@ -1,19 +1,22 @@
 .PHONY: all js css
 
-JS_HEART_COLLAGE := $(shell find src/js/components/heart-collage -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_JIGSAW := $(shell find src/js/components/jigsaw -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_MOTION := $(shell find src/js/components/motion -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_INTRO := $(shell find src/js/components/intro -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_EVENTS := $(shell find src/js/components/events -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_LOADER := $(shell find src/js/components/loader -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_PAGER := $(shell find src/js/components/pager -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
-JS_GALLERY := $(shell find src/js/components/gallery -type f -not -name '*.min.js' | awk '{ print length, $$0 }' | sort -n -s | cut -d" " -f2- | sed 's/\.js/\.min.js/')
+JS_COMPONENTS := $(shell find src/js/components -type d -mindepth 1 | xargs basename)
 
 all: css js
 
 css: dist/base.css dist/images.css dist/motion.css
 
-js: dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js
+js: $(addprefix dist/,$(addsuffix .component.js,$(JS_COMPONENTS))) dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js
+
+define COMPONENT_template
+dist/$(1).component.js: $(addsuffix .min.js,$(basename $(shell find src/js/components/$(1) -type f -not -name '*.min.js' | php sort-component-pieces.php)))
+	cat $$^ > $$@
+
+endef
+
+#$(info $(JS_COMPONENTS))
+#$(foreach jsc,$(JS_COMPONENTS),$(info $(call COMPONENT_template,$(jsc))))
+$(foreach jsc,$(JS_COMPONENTS),$(eval $(call COMPONENT_template,$(jsc))))
 
 %.min.css: %.css
 	postcss --use cssnano --no-map -o $@ $^
@@ -23,31 +26,28 @@ js: dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js
 
 ########################################################################
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
-dist/base.js: vendor/jquery.min.js vendor/lodash.min.js src/js/app.min.js
+dist/base.js: vendor/jquery.min.js vendor/lodash.min.js dist/dropdown.component.js src/js/app.min.js
 	cat $^ > $@
 
 dist/gallery_vendor.js: vendor/jquery.justifiedGallery.min.js vendor/featherlight.min.js vendor/featherlight.gallery.min.js vendor/jquery.zoom.min.js
 	cat $^ > $@
 
-dist/loader.js: $(JS_EVENTS) $(JS_LOADER)
-	cat $^ > $@
-
-dist/gallery.js: dist/gallery_vendor.js dist/loader.js $(JS_PAGER) $(JS_GALLERY)
+dist/gallery.js: dist/gallery_vendor.js dist/loader.component.js dist/pager.component.js dist/gallery.component.js
 	cat $^ > $@
 
 dist/slideshow.js: dist/gallery.js src/js/templates/slideshow.min.js
 	cat $^ > $@
 
-dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.min.js dist/loader.js $(JS_MOTION) src/js/templates/motion.min.js
+dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.min.js dist/loader.component.js dist/motion.component.js src/js/templates/motion.min.js
 	cat $^ > $@
 
-dist/home.js: dist/motion.js $(JS_INTRO) src/js/templates/home.min.js
+dist/home.js: dist/motion.js dist/intro.component.js src/js/templates/home.min.js
 	cat $^ > $@
 
-dist/jigsaw.js: vendor/jquery.easing.min.js $(JS_JIGSAW)
+dist/jigsaw.js: vendor/jquery.easing.min.js dist/jigsaw.component.js
 	cat $^ > $@
 
-dist/heart-collage.js: dist/jigsaw.js $(JS_HEART_COLLAGE) src/js/templates/heart-collage.min.js
+dist/heart-collage.js: dist/jigsaw.js dist/heart-collage.component.js src/js/templates/heart-collage.min.js
 	cat $^ > $@
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
 ########################################################################
