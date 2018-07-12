@@ -1,10 +1,10 @@
 <?php
-define('IS_LOCAL', strpos($_SERVER['REQUEST_URI'], 'localhost') !== FALSE);
-define('DEBUG', true);
 define('MINIFY', true);
+define('IS_LOCAL', true);
+define('DEBUG', true);
 ?><!doctype html>
 <html class="no-js" lang="">
-    <head>
+	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<title>Dahlen Studio - Advertising</title>
@@ -12,6 +12,7 @@ define('MINIFY', true);
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" class="not-in-build" href="/site/assets/fonts/definitions.css?v=7">
 
+		<!--**************** BASE **************** -->
 		<?php if (MINIFY): ?>
 		<link rel="stylesheet" href="/site/assets/dist/base.css">
 		<?php else: ?>
@@ -22,21 +23,16 @@ define('MINIFY', true);
 		<link rel="stylesheet" href="/site/assets/src/css/components/menu.css">
 		<link rel="stylesheet" href="/site/assets/src/css/main.css">
 		<?php endif; ?>
-		
+		<!--**************** BASE **************** -->
+
+		<!--**************** HEART COLLAGE **************** -->
 		<?php if (MINIFY): ?>
-		<link rel="stylesheet" href="/site/assets/dist/images.css">
+		<link rel="stylesheet" href="/site/assets/dist/jigsaw.css">
 		<?php else: ?>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.css">
-		<link rel="stylesheet" href="https://cdn.rawgit.com/fat/zoom.js/v0.0.1/css/zoom.css">
-		
-		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
-		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css?v=7">
+		<link rel="stylesheet" href="/site/assets/src/css/components/jigsaw.css">
 		<?php endif; ?>
-		
-		<script>document.documentElement.className = 'js';</script>
-    </head>
+		<!--**************** HEART COLLAGE **************** -->
+	</head>
 	<body class="page--advertising template--images parent--still theme--white">
 		<div id="container">
 			<header id="main-header">
@@ -66,33 +62,48 @@ define('MINIFY', true);
 				<h2 class="page-title breadcrumb visuallyhidden" data-opacity="0.75"><span class="parent">Still</span> ➤ <span class="current">Advertising</span></h2>
 			</header>
 			<main id="main-content">
-				<article id="advertising_new" class="slideshow" style="" data-name="advertising_new" data-music="[]">
-					<main class="images gallery" data-featherlight-gallery data-featherlight-filter="a">
-						<?php foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s"><img src="/testing-static/%s"></a>', $path, str_replace('originals', 'thumbs', $path)); ?>
-					</main>
-					<aside class="carousel full-window fade fade-out">
-						<span class="loader">&nbsp;</span>
-						<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Previous"><path d="M 100,0 L 0,50 L 100,100"/></svg></button>
-						<div class="slides"></div>
-						<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Next"><path d="M 0,0 L 100,50 L 0,100"/></svg></button>
-					</aside>
-				</article>
+				<section id="heart-collage" class="jigsaw" data-after-pieces="color,outline,people,heart,full" data-name="pat-field-keith-haring/heart-collage-jigsaw" data-url="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw" data-pieces="piece-0x0.png,piece-0x105.png,piece-0x166.png,piece-0x292.png,piece-0x377.png,piece-0x40.png,piece-0x435.png,piece-106x105.png,piece-113x459.png,piece-117x255.png,piece-126x0.png,piece-126x36.png,piece-131x179.png,piece-160x399.png,piece-169x341.png,piece-174x105.png,piece-191x302.png,piece-194x0.png,piece-210x179.png,piece-211x444.png,piece-224x375.png,piece-239x352.png,piece-256x0.png,piece-256x136.png,piece-256x66.png,piece-264x444.png,piece-265x219.png,piece-274x432.png,piece-277x153.png,piece-282x375.png,piece-28x326.png,piece-309x0.png,piece-31x264.png,piece-322x219.png,piece-327x375.png,piece-345x445.png,piece-35x396.png,piece-367x343.png,piece-368x00.png,piece-368x069.png,piece-368x0.png,piece-368x69.png,piece-374x153.png,piece-377x438.png,piece-387x228.png,piece-395x393.png,piece-395x476.png,piece-408x283.png,piece-427x343.png,piece-456x438.png,piece-471x393.png,piece-477x153.png,piece-50x166.png,piece-61x0.png,piece-61x435.png,piece-72x40.png,piece-83x409.png,piece-86x341.png,piece-94x302.png" data-music="1-change">
+					<img id="full" data-delay="14" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/full.jpg" alt="Keith Haring Heart Collage">
+					<img id="outline" data-delay="3" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/outline.gif" alt="">
+					<img id="heart" data-delay="12" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/heart-inside.png" alt="">
+					<img id="people" data-delay="10" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/people-inside.png" alt="">
+					<img id="color" data-delay="1" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/background-color.jpg" alt="">
+				</section>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
+		<!--**************** BASE **************** -->
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/base.js"></script>
 		<?php else: ?>
 		<script src="/site/assets/vendor/jquery.min.js"></script>
 		<script src="/site/assets/vendor/lodash.min.js"></script>
+		<script src="/site/assets/vendor/js.cookie.min.js"></script>
+
+		<script src="/site/assets/src/js/components/timeouts/resettable-timeout.js"></script>
+
+		<script src="/site/assets/src/js/components/events/event-emitter.js"></script>
+		<script src="/site/assets/src/js/components/events/timeout-event-emitter.js"></script>
+
+		<script src="/site/assets/src/js/components/dropdown/dropdown.js"></script>
+		<script src="/site/assets/src/js/components/dropdown/autohide-dropdown.js"></script>
+		<script src="/site/assets/src/js/components/dropdown/main-dropdown.js"></script>
+		<script src="/site/assets/src/js/components/dropdown/dropdown-submenu.js"></script>
+
+		<script src="/site/assets/src/js/components/music/music.js"></script>
+		<script src="/site/assets/src/js/components/music/music-playlist.js"></script>
+		<script src="/site/assets/src/js/components/music/music-muter.js"></script>
+		
 		<script src="/site/assets/src/js/app.js"></script>
 		<?php endif; ?>
-		
+		<!--**************** BASE **************** -->
+
 		<script>
 			app.setConfig({
 				IS_LOCAL: <?php echo IS_LOCAL ? 'true' : 'false'; ?>,
 				DEBUG: <?php echo DEBUG ? 'true' : 'false'; ?>,
 				ALBUMS_URL: "/zenphoto/albums/",
+				ASSETS_URL: "/site/assets/",
 				SLIDESHOW_PAGE_COUNT: 2,
 				IMG_HASH: {
 					320: "",
@@ -102,25 +113,20 @@ define('MINIFY', true);
 			});
 		</script>
 	
+		<!--**************** HEART COLLAGE **************** -->
 		<?php if (MINIFY): ?>
-		<script src="/site/assets/dist/slideshow.js"></script>
+		<script src="/site/assets/dist/heart-collage.js"></script>
 		<?php else: ?>
-		<script src="/site/assets/vendor/jquery.justifiedGallery.min.js"></script>
-		<script src="/site/assets/vendor/featherlight.min.js"></script>
-		<script src="/site/assets/vendor/featherlight.gallery.min.js"></script>
-		<script src="/site/assets/vendor/jquery.zoom.min.js"></script>
+		<script src="/site/assets/vendor/jquery.easing.min.js"></script>
+			
+		<script src="/site/assets/src/js/components/jigsaw/jigsaw.js"></script>
+		<script src="/site/assets/src/js/components/jigsaw/jigsaw-piece.js"></script>
 
-		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
-		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
+		<script src="/site/assets/src/js/components/heart-collage/heart-collage.js"></script>
+		<script src="/site/assets/src/js/components/heart-collage/heart-collage-piece.js"></script>
 
-		<script src="/site/assets/src/js/components/pager/pager.js"></script>
-		<script src="/site/assets/src/js/components/pager/infinite-scroll-pager.js"></script>
-
-		<script src="/site/assets/src/js/components/gallery/gallery-pager.js"></script>
-		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
-		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
-
-		<script src="/site/assets/src/js/components/slideshow.js"></script>
+		<script src="/site/assets/src/js/templates/heart-collage.js"></script>
 		<?php endif; ?>
+		<!--**************** HEART COLLAGE **************** -->
 	</body>
 </html>

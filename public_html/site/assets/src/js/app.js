@@ -10,6 +10,7 @@ class App {
 
 	initApp() {
 		this.mainMenu = MainDropdown.create();
+		this.music = new Music();
 	}
 
 	init(fn) {

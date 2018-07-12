@@ -2,6 +2,7 @@ class JigsawPiece {
 
 	constructor(name) {
 		this.node = new Image();
+		this.node.classList.add('piece');
 		this.name = name;
 		this.setPosition();
 	}
@@ -11,10 +12,10 @@ class JigsawPiece {
 		this.node.style.cssText = `left: ${pos[0]}px; top: ${pos[1]}px;`;
 	}
 
-	load() {
+	load(baseUrl) {
 		return new Promise(resolve => {
 			this.node.addEventListener('load', resolve);
-			img.src = this.baseUrl + '/' + this.name;
+			this.node.src = baseUrl + '/' + this.name;
 		});
 	}
 

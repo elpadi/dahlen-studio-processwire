@@ -1,6 +1,7 @@
 class HeartCollagePiece extends JigsawPiece {
 
 	constructor(id, index) {
+		super(id);
 		this.node = document.getElementById(id);
 		this.name = id;
 		this.node.style.zIndex = index + 2;

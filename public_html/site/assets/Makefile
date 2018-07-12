@@ -4,7 +4,7 @@ JS_COMPONENTS := $(shell find src/js/components -type d -mindepth 1 | xargs base
 
 all: css js
 
-css: dist/base.css dist/images.css dist/motion.css
+css: dist/base.css dist/images.css dist/motion.css dist/jigsaw.css
 
 js: $(addprefix dist/,$(addsuffix .component.js,$(JS_COMPONENTS))) dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js
 
@@ -26,7 +26,7 @@ $(foreach jsc,$(JS_COMPONENTS),$(eval $(call COMPONENT_template,$(jsc))))
 
 ########################################################################
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
-dist/base.js: vendor/jquery.min.js vendor/lodash.min.js dist/events.component.js dist/dropdown.component.js src/js/app.min.js
+dist/base.js: vendor/js.cookie.min.js vendor/jquery.min.js vendor/lodash.min.js dist/events.component.js dist/timeouts.component.js dist/music.component.js dist/dropdown.component.js src/js/app.min.js
 	cat $^ > $@
 
 dist/gallery_vendor.js: vendor/jquery.justifiedGallery.min.js vendor/featherlight.min.js vendor/featherlight.gallery.min.js vendor/jquery.zoom.min.js
@@ -44,10 +44,7 @@ dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.mi
 dist/home.js: dist/motion.js dist/intro.component.js src/js/templates/home.min.js
 	cat $^ > $@
 
-dist/jigsaw.js: vendor/jquery.easing.min.js dist/jigsaw.component.js
-	cat $^ > $@
-
-dist/heart-collage.js: dist/jigsaw.js dist/heart-collage.component.js src/js/templates/heart-collage.min.js
+dist/heart-collage.js: vendor/jquery.easing.min.js dist/jigsaw.component.js dist/heart-collage.component.js src/js/templates/heart-collage.min.js
 	cat $^ > $@
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
 ########################################################################
@@ -64,6 +61,9 @@ dist/images.css: dist/gallery_vendor.css src/css/components/slideshow.min.css sr
 	cat $^ > $@
 
 dist/motion.css: src/css/templates/images.min.css src/css/components/motion.min.css
+	cat $^ > $@
+
+dist/jigsaw.css: src/css/components/jigsaw.min.css
 	cat $^ > $@
 
 ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## 

@@ -1,9 +1,11 @@
 .jigsaw {
 	position: relative;
 }
+/*
 .jigsaw > img:not(.jsimg) {
 	display: none;
 }
+*/
 .no-js .jigsaw > img:first-child {
 	display: block;
 }
