@@ -1,15 +1,16 @@
 class Dropdown {
 
 	constructor(node) {
-		this.menu = node;
-		this.setupSubMenus();
+		this.node = node;
+		this.VERTICAL_PADDING = 2;
+		requestAnimationFrame(this.setupSubMenus.bind(this));
 	}
 
 	setupSubMenus() {
-		let uls = Array.from(this.menu.querySelectorAll('ul'));
+		let uls = Array.from(this.node.querySelectorAll('ul'));
 		this.submenus = uls.map(ul => new DropdownSubmenu(ul, this));
-		let h = Math.max.apply(window, uls.map(ul => ul.offsetHeight)) + MainMenu.VERTICAL_PADDING;
-		this.menu.style.height = h + 'px';
+		let h = Math.max.apply(window, uls.map(ul => ul.offsetHeight));
+		this.node.style.height = `calc(${h}px + ${this.VERTICAL_PADDING}em)`;
 	}
 
 	getSubmenuFromTrigger(node) {
@@ -18,11 +19,11 @@ class Dropdown {
 	}
 
 	hasSubmenuOpen() {
-		return this.menu.querySelectorAll('.open').length > 0;
+		return this.node.querySelectorAll('.open').length > 0;
 	}
 
 	hideAll(skip) {
-		for (let n of this.menu.querySelectorAll('.open')) if (n != skip) n.classList.remove('open');
+		for (let n of this.node.querySelectorAll('.open')) if (n != skip) n.classList.remove('open');
 		if (!skip) this.onChange();
 	}
 

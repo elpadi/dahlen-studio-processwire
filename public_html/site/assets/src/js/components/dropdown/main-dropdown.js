@@ -15,7 +15,7 @@ class MainDropdown extends AutohideDropdown {
 	}
 
 	onDocumentClick(e) {
-		if (!this.menu.contains(e.target)) {
+		if (!this.node.contains(e.target)) {
 			this.hideAll();
 		}
 	}
