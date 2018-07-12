@@ -6,11 +6,17 @@ class HeartCollage extends Jigsaw {
 		this.beforeEnd = _.bindKey(this, 'nextFinishingPiece');
 	}
 
+	showPiece(piece) {
+		piece.node.classList.add('visible');
+		requestAnimationFrame(this.beforeEnd);
+	}
+
 	nextFinishingPiece() {
 		let piece = this.finishingPieces.shift();
-		piece.node.classList.add('visible');
-		console.log('Jigsaw.nextFinishingPiece', piece.name, piece.delay);
-		if (this.finishingPieces.length) setTimeout(this.beforeEnd, piece.delay * 1000);
+		if (piece) {
+			console.log('Jigsaw.nextFinishingPiece', piece.name, piece.delay);
+			setTimeout(this.showPiece.bind(this, piece), piece.delay * 1000);
+		}
 		else super.end();
 	}
 

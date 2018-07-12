@@ -8,53 +8,43 @@ class MusicPlaylist {
 		console.log('MusicPlaylist.constructor', urls);
 	}
 
-	play(index) {
-		this.playIndex(index !== undefined ? index : this.index);
-	}
-
-	getSupportedType() {
-		for (let t of MusicPlaylist.TYPES) if (this.audio.canPlayType('audio/' + t)) return t;
-		throw new Error("Cannot play any supported type.");
+	createAudio() {
+		this.audio = new buzz.sound(this.urls[this.index], {
+			formats: ['ogg','mp3'],
+			autoplay: false,
+			volume: 0,
+			preload: true,
+			loop: false
+		});
+		this.muter.setAudio(this.audio);
+		this.audio.bind('ended', this.next.bind(this));
 	}
 
 	stop() {
 		this.muter.hideButtonTimeout.reset();
-		if ('audio' in this) {
-			console.log('MusicPlaylist.stop');
-			this.audio.pause();
-			delete this.audio;
-		}
+		console.log('MusicPlaylist.stop');
+		return new Promise((resolve) => {
+			this.audio.fadeOut(MusicPlaylist.FADE_DURATION, resolve);
+		});
 	}
 
-	createAudio() {
-		this.audio = new Audio();
-		this.audio.src = this.urls[this.index] + '.' + this.getSupportedType();
-		this.muter.setAudio(this.audio);
-		this.audio.addEventListener('ended', this.next.bind(this));
-	}
-
-	reset() {
-		this.stop();
-		this.createAudio();
-	}
-
-	playIndex(index) {
-		console.log('MusicPlaylist.playIndex', index);
-		if (index !== this.index) {
-			this.index = index;
-			this.reset();
-		}
-		this.audio.play();
-		this.muter.hideButtonTimeout.clear();
+	play(index) {
+		console.log('MusicPlaylist.play', index);
+		if (index === undefined) index = this.index;
+		if (index === this.index && !this.audio.isPaused()) return;
 		this.muter.showButton();
+		if (this.audio.isPaused()) {
+			if (index !== this.index) this.createAudio();
+			this.audio.setVolume(0).play().fadeIn(MusicPlaylist.FADE_DURATION);
+			this.index = index;
+		}
+		else this.stop().then(this.play.bind(this, index));
 	}
 
 	next() {
-		console.log('MusicPlaylist.next');
-		this.stop();
-		if (this.index < this.urls.length - 1) this.playIndex(this.index + 1);
+		if (this.index < this.urls.length - 1) this.play(this.index + 1);
 	}
 
 }
 
-MusicPlaylist.TYPES = ['ogg','mp3'];
+MusicPlaylist.FADE_DURATION = 5000;

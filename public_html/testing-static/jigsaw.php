@@ -63,11 +63,11 @@ define('DEBUG', true);
 			</header>
 			<main id="main-content">
 				<section id="heart-collage" class="jigsaw" data-after-pieces="color,outline,people,heart,full" data-name="pat-field-keith-haring/heart-collage-jigsaw" data-url="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw" data-pieces="piece-0x0.png,piece-0x105.png,piece-0x166.png,piece-0x292.png,piece-0x377.png,piece-0x40.png,piece-0x435.png,piece-106x105.png,piece-113x459.png,piece-117x255.png,piece-126x0.png,piece-126x36.png,piece-131x179.png,piece-160x399.png,piece-169x341.png,piece-174x105.png,piece-191x302.png,piece-194x0.png,piece-210x179.png,piece-211x444.png,piece-224x375.png,piece-239x352.png,piece-256x0.png,piece-256x136.png,piece-256x66.png,piece-264x444.png,piece-265x219.png,piece-274x432.png,piece-277x153.png,piece-282x375.png,piece-28x326.png,piece-309x0.png,piece-31x264.png,piece-322x219.png,piece-327x375.png,piece-345x445.png,piece-35x396.png,piece-367x343.png,piece-368x00.png,piece-368x069.png,piece-368x0.png,piece-368x69.png,piece-374x153.png,piece-377x438.png,piece-387x228.png,piece-395x393.png,piece-395x476.png,piece-408x283.png,piece-427x343.png,piece-456x438.png,piece-471x393.png,piece-477x153.png,piece-50x166.png,piece-61x0.png,piece-61x435.png,piece-72x40.png,piece-83x409.png,piece-86x341.png,piece-94x302.png" data-music="1-change">
-					<img id="full" data-delay="14" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/full.jpg" alt="Keith Haring Heart Collage">
-					<img id="outline" data-delay="3" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/outline.gif" alt="">
-					<img id="heart" data-delay="12" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/heart-inside.png" alt="">
-					<img id="people" data-delay="10" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/people-inside.png" alt="">
-					<img id="color" data-delay="1" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/background-color.jpg" alt="">
+					<img id="color" data-delay="3" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/background-color.jpg" alt="">
+					<img id="outline" data-delay="5" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/outline.gif" alt="">
+					<img id="people" data-delay="5" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/people-inside.png" alt="">
+					<img id="heart" data-delay="3" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/heart-inside.png" alt="">
+					<img id="full" data-delay="4" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/full.jpg" alt="Keith Haring Heart Collage">
 				</section>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
@@ -76,9 +76,10 @@ define('DEBUG', true);
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/base.js"></script>
 		<?php else: ?>
+		<script src="/site/assets/vendor/js.cookie.min.js"></script>
 		<script src="/site/assets/vendor/jquery.min.js"></script>
 		<script src="/site/assets/vendor/lodash.min.js"></script>
-		<script src="/site/assets/vendor/js.cookie.min.js"></script>
+		<script src="/site/assets/vendor/buzz.min.js"></script>
 
 		<script src="/site/assets/src/js/components/timeouts/resettable-timeout.js"></script>
 

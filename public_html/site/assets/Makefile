@@ -26,7 +26,7 @@ $(foreach jsc,$(JS_COMPONENTS),$(eval $(call COMPONENT_template,$(jsc))))
 
 ########################################################################
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
-dist/base.js: vendor/js.cookie.min.js vendor/jquery.min.js vendor/lodash.min.js dist/events.component.js dist/timeouts.component.js dist/music.component.js dist/dropdown.component.js src/js/app.min.js
+dist/base.js: vendor/js.cookie.min.js vendor/jquery.min.js vendor/lodash.min.js vendor/buzz.min.js dist/events.component.js dist/timeouts.component.js dist/music.component.js dist/dropdown.component.js src/js/app.min.js
 	cat $^ > $@
 
 dist/gallery_vendor.js: vendor/jquery.justifiedGallery.min.js vendor/featherlight.min.js vendor/featherlight.gallery.min.js vendor/jquery.zoom.min.js
