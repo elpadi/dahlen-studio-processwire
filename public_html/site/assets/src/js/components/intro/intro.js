@@ -1,7 +1,7 @@
 class Intro {
 
 	constructor() {
-		this.sequence = ['bed','menu','ana lisboa','intro'];
+		this.sequence = app.config.INTRO_SEQUENCE;
 	}
 
 	init() {
@@ -33,25 +33,31 @@ class Intro {
 		});
 	}
 
+	showLogo() {
+		let p = document.querySelectorAll('#logo path');
+		console.log('Intro.showLogo', p);
+		for (let i = 1; i <= p.length; i++) {
+			p[i - 1].style.transitionDelay = `${i * Intro.LOGO_CHAR_DELAY}ms`;
+		}
+		requestAnimationFrame(() => document.getElementById('logo').classList.add('visible'));
+		return new Promise(resolve => setTimeout(resolve, (p.length + 1) * Intro.LOGO_CHAR_DELAY));
+	}
+
 	showMenu() {
-		var DELAY = 800;
-		console.log('Intro.showMenu');
-		return new Promise(function(resolve, reject) {
-			var $items = $('#main-menu > ul > li > ul > li');
-			$('#logo').addClass('visible');
-			$items.each(function(i, el) {
-				setTimeout(function() {
-					el.classList.add('visible');
-					el.classList.add('reset-color');
-				}, (i + 3) * DELAY);
-				setTimeout(resolve, ($items.length + 5) * DELAY);
-			});
-		});
+		let items = document.querySelectorAll('#main-menu > ul > li > ul > li');
+		console.log('Intro.showMenu', items);
+		let showItem = item => {
+			item.classList.add('visible');
+			setTimeout(() => item.classList.add('reset-color'), Intro.MENU_COLOR_DELAY);
+		};
+		for (let i = 1; i <= items.length; i++)
+			setTimeout(showItem.bind(this, items[i - 1]), i * Intro.MENU_ITEM_DELAY);
+		return new Promise(resolve => setTimeout(resolve, (items.length + 1) * Intro.MENU_ITEM_DELAY + Intro.MENU_COLOR_DELAY + Intro.MENU_COLOR_DURATION))
+			.then(() => document.body.classList.remove('menu-intro'));
 	}
 
 	showAnaLisboa() {
 		console.log('Intro.showAnaLisboa');
-		document.body.classList.remove('menu-intro');
 		var ana = Motion.list.item(1).data;
 		ana.addToPlayingQueue();
 		return ana.getPromise('finished');
@@ -70,3 +76,8 @@ class Intro {
 	}
 
 }
+
+Intro.LOGO_CHAR_DELAY = 100;
+Intro.MENU_ITEM_DELAY = 1000;
+Intro.MENU_COLOR_DELAY = 500;
+Intro.MENU_COLOR_DURATION = 1000;

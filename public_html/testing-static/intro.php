@@ -1,13 +1,12 @@
 <?php
 define('MINIFY', true);
-define('IS_LOCAL', true);
 define('DEBUG', true);
 ?><!doctype html>
 <html class="no-js" lang="">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>Jigsaw Static Testing</title>
+		<title>Intro Static Testing</title>
 		<meta name="description" content="Work done on behalf of several of the biggest and boldest brands in the fashion and beauty industries.">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" class="not-in-build" href="/site/assets/fonts/definitions.css?v=7">
@@ -25,15 +24,12 @@ define('DEBUG', true);
 		<?php endif; ?>
 		<!--**************** BASE **************** -->
 
-		<!--**************** HEART COLLAGE **************** -->
-		<?php if (MINIFY): ?>
-		<link rel="stylesheet" href="/site/assets/dist/jigsaw.css">
-		<?php else: ?>
-		<link rel="stylesheet" href="/site/assets/src/css/components/jigsaw.css">
-		<?php endif; ?>
-		<!--**************** HEART COLLAGE **************** -->
+		<!--**************** INTRO **************** -->
+		<link rel="stylesheet" href="/site/assets/src/css/components/intro.css">
+		<!--**************** INTRO **************** -->
+		<script>document.documentElement.className = 'js';</script>
 	</head>
-	<body class="page--advertising template--images parent--still theme--white">
+	<body class="page--home template--home theme--white">
 		<div id="container">
 			<header id="main-header">
 				<a id="logo" href="/">
@@ -58,17 +54,10 @@ define('DEBUG', true);
 						</g>
 					</svg>
 				</a>
-				<nav id="main-menu" class="dropdown-menu horizontal-list"><ul><li class=""><a href="/">Dahlen Studio</a><ul><li class=""><a href="/about/">About</a></li><li class="selected"><a href="/still/">Still</a><ul><li class="selected"><a href="/still/advertising/">Advertising</a></li><li class=""><a href="/still/beauty/">Beauty</a></li><li class=""><a href="/still/fashion/">Fashion</a></li><li class=""><a href="/still/stars/">Stars</a></li></ul></li><li class=""><a href="/motion/">Motion</a><ul><li class=""><a href="/motion/introduction/">Introduction</a></li><li class=""><a href="/motion/ana-lisboa-steps/">Ana Lisboa Steps</a></li><li class=""><a href="/motion/heart-collage-jigsaw/">Heart Collage Jigsaw</a></li><li class=""><a href="/motion/charles-jourdan-film/">Charles Jourdan Film</a></li></ul></li><li class=""><a href="/new/">New</a></li><li class=""><a href="/contact/">Contact</a></li></ul></li></ul></nav>
+				<nav id="main-menu" class="dropdown-menu horizontal-list"><ul><li class=""><a href="/">Dahlen Studio</a><ul><li class=""><a href="/about/">About</a></li><li><a href="/still/">Still</a><ul><li><a href="/still/advertising/">Advertising</a></li><li class=""><a href="/still/beauty/">Beauty</a></li><li class=""><a href="/still/fashion/">Fashion</a></li><li class=""><a href="/still/stars/">Stars</a></li></ul></li><li class=""><a href="/motion/">Motion</a><ul><li class=""><a href="/motion/introduction/">Introduction</a></li><li class=""><a href="/motion/ana-lisboa-steps/">Ana Lisboa Steps</a></li><li class=""><a href="/motion/heart-collage-jigsaw/">Heart Collage Jigsaw</a></li><li class=""><a href="/motion/charles-jourdan-film/">Charles Jourdan Film</a></li></ul></li><li class=""><a href="/new/">New</a></li><li class=""><a href="/contact/">Contact</a></li></ul></li></ul></nav>
 				<h2 class="page-title breadcrumb visuallyhidden" data-opacity="0.75"><span class="parent">Still</span> ➤ <span class="current">Advertising</span></h2>
 			</header>
 			<main id="main-content">
-				<section id="heart-collage" class="jigsaw" data-after-pieces="color,outline,people,heart,full" data-name="pat-field-keith-haring/heart-collage-jigsaw" data-url="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw" data-pieces="piece-0x0.png,piece-0x105.png,piece-0x166.png,piece-0x292.png,piece-0x377.png,piece-0x40.png,piece-0x435.png,piece-106x105.png,piece-113x459.png,piece-117x255.png,piece-126x0.png,piece-126x36.png,piece-131x179.png,piece-160x399.png,piece-169x341.png,piece-174x105.png,piece-191x302.png,piece-194x0.png,piece-210x179.png,piece-211x444.png,piece-224x375.png,piece-239x352.png,piece-256x0.png,piece-256x136.png,piece-256x66.png,piece-264x444.png,piece-265x219.png,piece-274x432.png,piece-277x153.png,piece-282x375.png,piece-28x326.png,piece-309x0.png,piece-31x264.png,piece-322x219.png,piece-327x375.png,piece-345x445.png,piece-35x396.png,piece-367x343.png,piece-368x00.png,piece-368x069.png,piece-368x0.png,piece-368x69.png,piece-374x153.png,piece-377x438.png,piece-387x228.png,piece-395x393.png,piece-395x476.png,piece-408x283.png,piece-427x343.png,piece-456x438.png,piece-471x393.png,piece-477x153.png,piece-50x166.png,piece-61x0.png,piece-61x435.png,piece-72x40.png,piece-83x409.png,piece-86x341.png,piece-94x302.png" data-music="1-change">
-					<img id="color" data-delay="3" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/background-color.jpg" alt="">
-					<img id="outline" data-delay="5" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/outline.gif" alt="">
-					<img id="people" data-delay="5" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/people-inside.png" alt="">
-					<img id="heart" data-delay="3" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/heart-inside.png" alt="">
-					<img id="full" data-delay="4" src="/site/assets/slideshows/pat-field-keith-haring/heart-collage-jigsaw/full.jpg" alt="Keith Haring Heart Collage">
-				</section>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
@@ -103,22 +92,19 @@ define('DEBUG', true);
 			app.setConfig({
 				IS_LOCAL: location.hostname.indexOf('localhost') !== -1
 			});
+			app.setConfig({
+				INTRO_SEQUENCE: app.config.IS_LOCAL ? ['logo','menu'] : ['bed','logo','menu','ana lisboa','intro']
+			});
 		</script>
 	
-		<!--**************** HEART COLLAGE **************** -->
+		<!--**************** INTRO **************** -->
 		<?php if (MINIFY): ?>
-		<script src="/site/assets/dist/heart-collage.js"></script>
+		<script src="/site/assets/dist/home.js"></script>
 		<?php else: ?>
-		<script src="/site/assets/vendor/jquery.easing.min.js"></script>
 			
-		<script src="/site/assets/src/js/components/jigsaw/jigsaw.js"></script>
-		<script src="/site/assets/src/js/components/jigsaw/jigsaw-piece.js"></script>
-
-		<script src="/site/assets/src/js/components/heart-collage/heart-collage.js"></script>
-		<script src="/site/assets/src/js/components/heart-collage/heart-collage-piece.js"></script>
-
-		<script src="/site/assets/src/js/templates/heart-collage.js"></script>
+		<script src="/site/assets/src/js/components/intro/intro.js"></script>
+		<script src="/site/assets/src/js/templates/home.js"></script>
 		<?php endif; ?>
-		<!--**************** HEART COLLAGE **************** -->
+		<!--**************** INTRO **************** -->
 	</body>
 </html>

@@ -6,7 +6,7 @@ all: css js
 
 css: dist/base.css dist/images.css dist/motion.css dist/jigsaw.css
 
-js: $(addprefix dist/,$(addsuffix .component.js,$(JS_COMPONENTS))) dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js
+js: $(addprefix dist/,$(addsuffix .component.js,$(JS_COMPONENTS))) dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js dist/home.js
 
 define COMPONENT_template
 dist/$(1).component.js: $(addsuffix .min.js,$(basename $(shell find src/js/components/$(1) -type f -not -name '*.min.js' | php sort-component-pieces.php)))

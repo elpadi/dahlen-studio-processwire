@@ -1,4 +1,12 @@
-<article id="{{ id }}" class="slideshow" style="max-width:{{ width }}px; max-height:{{ height }}px;" data-name="{{ name }}" data-width="{{ width }}" data-height="{{ height }}" data-music="{{ json(music) | e }}">
+<article
+	id="{{ id }}"
+	class="slideshow"
+	style="max-width:{{ width }}px; max-height:{{ height }}px;"
+	data-name="{{ name }}"
+	data-width="{{ width }}"
+	data-height="{{ height }}"
+	data-music="{{ music | join(' ') }}"
+>
 	<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Previous"><path d="M 100,0 L 0,50 L 100,100"/></svg></button>
 	<main class="images">
 		{% for img in images %}

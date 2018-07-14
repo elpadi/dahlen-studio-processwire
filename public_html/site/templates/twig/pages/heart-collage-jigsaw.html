@@ -4,7 +4,14 @@
 
 {% block main_content %}
 <main id="main-content">
-	<section id="heart-collage" class="jigsaw" data-after-pieces="color,outline,people,heart,full" data-url="{{ url }}" data-pieces="{{ files(path ~ '/piece*') | join(',') }}" data-music="{{ json(files(path ~ '/*mp3', '.mp3')) | e }}">
+	<section
+		id="heart-collage"
+		class="jigsaw"
+		data-after-pieces="color,outline,people,heart,full"
+		data-url="{{ url }}"
+		data-pieces="{{ files(path ~ '/piece*') | join(',') }}"
+		data-music="{{ files(path ~ '/*mp3', '.mp3') | join(' ') }}"
+	>
 		<img id="full" data-delay="14" src="{{ url }}/full.jpg" alt="Keith Haring Heart Collage">
 		<img id="outline" data-delay="3" src="{{ url }}/outline.gif" alt="">
 		<img id="heart" data-delay="12" src="{{ url }}/heart-inside.png" alt="">
