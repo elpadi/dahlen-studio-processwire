@@ -2,11 +2,14 @@
 
 JS_COMPONENTS := $(shell find src/js/components -type d -mindepth 1 | xargs basename)
 
+DIST_CSS := base images motion jigsaw home
+DIST_JS := base slideshow motion heart-collage home
+
 all: css js
 
-css: dist/base.css dist/images.css dist/motion.css dist/jigsaw.css
+css: $(addprefix dist/,$(addsuffix .css,$(DIST_CSS)))
 
-js: $(addprefix dist/,$(addsuffix .component.js,$(JS_COMPONENTS))) dist/base.js dist/slideshow.js dist/motion.js dist/heart-collage.js dist/home.js
+js: $(addprefix dist/,$(addsuffix .component.js,$(JS_COMPONENTS))) $(addprefix dist/,$(addsuffix .js,$(DIST_JS)))
 
 define COMPONENT_template
 dist/$(1).component.js: $(addsuffix .min.js,$(basename $(shell find src/js/components/$(1) -type f -not -name '*.min.js' | php sort-component-pieces.php)))
@@ -41,7 +44,7 @@ dist/slideshow.js: dist/gallery.js src/js/templates/slideshow.min.js
 dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.min.js dist/loader.component.js dist/motion.component.js src/js/templates/motion.min.js
 	cat $^ > $@
 
-dist/home.js: dist/motion.js dist/intro.component.js src/js/templates/home.min.js
+dist/home.js: dist/intro.component.js src/js/templates/home.min.js
 	cat $^ > $@
 
 dist/heart-collage.js: vendor/jquery.easing.min.js dist/jigsaw.component.js dist/heart-collage.component.js src/js/templates/heart-collage.min.js
@@ -64,6 +67,9 @@ dist/motion.css: src/css/templates/images.min.css src/css/components/motion.min.
 	cat $^ > $@
 
 dist/jigsaw.css: src/css/components/jigsaw.min.css
+	cat $^ > $@
+
+dist/home.css: src/css/components/intro.min.css
 	cat $^ > $@
 
 ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## 

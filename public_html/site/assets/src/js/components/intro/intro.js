@@ -15,24 +15,6 @@ class Intro {
 		}
 	}
 
-	showBed() {
-		console.log('Intro.showBed');
-		let bed = Motion.list.head().data;
-		bed.dom_node.style.opacity = 1;
-		// trigger play after one second
-		setTimeout(function() { bed.onPlayButtonClick(); }, 1000);
-		return bed.getPromise('finished');
-	}
-
-	hideBed() {
-		console.log('Intro.hideBed');
-		return new Promise(function(resolve, reject) {
-			Motion.list.head().data.remove();
-			// Hide and resolve promise 1 second after the last image.
-			setTimeout(resolve, Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + 1000);
-		});
-	}
-
 	showLogo() {
 		let p = document.querySelectorAll('#logo path');
 		console.log('Intro.showLogo', p);
@@ -56,6 +38,48 @@ class Intro {
 			.then(() => document.body.classList.remove('menu-intro'));
 	}
 
+	showBed() {
+		console.log('Intro.showBed');
+		let motions = [], bed;
+		for (let i = 0; i < app.loadingQueue.list.size(); i++) {
+			let motion = app.loadingQueue.list.item(i).data;
+			if (i == 0) bed = motion;
+			motions.push(motion);
+		}
+		app.playingQueue = new MotionPlayingQueue(motions);
+		app.playingQueue.setupRelays();
+		bed.node.style.opacity = 1;
+		// trigger play after one second
+		setTimeout(function() { app.playingQueue.start(bed); }, 1000);
+		return new Promise(resolve => bed.on('finished', resolve));
+	}
+
+	showImages() {
+		console.log('Intro.showBed');
+		app.playingQueue.setupRelays();
+		app.playingQueue.start(app.loadingQueue.list.item(1).data);
+		return Promise.resolve(true);
+		/*
+		app.playingQueue = new MotionPlayingQueue(motions);
+		let motions = Array.from(document.querySelectorAll('.motion')).map(node => new Motion(node));
+		app.playingQueue = new MotionPlayingQueue(motions);
+		motions[0].style.opacity = 1;
+		// trigger play after one second
+		setTimeout(function() { app.playingQueue.start(app.loadingQueue.list.item(0).data); }, 1000);
+		return new Promise(resolve => app.loadingQueue.list.last().data.on('finished', resolve));
+		*/
+	}
+
+	/*
+	hideBed() {
+		console.log('Intro.hideBed');
+		return new Promise(function(resolve, reject) {
+			Motion.list.head().data.remove();
+			// Hide and resolve promise 1 second after the last image.
+			setTimeout(resolve, Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + 1000);
+		});
+	}
+
 	showAnaLisboa() {
 		console.log('Intro.showAnaLisboa');
 		var ana = Motion.list.item(1).data;
@@ -74,6 +98,7 @@ class Intro {
 		Motion.list.item(2).data.remove();
 		Music.stop();
 	}
+	*/
 
 }
 

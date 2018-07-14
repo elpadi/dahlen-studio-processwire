@@ -3,7 +3,6 @@ class MotionQueue {
 	constructor(motions) {
 		this.list = new DLL.DoublyLinkedList();
 		for (let m of motions) this.list.append(m);
-		this.start(this.list.item(0).data);
 		// on finished
 		//if (Motion.list.size() === 1) Music.stop();
 		// on started
@@ -11,7 +10,7 @@ class MotionQueue {
 	}
 
 	setupRelays() {
-		let item = this.list.first;
+		let item = this.list.head();
 		while (item.next) {
 			let cur = item.data;
 			let next = item.next.data;

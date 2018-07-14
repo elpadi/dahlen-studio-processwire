@@ -112,8 +112,8 @@ define('MINIFY', false);
 
 		<script src="/site/assets/src/js/components/maths/rect.js"></script>
 
-		<script src="/site/assets/src/js/components/events/event-emitter.js"></script>
-		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
+		<script src="/site/assets/src/js/loader/ajax-loader.js"></script>
+		<script src="/site/assets/src/js/loader/image-loader.js"></script>
 
 		<script src="/site/assets/src/js/components/motion/motion.js"></script>
 		<script src="/site/assets/src/js/components/motion/motion-image.js"></script>

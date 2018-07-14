@@ -1,4 +1,4 @@
-window.PatFieldKeithHaringAnaLisboaSteps = [
+window["pat-field-keith-haring/ana-lisboa-steps"] = [
 {filename:"darker_join1.jpg",position:[0,0],fade:[4000,0],delay:250,duration:1000},
 {filename:"darker_join2.jpg",position:[0,0],fade:[0,0],delay:5000,duration:3000},
 {filename:"darker_join3.jpg",position:[0,0],fade:[0,0],delay:8000,duration:2000},
