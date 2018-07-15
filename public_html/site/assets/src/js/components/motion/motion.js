@@ -76,6 +76,7 @@ class Motion extends EventEmitter {
 		console.log('Motion.play', _.cloneDeep(this.animation.keyFrames));
 		this.node.classList.add('playing');
 		this.trigger('started');
+		app.music.play(this.node.dataset.name);
 		this.resume();
 	}
 
