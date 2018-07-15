@@ -5,7 +5,8 @@ class MotionImage {
 		this.hasLoaded = false;
 	}
 
-	parseInfo(defaultTiming, outerRect, initialDurations, initial, index) {
+	parseInfo(defaultTiming, outerRect, initial, index, prevImage) {
+		let initialDurations = MotionImage.INITIAL_DURATIONS;
 		// position
 		if ('position' in initial) {
 			this.left = initial.position[0];
@@ -16,25 +17,25 @@ class MotionImage {
 		_.assign(this, contained);
 		// fade duration
 		if ('fade' in initial) {
-			this.fadeInDuration = initial.fade[0];
-			this.fadeOutDuration = initial.fade[1];
+			this.fadeInDuration = initial.fade[0] ? initial.fade[0] : defaultTiming.fadeDuration;
+			this.fadeOutDuration = initial.fade[1] ? initial.fade[1] : defaultTiming.fadeDuration;
 		}
 		else {
 			this.fadeInDuration = this.fadeOutDuration = defaultTiming.fadeDuration;
 		}
 		// visible duration
 		if ('duration' in initial) {
-			this.duration = initial.duration;
+			this.duration = initial.duration ? initial.duration : defaultTiming.duration;
 		}
 		else {
 			this.duration = index < initialDurations.length ? initialDurations[index] : defaultTiming.duration;
 		}
 		// delay before next image
 		if ('delay' in initial) {
-			this.delay = initial.delay;
+			this.delay = initial.delay ? initial.delay : prevImage.delay + defaultTiming.delay;
 		}
 		else {
-			this.delay = index < initialDurations.length - 1 ? initialDurations[index + 1] - 100 : defaultTiming.delay;
+			this.delay = index < initialDurations.length - 1 ? initialDurations[index + 1] - 100 : prevImage.delay + defaultTiming.delay;
 		}
 	}
 
@@ -44,6 +45,7 @@ class MotionImage {
 		img.src = this.url;
 		for (let prop of ['left','top','width','height'])
 			if (prop in this) css[prop] = this[prop] + 'px';
+		if ('left' in this) css.margin = 0;
 		this.node = img;
 	}
 
@@ -76,3 +78,5 @@ class MotionImage {
 	}
 
 }
+
+MotionImage.INITIAL_DURATIONS = [1000,700,500,400];

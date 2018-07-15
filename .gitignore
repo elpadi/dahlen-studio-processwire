@@ -18,10 +18,18 @@ public_html/site/.env
 public_html/site/assets/bower_components
 
 public_html/site/assets/dist/*
+
 !public_html/site/assets/dist/base.css
 !public_html/site/assets/dist/images.css
+!public_html/site/assets/dist/motion.css
+!public_html/site/assets/dist/jigsaw.css
+!public_html/site/assets/dist/home.css
+
 !public_html/site/assets/dist/base.js
 !public_html/site/assets/dist/slideshow.js
+!public_html/site/assets/dist/motion.js
+!public_html/site/assets/dist/heart-collage.js
+!public_html/site/assets/dist/home.js
 
 public_html/site/assets/css/fonts/AGaramondPro-Semibold.otf
 public_html/site/assets/css/fonts/AJensonPro-Bold.otf

@@ -20,12 +20,12 @@ class Motion extends EventEmitter {
 
 	setupImageCreate() {
 		let t = parseInt(this.node.dataset.timing, 10);
-		// createImage(defaultTiming, outerRect, initialDurations, index)
+		// createImage(defaultTiming, outerRect, index)
 		this.createImage = Motion.prototype.createImage.bind(this, {
 			delay: t,
 			duration: t + 50,
 			fadeDuration: t + 50
-		}, Rect.createFromNode(this.node), [1000,700,500,400]);
+		}, Rect.createFromNode(this.node));
 	}
 
 	onPlayButtonClick() {
@@ -53,6 +53,7 @@ class Motion extends EventEmitter {
 
 	onImagesLoaded() {
 		this.node.classList.remove('loading');
+		this.trigger('loaded');
 	}
 
 	loadImages() {
@@ -72,6 +73,7 @@ class Motion extends EventEmitter {
 		console.log('Motion.play', 'autoplay: ', this.autoplay, this.node.id);
 		if (this.hasStarted) return;
 		this.hasStarted = true;
+		console.log('Motion.play', _.cloneDeep(this.animation.keyFrames));
 		this.node.classList.add('playing');
 		this.trigger('started');
 		this.resume();
@@ -93,12 +95,12 @@ class Motion extends EventEmitter {
 
 	remove() {
 		console.log('Motion.remove', this.node.id);
-		this.node.classList.remove('current');
 		requestAnimationFrame(() => this.node.style.opacity = 0);
+		return Promise.delay(Motion.CONTAINER_FADE_DURATION, () => this.node.classList.remove('current'));
 	}
 
 	addImageKeyFrames(image, index) {
-		let showTime = this.totalDelay;
+		let showTime = image.delay;
 		let hideTime = showTime + image.fadeInDuration + image.duration;
 		let removeTime = hideTime + image.fadeOutDuration;
 		if (index > 0) {
@@ -106,14 +108,13 @@ class Motion extends EventEmitter {
 		}
 		this.animation.addKeyFrame('hide', hideTime , index);
 		this.animation.addKeyFrame('remove', removeTime, index);
-		this.totalDelay += image.delay;
 	}
 
-	createImage(defaultTiming, outerRect, initialDurations, index) {
+	createImage(defaultTiming, outerRect, index) {
 		let info = this._slideshowInfo[index];
 		let image = new MotionImage(this.baseUrl + '/' + info.filename);
-		image.parseInfo(defaultTiming, outerRect, initialDurations, info, index);
 		this.images[index] = image;
+		image.parseInfo(defaultTiming, outerRect, info, index, index ? this.images[index - 1] : undefined);
 		if (index == 0) {
 			image.createImageNode();
 			this.poster.style.cssText = image.node.getAttribute('style');
@@ -146,8 +147,11 @@ class Motion extends EventEmitter {
 	}
 
 	init() {
-		console.error("Motion.init", "Already initialized.", this.node.id);
-		if (this.isInitialized) return;
+		console.log("Motion.init", this.node.id);
+		if (this.isInitialized) {
+			console.error("Already initialized.", this.node.id);
+			return;
+		}
 		for (let name of Motion.ANIMATION_EVENT_NAMES) {
 			let fn = 'on' + _.capitalize(name) + 'AnimationTick';
 			this.animation.on(name, _.bindKey(this, fn));

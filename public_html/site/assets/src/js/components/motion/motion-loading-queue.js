@@ -1,11 +1,14 @@
 class MotionLoadingQueue extends MotionQueue {
 
-	start(motion) {
+	startItem(motion) {
+		console.log('MotionLoadingQueue.startItem', motion.node.id);
 		motion.init();
+		return Promise.resolve(true);
 	}
 
-	setupRelay(cur, next) {
-		cur.on('loaded', _.bindKey(next, 'init'));
+	whenFinished(cur, next) {
+		console.log('MotionLoadingQueue.whenFinished', cur.node.id, next.node.id);
+		return new Promise(resolve => cur.on('loaded', resolve));
 	}
 
 }

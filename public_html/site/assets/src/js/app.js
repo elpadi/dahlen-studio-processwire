@@ -29,4 +29,11 @@ class App {
 	}
 
 }
+
+Promise.delay = function(duration, fn) {
+	return new Promise(function(resolve) {
+		setTimeout(function() { resolve(fn ? fn() : true); }, duration);
+	});
+};
+
 var app = new App();
