@@ -59,36 +59,6 @@ class Intro {
 		return app.playingQueue.start();
 	}
 
-	/*
-	hideBed() {
-		console.log('Intro.hideBed');
-		return new Promise(function(resolve, reject) {
-			Motion.list.head().data.remove();
-			// Hide and resolve promise 1 second after the last image.
-			setTimeout(resolve, Motion.CONTAINER_FADE_DURATION + Motion.LAST_IMAGE_DELAY + 1000);
-		});
-	}
-
-	showAnaLisboa() {
-		console.log('Intro.showAnaLisboa');
-		var ana = Motion.list.item(1).data;
-		ana.addToPlayingQueue();
-		return ana.getPromise('finished');
-	}
-
-	showIntro() {
-		console.log('Intro.showIntro');
-		var intro = Motion.list.item(2).data;
-		return intro.getPromise('finished');
-	}
-
-	finishIntro() {
-		console.log('Intro.finishIntro');
-		Motion.list.item(2).data.remove();
-		Music.stop();
-	}
-	*/
-
 }
 
 Intro.LOGO_CHAR_DELAY = 100;

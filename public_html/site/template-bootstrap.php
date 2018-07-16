@@ -28,7 +28,7 @@ $vars['menu'] = $pages->get('/')->menuHtml();
 
 $twig->addFilter(new Twig_SimpleFilter('zp_shortcode', ['\ProcessWire\Zenphoto','parseShortcodes']));
 $twig->addFunction(new Twig_SimpleFunction('imageUrl', function($album, $filename, $size=980) use ($config) {
-	return $config->debug ? "{$config->urls->root}zenphoto/albums/$album/$filename" : sprintf('%szenphoto/zp-core/i.php?a=%s&i=%s&s=%d&cw=0&ch=0&q=%d&check=%s', $config->urls->root, $album, $filename, $size, $config->jpegQuality, $config->get("hash$size"));
+	return sprintf('%szenphoto/zp-core/i.php?a=%s&i=%s&s=%d&cw=0&ch=0&q=%d&check=%s', $config->urls->root, $album, $filename, $size, $config->jpegQuality, $config->zpSizeHashes["$size"]);
 }));
 $twig->addFunction(new Twig_SimpleFunction('files', function($pattern, $ext='') {
 	return array_map(function($s) use ($ext) { return basename($s, $ext); }, glob($pattern));

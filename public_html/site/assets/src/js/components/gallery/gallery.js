@@ -1,14 +1,16 @@
 class Gallery {
 
-	constructor() {
+	constructor(node) {
+		this.node = node;
+		this.galleryNode = node.children[0];
 		this.initialSetup();
-		this.pager = new GalleryPager(app.config.SLIDESHOW_PAGE_COUNT, Gallery.THUMBS_URL, this);
+		this.pager = new GalleryPager(window[this.node.dataset.name], this.galleryNode.getElementsByTagName('a').length, this);
+		if (document.body.scrollHeight < window.innerHeight * 1.6) this.pager.next();
+		app.music.play(this.node.dataset.name);
 	}
 
 	initialSetup() {
-		let gallery = document.querySelector('.gallery');
-		if (!gallery) throw new ReferenceError("Could not find the gallery element in the DOM.");
-		$(gallery).justifiedGallery({
+		$(this.galleryNode).justifiedGallery({
 			rowHeight : 150,
 			lastRow : 'nojustify',
 			margins : 8

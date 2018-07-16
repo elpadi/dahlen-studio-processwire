@@ -115,16 +115,7 @@ class Zenphoto extends WireData implements Module {
 		return self::$zdb;
 	}
 
-	protected static function fetchTestAlbumImages() {
-		include($GLOBALS['wire']->config->paths->assets.'test-album/info.php');
-		array_walk($TEST_ALBUM, function(&$row) {
-			$row['filename'] = basename($row['filename']);
-		});
-		return $TEST_ALBUM;
-	}
-
 	protected static function fetchAlbumImages($name) {
-		//if ($GLOBALS['wire']->config->debug) return static::fetchTestAlbumImages();
 		$db = self::zenphotoDB();
 		return $GLOBALS['wire']->cache->get("album-images--$name", getenv('ENABLE_IMAGE_QUERY_CACHE') ? WireCache::expireDaily : WireCache::expireNow, function() use ($db, $name) {
 			$images = [];
@@ -132,7 +123,7 @@ class Zenphoto extends WireData implements Module {
 			$sth = $db->prepare("SELECT `id` FROM `zp_albums` WHERE `folder`=?");
 			$sth->execute([$name]);
 			if (!($row = $sth->fetch(\PDO::FETCH_OBJ))) {
-				site_error("Album with name '$name' does not exist.");
+				site_error("Album with name '$name' does not exist.", $db->errorInfo());
 				return $images;
 			}
 
@@ -158,10 +149,19 @@ class Zenphoto extends WireData implements Module {
 		return $GLOBALS['twig']->render("components/$template_name.html", $vars);
 	}
 
+	protected static function saveImageInfo($name, $images) {
+		$jsPath = $GLOBALS['wire']->config->paths->assets."slideshows/$name.js";
+		if (!is_readable($jsPath) || time() - filemtime($jsPath) > 24 * 3600) {
+			if (!is_dir(dirname($jsPath))) mkdir(dirname($jsPath), 0755, TRUE);
+			file_put_contents($jsPath, "window['$name']=".json_encode($images).';');
+		}
+	}
+
 	public static function slideshow(ShortcodeInterface $s) {
-		$name = $GLOBALS['wire']->config->debug ? 'test-album' : $s->getParameter('name');
+		$name = $s->getParameter('name');
 		$images = static::fetchAlbumImages($name);
 
+		static::saveImageInfo($name, $images);
 		$vars = compact('name','images');
 		return static::render('slideshow', $vars);
 	}
@@ -176,11 +176,7 @@ class Zenphoto extends WireData implements Module {
 		$music_delay = $s->getParameter('music-delay', 0);
 		$images = static::fetchAlbumImages($name);
 
-		$jsPath = $GLOBALS['wire']->config->paths->assets."slideshows/$name.js";
-		if (!is_readable($jsPath) || time() - filemtime($jsPath) > 24 * 3600) {
-			if (!is_dir(dirname($jsPath))) mkdir(dirname($jsPath), 0755, TRUE);
-			file_put_contents($jsPath, "window['$name']=".json_encode($images).';');
-		}
+		static::saveImageInfo($name, $images);
 		$customInfoPath = $GLOBALS['wire']->config->paths->assets."slideshows/$name/info.js";
 		$has_custom_info = is_readable($customInfoPath);
 		

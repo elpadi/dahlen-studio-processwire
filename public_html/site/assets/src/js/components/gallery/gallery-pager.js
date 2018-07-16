@@ -1,16 +1,27 @@
 class GalleryPager extends InfiniteScrollPager {
 
-	constructor(pageCount, baseUrl, gallery) {
-		super(pageCount);
+	constructor(imageInfo, imagesPerPage, gallery) {
+		super(Math.ceil(imageInfo.length / imagesPerPage));
 		this.currentPage = 1;
-		this.ajax = new ImageListingLoader(baseUrl);
+		this.imageInfo = imageInfo;
+		this.imagesPerPage = imagesPerPage;
 		this.gallery = gallery;
 	}
 
-	content(gallery) {
-		return this.ajax.fetch()
-			.then(_.bindKey(this.gallery, 'addImages'))
-			.then(_.bindKey(this.ajax, 'done'));
+	content() {
+		let i = this.currentPage * this.imagesPerPage;
+		let infos = this.imageInfo.slice(i, i + this.imagesPerPage);
+		let urls = infos.map(info => {
+			let size = 320;
+			if (('width' in info) && info.width / info.height > 2) size = 980;
+			return {
+				url: app.imageUrl(info.filename, this.gallery.node.dataset.name),
+				thumb: {
+					url: app.imageUrl(info.filename, this.gallery.node.dataset.name, size)
+				}
+			};
+		});
+		return this.gallery.addImages(urls);
 	}
 
 }

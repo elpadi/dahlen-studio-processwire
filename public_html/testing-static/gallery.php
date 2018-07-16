@@ -70,12 +70,6 @@ define('MINIFY', true);
 					<main class="images gallery" data-featherlight-gallery data-featherlight-filter="a">
 						<?php foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s"><img src="/testing-static/%s"></a>', $path, str_replace('originals', 'thumbs', $path)); ?>
 					</main>
-					<aside class="carousel full-window fade fade-out">
-						<span class="loader">&nbsp;</span>
-						<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Previous"><path d="M 100,0 L 0,50 L 100,100"/></svg></button>
-						<div class="slides"></div>
-						<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Next"><path d="M 0,0 L 100,50 L 0,100"/></svg></button>
-					</aside>
 				</article>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>

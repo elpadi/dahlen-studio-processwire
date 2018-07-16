@@ -2,15 +2,24 @@
 {% set path = config.paths.assets ~ 'slideshows/pat-field-keith-haring/heart-collage-jigsaw' %}
 {% set url = config.urls.assets ~ 'slideshows/pat-field-keith-haring/heart-collage-jigsaw' %}
 
+{% block head_assets %}
+<link rel="stylesheet" href="{{ config.urls.assets }}dist/jigsaw.css?v=1530896390">
+{% endblock %}
+
+{% block foot_assets %}
+<script src="{{ config.urls.assets }}dist/heart-collage.js?v=1531445963"></script>
+{% endblock %}
+
 {% block main_content %}
 <main id="main-content">
 	<section
-		id="heart-collage"
-		class="jigsaw"
-		data-after-pieces="color,outline,people,heart,full"
-		data-url="{{ url }}"
-		data-pieces="{{ files(path ~ '/piece*') | join(',') }}"
-		data-music="{{ files(path ~ '/*mp3', '.mp3') | join(' ') }}"
+	    id="heart-collage"
+	    class="jigsaw"
+	    data-name="pat-field-keith-haring/heart-collage-jigsaw"
+	    data-after-pieces="color,outline,people,heart,full"
+	    data-url="{{ url }}"
+	    data-pieces="{{ files(path ~ '/piece*') | join(',') }}"
+	    data-music="{{ files(path ~ '/*mp3', '.mp3') | join(' ') }}"
 	>
 		<img id="full" data-delay="14" src="{{ url }}/full.jpg" alt="Keith Haring Heart Collage">
 		<img id="outline" data-delay="3" src="{{ url }}/outline.gif" alt="">

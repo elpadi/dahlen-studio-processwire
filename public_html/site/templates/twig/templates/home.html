@@ -1,7 +1,19 @@
 {% extends "base.html" %}
+
+{% block head_assets %}
+<link rel="stylesheet" href="{{ config.urls.assets }}dist/motion.css?v=1530896390">
+<link rel="stylesheet" href="{{ config.urls.assets }}dist/home.css?v=1530896390">
+{% endblock %}
+
+{% block foot_assets %}
+<script>app.setConfig({ INTRO_SEQUENCE: app.config.IS_LOCAL ? ['logo','menu'] : ['bed','logo','menu','images'] });
+</script>
+<script src="{{ config.urls.assets }}dist/motion.js?v=1531445978"></script>
+<script src="{{ config.urls.assets }}dist/home.js?v=1531581081"></script>
+{% endblock %}
+
 {% block main_content %}
 <main id="main-content">
 	{{ page.intro_slideshows | zp_shortcode }}
 </main>
 {% endblock %}
-

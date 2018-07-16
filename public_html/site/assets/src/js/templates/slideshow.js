@@ -1,8 +1,7 @@
 (function($) {
 
-	Gallery.THUMBS_URL = '/sample-gallery/images.php';
 	app.init(function() {
-		app.gallery = new Gallery();
+		app.gallery = new Gallery(document.querySelector('.slideshow'));
 	});
 
 })(jQuery);

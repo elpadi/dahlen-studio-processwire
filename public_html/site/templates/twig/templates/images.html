@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 
+{% block head_assets %}
+{% if 'still' in page.get('url') %}
+<link rel="stylesheet" href="{{ config.urls.assets }}dist/images.css?v=1530896390">
+{% endif %}
+{% if 'motion' in page.get('url') %}
+<link rel="stylesheet" href="{{ config.urls.assets }}dist/motion.css?v=1530896390">
+{% endif %}
+{% endblock %}
+
+{% block foot_assets %}
+{% if 'still' in page.get('url') %}
+<script src="{{ config.urls.assets }}dist/slideshow.js?v=1531697861"></script>
+{% endif %}
+{% if 'motion' in page.get('url') %}
+<script src="{{ config.urls.assets }}dist/motion.js?v=1531697849"></script>
+{% endif %}
+{% endblock %}
+
 {% block page_title %}
 <h2 class="page-title breadcrumb" data-opacity="0.75">{% if page.parent.get('id') %}<span class="parent">{{ page.parent.get('menu_title|title') }}</span> ➤ {% endif %}<span class="current">{{ page.get('menu_title') }}</span></h2>
 {% endblock %}

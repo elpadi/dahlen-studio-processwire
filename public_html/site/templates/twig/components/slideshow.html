@@ -1,17 +1,16 @@
 <article
-	id="{{ id }}"
-	class="slideshow"
-	style="max-width:{{ width }}px; max-height:{{ height }}px;"
-	data-name="{{ name }}"
-	data-width="{{ width }}"
-	data-height="{{ height }}"
-	data-music="{{ music | join(' ') }}"
+    id="{{ id }}"
+    class="slideshow"
+    style="max-width:{{ width }}px; max-height:{{ height }}px;"
+    data-name="{{ name }}"
+    data-width="{{ width }}"
+    data-height="{{ height }}"
+    data-music="{{ music | join(' ') }}"
 >
-	<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Previous"><path d="M 100,0 L 0,50 L 100,100"/></svg></button>
-	<main class="images">
-		{% for img in images %}
-		<article class="image"><a href="{{ album_url }}{{ img.filename }}" data-featherlight="image" data-width="{{ img.width }}" data-height="{{ img.height }}"><img src="/b.gif" data-{{ loop.first ? 'lazy' : 'lazier' }}="{{ imageUrl(name, img.filename) }}" alt=""></a></article>
-		{% endfor %}
-	</main>
-	<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style=""><svg viewBox="0 0 100 100" preserveAspectRatio="none" title="Next"><path d="M 0,0 L 100,50 L 0,100"/></svg></button>
+    <main class="images gallery" data-featherlight-gallery data-featherlight-filter="a">
+        {% for img in images | slice(0, 20) %}
+        <a href="{{ album_url ~ img.filename }}"><img src="{{ imageUrl(name, img.filename, img.width / img.height > 2 ? 980 : 320) }}"></a>
+        {% endfor %}
+    </main>
 </article>
+<script src="{{ assets_url }}slideshows/{{ name }}.js"></script>
