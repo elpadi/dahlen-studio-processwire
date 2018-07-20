@@ -168,6 +168,6 @@ class Motion extends EventEmitter {
 }
 
 Motion.ANIMATION_EVENT_NAMES = ['show','hide','remove'];
-Motion.CONTAINER_FADE_DURATION = 1000;
+Motion.CONTAINER_FADE_DURATION = 4000;
 Motion.LAST_IMAGE_DELAY = 1000;
 Motion.AUTOPLAY_DELAY = 500;

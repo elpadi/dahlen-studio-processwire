@@ -1,3 +1,4 @@
+/*
 @keyframes spinner {
 	from {
 		transform: rotate(0);
@@ -9,6 +10,7 @@
 		transform: rotate(-360deg);
 	}
 }
+*/
 
 .motion {
 	width: 100%;
@@ -73,6 +75,7 @@ body.template--images .motion:nth-of-type(1) {
 	stroke: none;
 	fill: white;
 }
+/*
 .play-icon .loading-inner {
 	stroke: none;
 	fill: white;
@@ -90,6 +93,7 @@ body.template--images .motion:nth-of-type(1) {
 }
 .play-icon .loading-spinner.one { transform-origin: bottom right; }
 .play-icon .loading-spinner.two { transform-origin: bottom left; }
+*/
 .play-icon .outer,
 .play-icon .filler {
 	transition: opacity 0.3s, stroke-width 0.3s;
@@ -103,6 +107,7 @@ body.template--images .motion:nth-of-type(1) {
 .motion .play-button:hover .filler {
 	opacity: 1;
 }
+/*
 .motion.loading .play-button .filler {
 	opacity: 0.5;
 }
@@ -125,6 +130,7 @@ body.template--images .motion:nth-of-type(1) {
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 }
+*/
 
 #introduction {
 	width: 980px;

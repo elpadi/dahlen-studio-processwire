@@ -15,11 +15,12 @@ class Gallery {
 			lastRow : 'nojustify',
 			margins : 8
 		});
-		$.featherlight.defaults.afterContent = this.onSliderChange.bind(this);
+		$.featherlight.defaults.beforeContent = this.beforeSliderContent.bind(this);
+		$.featherlight.defaults.afterContent = this.afterSliderContent.bind(this);
 	}
 
 	addImage(image, index, images) {
-		console.log('Gallery.addImage', index);
+		console.log('Gallery.addImage', index, image.src.split('/').pop());
 		let a = document.createElement('a');
 		a.href = images[index].url;
 		a.appendChild(image);
@@ -29,17 +30,28 @@ class Gallery {
 	addImages(images) {
 		console.log('Gallery.addImages', images);
 		let loader = new ImageLoader(_.map(images, 'thumb.url'));
+		this.galleryNode.classList.add('loading');
 		loader.events.addEventListener('imageloaded', e => this.addImage(e.detail.image, e.detail.index, images));
 		return loader.loadAll().then(() => {
-			$('.gallery').justifiedGallery('norewind');
+			this.galleryNode.classList.remove('loading');
+			requestAnimationFrame(() => $('.gallery').justifiedGallery('norewind'));
 		});
 	}
 
-	onSliderChange() {
-		console.log('Gallery.onSliderChange');
-		let img = document.querySelector('.featherlight-image');
-		img.dataset.action = 'zoom';
-		$(img.parentNode).zoom({ url: img.src });
+	beforeSliderContent() {
+		console.log('Gallery.beforeSliderContent');
+		let f = document.querySelector('.featherlight');
+		if (!f.querySelector('.loader')) {
+			f.appendChild(document.querySelector('.loader').cloneNode(true));
+		}
+		f.querySelector('.featherlight-content').classList.add('loading');
+	}
+
+	afterSliderContent() {
+		console.log('Gallery.afterSliderContent');
+		let f = document.querySelector('.featherlight-content'),
+			img = document.querySelector('.featherlight-image');
+		f.classList.remove('loading');
 	}
 
 }

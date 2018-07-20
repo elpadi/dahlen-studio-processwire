@@ -13,6 +13,7 @@ class Intro {
 				if (fn in this) p = p.then(_.bindKey(this, fn));
 			}
 		}
+		p.then(_.bindKey(this, 'finishIntro'));
 	}
 
 	showLogo() {
@@ -49,7 +50,7 @@ class Intro {
 	hideBed() {
 		let bed = app.loadingQueue.list.item(0).data;
 		bed.remove();
-		return Promise.delay(Motion.CONTAINER_FADE_DURATION * 3);
+		return Promise.delay(Motion.CONTAINER_FADE_DURATION + 1000);
 	}
 
 	showImages() {
@@ -58,6 +59,12 @@ class Intro {
 		app.playingQueue.setupRelays();
 		let last = app.playingQueue.list.tail().data;
 		return new Promise(resolve => last.on('finished', resolve));
+	}
+
+	finishIntro() {
+		let last = app.playingQueue.list.tail().data;
+		last.remove();
+		app.music.stop();
 	}
 
 }

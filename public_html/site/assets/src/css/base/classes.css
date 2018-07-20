@@ -16,13 +16,11 @@
 	margin: auto;
 	z-index: 2;
 }
-.featherlight-next:hover span, .featherlight-previous:hover span,
 .fade {
 	opacity: 1;
 	visibility: visible;
 	transition: opacity 0.3s, visibility 0s 0s;
 }
-.featherlight-next span, .featherlight-previous span,
 .fade.fade-out {
 	opacity: 0;
 	visibility: hidden;
@@ -46,9 +44,11 @@ input,
 .icon-button > svg {
 	pointer-events: none;
 }
+/*
 .loading {
 	background: transparent url(/site/assets/img/ajax-loader.gif) center center no-repeat;
 }
+*/
 .full-window {
 	position: fixed;
 	top: 0;

@@ -9,8 +9,22 @@ class GalleryPager extends InfiniteScrollPager {
 	}
 
 	content() {
-		let i = this.currentPage * this.imagesPerPage;
-		let infos = this.imageInfo.slice(i, i + this.imagesPerPage);
+		let begin = this.currentPage * this.imagesPerPage;
+		let end = begin + this.imagesPerPage - 1;
+		console.log('GalleryPager.content', begin, end);
+		let infos = this.imageInfo.slice(begin, end);
+		if (app.config.IS_LOCAL) {
+			let t = Date.now();
+			let urls = infos.map(url => {
+				return {
+					url: url + '?t=' + t,
+					thumb: {
+						url: url
+					}
+				};
+			});
+			return this.gallery.addImages(urls);
+		}
 		let urls = infos.map(info => {
 			let size = 320;
 			if (('width' in info) && info.width / info.height > 2) size = 980;

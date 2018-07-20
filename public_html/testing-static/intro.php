@@ -201,7 +201,7 @@ define('DEBUG', true);
 		<!--**************** BASE **************** -->
 
 		<script>
-app.setConfig({"ALBUMS_URL":"\/zenphoto\/albums\/","DEBUG":true,"IS_LOCAL":false,"ASSETS_URL":"\/site\/assets\/","MINIFY":true,"IMG_SIZE_HASHES":{"320":"4056490732486c9be0e02a09ff0794b041e70149","980":"1d01a168b5f9adb3a2885a47082f71997bf3e905","1960":"54645fbc992e1a4297f6d277d236e536cb1c3b5f"},"IMG_QUALITY":85});
+			app.setConfig({"ALBUMS_URL":"\/zenphoto\/albums\/","DEBUG":true,"IS_LOCAL":false,"ASSETS_URL":"\/site\/assets\/","MINIFY":true,"IMG_SIZE_HASHES":{"320":"4056490732486c9be0e02a09ff0794b041e70149","980":"1d01a168b5f9adb3a2885a47082f71997bf3e905","1960":"54645fbc992e1a4297f6d277d236e536cb1c3b5f"},"IMG_QUALITY":85});
 			app.setConfig({
 				IS_LOCAL: location.hostname.indexOf('localhost') !== -1
 			});

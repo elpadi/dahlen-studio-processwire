@@ -1,7 +1,7 @@
 <?php
 define('IS_LOCAL', strpos($_SERVER['REQUEST_URI'], 'localhost') !== FALSE);
 define('DEBUG', true);
-define('MINIFY', true);
+define('MINIFY', false);
 ?><!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -19,6 +19,7 @@ define('MINIFY', true);
 		<link rel="stylesheet" href="/site/assets/src/css/base/default.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/classes.css">
 		<link rel="stylesheet" href="/site/assets/src/css/base/colors.css">
+		<link rel="stylesheet" href="/site/assets/src/css/components/loader.css">
 		<link rel="stylesheet" href="/site/assets/src/css/components/menu.css">
 		<link rel="stylesheet" href="/site/assets/src/css/main.css">
 		<?php endif; ?>
@@ -26,10 +27,10 @@ define('MINIFY', true);
 		<?php if (MINIFY): ?>
 		<link rel="stylesheet" href="/site/assets/dist/images.css">
 		<?php else: ?>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.13/featherlight.gallery.min.css">
-		<link rel="stylesheet" href="https://cdn.rawgit.com/fat/zoom.js/v0.0.1/css/zoom.css">
+		<link rel="stylesheet" href="/site/assets/vendor/justifiedGallery.min.css">
+		<link rel="stylesheet" href="/site/assets/vendor/featherlight.min.css">
+		<link rel="stylesheet" href="/site/assets/vendor/featherlight.gallery.min.css">
+		<!--link rel="stylesheet" href="/site/assets/vendor/jquery.zoom.min.css"-->
 		
 		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
 		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css?v=7">
@@ -65,34 +66,65 @@ define('MINIFY', true);
 				<nav id="main-menu" class="dropdown-menu horizontal-list"><ul><li class=""><a href="/">Dahlen Studio</a><ul><li class=""><a href="/about/">About</a></li><li class="selected"><a href="/still/">Still</a><ul><li class="selected"><a href="/still/advertising/">Advertising</a></li><li class=""><a href="/still/beauty/">Beauty</a></li><li class=""><a href="/still/fashion/">Fashion</a></li><li class=""><a href="/still/stars/">Stars</a></li></ul></li><li class=""><a href="/motion/">Motion</a><ul><li class=""><a href="/motion/introduction/">Introduction</a></li><li class=""><a href="/motion/ana-lisboa-steps/">Ana Lisboa Steps</a></li><li class=""><a href="/motion/heart-collage-jigsaw/">Heart Collage Jigsaw</a></li><li class=""><a href="/motion/charles-jourdan-film/">Charles Jourdan Film</a></li></ul></li><li class=""><a href="/new/">New</a></li><li class=""><a href="/contact/">Contact</a></li></ul></li></ul></nav>
 				<h2 class="page-title breadcrumb visuallyhidden" data-opacity="0.75"><span class="parent">Still</span> ➤ <span class="current">Advertising</span></h2>
 			</header>
-			<main id="main-content">
+			<main id="main-content" class="loading">
 				<article id="advertising_new" class="slideshow" style="" data-name="advertising_new" data-music="[]">
 					<main class="images gallery" data-featherlight-gallery data-featherlight-filter="a">
-						<?php foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s"><img src="/testing-static/%s"></a>', $path, str_replace('originals', 'thumbs', $path)); ?>
+						<?php foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s?t=%d"><img src="/testing-static/%s"></a>', $path, time(), $path); ?>
 					</main>
 				</article>
 			</main>
+			<svg class="spinning-circles-loader loader" width="58" height="58" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+				<g fill="none" fill-rule="evenodd">
+					<g transform="translate(2 1)" stroke="#FFF" stroke-width="1.5">
+						<circle cx="42.601" cy="11.462" r="5"></circle>
+						<circle cx="49.063" cy="27.063" r="5"></circle>
+						<circle cx="42.601" cy="42.663" r="5"></circle>
+						<circle cx="27" cy="49.125" r="5"></circle>
+						<circle cx="11.399" cy="42.663" r="5"></circle>
+						<circle cx="4.938" cy="27.063" r="5"></circle>
+						<circle cx="11.399" cy="11.462" r="5"></circle>
+						<circle cx="27" cy="5" r="5"></circle>
+					</g>
+				</g>
+			</svg>
+			<script>window["advertising_new"] = <?php $imgs = array_map(function($p) { return '/testing-static/img/originals/'.basename($p); }, glob('img/originals/*.jpg')); echo json_encode(array_merge($imgs, $imgs, $imgs, $imgs)); ?>;</script>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
+		<script>window.addEventListener('load', e => document.getElementById('main-content').classList.remove('loading'));</script>
+		<!--**************** BASE **************** -->
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/base.js"></script>
 		<?php else: ?>
+		<script src="/site/assets/vendor/js.cookie.min.js"></script>
 		<script src="/site/assets/vendor/jquery.min.js"></script>
 		<script src="/site/assets/vendor/lodash.min.js"></script>
+		<script src="/site/assets/vendor/buzz.min.js"></script>
+
+		<script src="/site/assets/src/js/components/timeouts/resettable-timeout.js"></script>
+
+		<script src="/site/assets/src/js/components/events/event-emitter.js"></script>
+		<script src="/site/assets/src/js/components/events/timeout-event-emitter.js"></script>
+
+		<script src="/site/assets/src/js/components/dropdown/dropdown.js"></script>
+		<script src="/site/assets/src/js/components/dropdown/autohide-dropdown.js"></script>
+		<script src="/site/assets/src/js/components/dropdown/main-dropdown.js"></script>
+		<script src="/site/assets/src/js/components/dropdown/dropdown-submenu.js"></script>
+
+		<script src="/site/assets/src/js/components/music/music.js"></script>
+		<script src="/site/assets/src/js/components/music/music-playlist.js"></script>
+		<script src="/site/assets/src/js/components/music/music-muter.js"></script>
+		
 		<script src="/site/assets/src/js/app.js"></script>
 		<?php endif; ?>
+		<!--**************** BASE **************** -->
 		
 		<script>
+			app.setConfig({"ALBUMS_URL":"\/zenphoto\/albums\/","DEBUG":true,"IS_LOCAL":false,"ASSETS_URL":"\/site\/assets\/","MINIFY":true,"IMG_SIZE_HASHES":{"320":"4056490732486c9be0e02a09ff0794b041e70149","980":"1d01a168b5f9adb3a2885a47082f71997bf3e905","1960":"54645fbc992e1a4297f6d277d236e536cb1c3b5f"},"IMG_QUALITY":85});
 			app.setConfig({
-				IS_LOCAL: <?php echo IS_LOCAL ? 'true' : 'false'; ?>,
-				DEBUG: <?php echo DEBUG ? 'true' : 'false'; ?>,
-				ALBUMS_URL: "/zenphoto/albums/",
-				SLIDESHOW_PAGE_COUNT: 2,
-				IMG_HASH: {
-					320: "",
-					980: "fb15e043f1ceb794b39906c71cf5749bc9cb4a71",
-					1960: "46f8d056d4f5aaee34b0a12d56d1aa5584d0aea2"
-				}
+				IS_LOCAL: location.hostname.indexOf('localhost') !== -1
+			});
+			app.setConfig({
+				INTRO_SEQUENCE: app.config.IS_LOCAL ? ['logo','menu'] : ['bed','logo','menu','images']
 			});
 		</script>
 	
@@ -102,7 +134,7 @@ define('MINIFY', true);
 		<script src="/site/assets/vendor/jquery.justifiedGallery.min.js"></script>
 		<script src="/site/assets/vendor/featherlight.min.js"></script>
 		<script src="/site/assets/vendor/featherlight.gallery.min.js"></script>
-		<script src="/site/assets/vendor/jquery.zoom.min.js"></script>
+		<!--script src="/site/assets/vendor/jquery.zoom.min.js"></script-->
 
 		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
 		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
@@ -114,7 +146,7 @@ define('MINIFY', true);
 		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
 		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
 
-		<script src="/site/assets/src/js/components/slideshow.js"></script>
+		<script src="/site/assets/src/js/templates/slideshow.js"></script>
 		<?php endif; ?>
 	</body>
 </html>

@@ -8,6 +8,18 @@
 	outline: none;
 }
 
+/* Justified Gallery */
+.justified-gallery.loading {
+	padding-bottom: 100px;
+}
+.justified-gallery + .loader {
+	top: auto;
+	bottom: 20px;
+}
+.justified-gallery > .spinner {
+	display: none !important;
+}
+
 /* Featherlight Gallery */
 .featherlight {
 	width: 100vw;
@@ -18,8 +30,11 @@
 	background-color: transparent;
 }
 .featherlight .featherlight-close-icon {
+	/*
 	background-color: transparent;
 	color: white;
+	*/
+	display: none !important;
 }
 .featherlight-next, .featherlight-previous {
 	background-color: transparent !important;
@@ -41,3 +56,4 @@
 .zoomImg {
 	cursor: zoom-in;
 }
+

@@ -32,7 +32,7 @@ $(foreach jsc,$(JS_COMPONENTS),$(eval $(call COMPONENT_template,$(jsc))))
 dist/base.js: vendor/js.cookie.min.js vendor/jquery.min.js vendor/lodash.min.js vendor/buzz.min.js dist/events.component.js dist/timeouts.component.js dist/music.component.js dist/dropdown.component.js src/js/app.min.js
 	cat $^ > $@
 
-dist/gallery_vendor.js: vendor/jquery.justifiedGallery.min.js vendor/featherlight.min.js vendor/featherlight.gallery.min.js vendor/jquery.zoom.min.js
+dist/gallery_vendor.js: vendor/jquery.justifiedGallery.min.js vendor/featherlight.min.js vendor/featherlight.gallery.min.js
 	cat $^ > $@
 
 dist/gallery.js: dist/gallery_vendor.js dist/loader.component.js dist/pager.component.js dist/gallery.component.js
@@ -54,10 +54,10 @@ dist/heart-collage.js: vendor/jquery.easing.min.js dist/jigsaw.component.js dist
 
 ########################################################################
 ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## 
-dist/base.css: vendor/normalize.min.css $(patsubst %.css, %.min.css, $(shell find src/css/base -type f -not -name '*.min.css')) src/css/components/menu.min.css src/css/main.min.css
+dist/base.css: vendor/normalize.min.css $(patsubst %.css, %.min.css, $(shell find src/css/base -type f -not -name '*.min.css')) src/css/components/menu.min.css src/css/components/loader.min.css src/css/main.min.css
 	cat $^ > $@
 
-dist/gallery_vendor.css: vendor/justifiedGallery.min.css vendor/featherlight.min.css vendor/featherlight.gallery.min.css vendor/jquery.zoom.min.css
+dist/gallery_vendor.css: vendor/justifiedGallery.min.css vendor/featherlight.min.css vendor/featherlight.gallery.min.css
 	cat $^ > $@
 
 dist/images.css: dist/gallery_vendor.css src/css/components/slideshow.min.css src/css/components/motion.min.css src/css/templates/images.min.css

@@ -20,10 +20,11 @@ class ImageLoader extends EventEmitter {
 	}
 
 	loadChunk(resolveAll) {
-		let a = this.loadedImages.length, b = this.chunkSize, c = this.images.length;
-		console.log('ImageLoader.loadChunk', a, b, c);
+		let begin = this.loadedImages.length;
+		let end = begin + this.chunkSize, max = this.images.length;
+		console.log('ImageLoader.loadChunk', begin, end, max);
 		return Promise.all(
-			_.range(a, Math.min(a + b, c)).map(this.loadIndex.bind(this))
+			_.range(begin, Math.min(end, max)).map(this.loadIndex.bind(this))
 		).then(this.onChunkLoaded.bind(this, resolveAll));
 	}
 
@@ -54,7 +55,11 @@ class ImageLoader extends EventEmitter {
 		this.parallelCount++;
 		return new Promise((resolve, reject) => {
 			let img = new Image();
-			img.addEventListener('load', e => resolve(img));
+			let onload = () => {
+				img.removeEventListener('load', onload);
+				resolve(img);
+			};
+			img.addEventListener('load', onload);
 			img.src = src;
 		});
 	}
