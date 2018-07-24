@@ -2,11 +2,11 @@ class MotionQueue {
 
 	constructor(motions) {
 		this.list = new DLL.DoublyLinkedList();
-		for (let m of motions) this.list.append(m);
-		// on finished
-		//if (Motion.list.size() === 1) Music.stop();
-		// on started
-		//setTimeout(function() { Music.play(this.sounds); }.bind(this), parseInt(this.dom_node.dataset.musicDelay, 10));
+		for (let i = 0, l = motions.length; i < l; i++) {
+			let m = motions[i];
+			m.node.style.zIndex = l - i;
+			this.list.append(m);
+		}
 	}
 
 	setupRelays() {

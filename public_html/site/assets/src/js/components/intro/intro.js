@@ -57,6 +57,8 @@ class Intro {
 		console.log('Intro.showImages');
 		app.playingQueue = app.loadingQueue.clone(items => new MotionPlayingQueue(items.slice(1)));
 		app.playingQueue.setupRelays();
+		let first = app.playingQueue.list.item(0).data;
+		first.node.style.opacity = 1;
 		let last = app.playingQueue.list.tail().data;
 		return new Promise(resolve => last.on('finished', resolve));
 	}

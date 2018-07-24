@@ -47,7 +47,7 @@ class Motion extends EventEmitter {
 	}
 
 	onImageLoaded(image, index) {
-		console.log('Motion.onImageLoaded', index);
+		//console.log('Motion.onImageLoaded', index);
 		if (!this.hasBufferLoaded && index / this.imageCount > 0.5) this.onBufferLoaded();
 	}
 
@@ -97,18 +97,22 @@ class Motion extends EventEmitter {
 	remove() {
 		console.log('Motion.remove', this.node.id);
 		requestAnimationFrame(() => this.node.style.opacity = 0);
-		return Promise.delay(Motion.CONTAINER_FADE_DURATION, () => this.node.classList.remove('current'));
+		return Promise.delay(Motion.CONTAINER_FADE_DURATION, () => this.node.classList.add('removed'));
 	}
 
 	addImageKeyFrames(image, index) {
-		let showTime = image.delay;
-		let hideTime = showTime + image.fadeInDuration + image.duration;
-		let removeTime = hideTime + image.fadeOutDuration;
-		if (index > 0) {
-			this.animation.addKeyFrame('show', showTime, index);
+		if (index == 0) {
+			this.animation.addKeyFrame('hide', image.delay + image.duration, index);
+			this.animation.addKeyFrame('remove', image.delay + image.fadeOutDuration, index);
 		}
-		this.animation.addKeyFrame('hide', hideTime , index);
-		this.animation.addKeyFrame('remove', removeTime, index);
+		else {
+			let showTime = image.delay;
+			let hideTime = showTime + image.fadeInDuration + image.duration;
+			let removeTime = hideTime + image.fadeOutDuration;
+			this.animation.addKeyFrame('show', showTime, index);
+			this.animation.addKeyFrame('hide', hideTime , index);
+			this.animation.addKeyFrame('remove', removeTime, index);
+		}
 	}
 
 	createImage(defaultTiming, outerRect, index) {
@@ -126,19 +130,19 @@ class Motion extends EventEmitter {
 
 	onShowAnimationTick(e) {
 		let index = e.detail.value;
-		console.log('Motion.onShowAnimationTick', index)
+		if (index < 10) console.log('Motion.onShowAnimationTick', index)
 		this.images[index].show(this.node);
 	}
 
 	onHideAnimationTick(e) {
 		let index = e.detail.value;
-		console.log('Motion.onHideAnimationTick', index)
+		if (index < 10) console.log('Motion.onHideAnimationTick', index)
 		if (index < this.imageCount - 1) this.images[index].hide();
 	}
 
 	onRemoveAnimationTick(e) {
 		let index = e.detail.value;
-		console.log('Motion.onRemoveAnimationTick', index)
+		if (index < 10) console.log('Motion.onRemoveAnimationTick', index)
 		if (index === this.imageCount - 1) this.finish();
 		else {
 			this.images[index].remove();

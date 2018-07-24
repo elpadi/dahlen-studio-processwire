@@ -51,6 +51,9 @@ body.template--images .motion:nth-of-type(1) {
 	opacity: 0.45;
 	transition: opacity 0.3s, visibility 0s 0.3s;
 }
+.motion.removed {
+	display: none;
+}
 .motion.finished > button,
 .motion.playing > button {
 	opacity: 0;

@@ -8,11 +8,11 @@ class MotionPlayingQueue extends MotionQueue {
 
 	whenFinished(cur, next) {
 		return Promise.all([
-			cur.when('finished').then(_.bindKey(cur, 'remove')).then(Promise.delay(MotionPlayingQueue.TRANSITION_DELAY)),
+			cur.when('finished').then(_.bindKey(cur, 'remove')),
 			next.when('buffered')
 		]);
 	}
 
 }
 
-MotionPlayingQueue.TRANSITION_DELAY = 2000;
+MotionPlayingQueue.TRANSITION_DELAY = 1000;

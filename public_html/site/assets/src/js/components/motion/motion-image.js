@@ -13,8 +13,10 @@ class MotionImage {
 			this.top = initial.position[1];
 		}
 		// size
-		let contained = outerRect.containBigger(Rect.createFromObject(initial));
-		_.assign(this, contained);
+		if ('width' in initial) {
+			let contained = outerRect.containBigger(Rect.createFromObject(initial));
+			_.assign(this, contained);
+		}
 		// fade duration
 		if ('fade' in initial) {
 			this.fadeInDuration = initial.fade[0] ? initial.fade[0] : defaultTiming.fadeDuration;
