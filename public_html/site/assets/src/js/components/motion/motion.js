@@ -48,7 +48,7 @@ class Motion extends EventEmitter {
 
 	onImageLoaded(image, index) {
 		//console.log('Motion.onImageLoaded', index);
-		if (!this.hasBufferLoaded && index / this.imageCount > 0.5) this.onBufferLoaded();
+		if (!this.hasBufferLoaded && index / this.imageCount > window.app.config.MOTION_BUFFER_SIZE) this.onBufferLoaded();
 	}
 
 	onImagesLoaded() {

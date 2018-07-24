@@ -21,10 +21,11 @@
 }
 .loading + .loader {
 	visibility: visible;
-	animation: 3s linear 0s infinite spin
+	animation: 6s linear 0s infinite spin
 }
 
 .spinning-circles-loader circle {
+	stroke: none !important;
 	fill-opacity: 1 !important;
 	fill: gray !important;
 }
@@ -42,7 +43,8 @@
 	bottom: 0;
 	left: 0;
 	margin: auto;
-	width: 60px;
-	height: 60px;
+	opacity: 0.4;
+	width: 40px;
+	height: 40px;
 }
 

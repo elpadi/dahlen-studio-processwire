@@ -1,17 +1,3 @@
-/*
-@keyframes spinner {
-	from {
-		transform: rotate(0);
-	}
-	50% {
-		transform: rotate(-180deg);
-	}
-	to {
-		transform: rotate(-360deg);
-	}
-}
-*/
-
 .motion {
 	width: 100%;
 	position: relative;
@@ -78,25 +64,6 @@ body.template--images .motion:nth-of-type(1) {
 	stroke: none;
 	fill: white;
 }
-/*
-.play-icon .loading-inner {
-	stroke: none;
-	fill: white;
-	opacity: 0.3;
-	transform: scale(0);
-	transform-origin: center center;
-	transition: transform 0.3s 0.1s;
-}
-.play-icon .loading-spinner {
-	fill: none;
-	stroke-width: 9;
-	stroke-linecap: round;
-	opacity: 0;
-	transition: opacity 0.3s;
-}
-.play-icon .loading-spinner.one { transform-origin: bottom right; }
-.play-icon .loading-spinner.two { transform-origin: bottom left; }
-*/
 .play-icon .outer,
 .play-icon .filler {
 	transition: opacity 0.3s, stroke-width 0.3s;
@@ -110,44 +77,3 @@ body.template--images .motion:nth-of-type(1) {
 .motion .play-button:hover .filler {
 	opacity: 1;
 }
-/*
-.motion.loading .play-button .filler {
-	opacity: 0.5;
-}
-.motion.loading .play-button .triangle,
-.motion:not(.loading) .play-button:hover .triangle {
-	fill: #666;
-	transform: scale(0.7);
-}
-.motion.loading .play-button .triangle {
-	fill: #666;
-	transform: scale(0);
-}
-.motion.loading .play-button .loading-inner {
-	transform: scale(1);
-}
-.motion.loading .play-button .loading-spinner {
-	opacity: 1;
-  animation-duration: 1.5s;
-  animation-name: spinner;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-}
-*/
-
-#introduction {
-	width: 980px;
-	height: 750px;
-	position: absolute;
-	left: calc(50% - 490px);
-	top: calc(50% - 375px);
-}
-
-#ana-lisboa-steps {
-	width: 754px;
-	height: 503px;
-	position: absolute;
-	left: calc(50% - 377px);
-	top: calc(50% - 251px);
-}
-
