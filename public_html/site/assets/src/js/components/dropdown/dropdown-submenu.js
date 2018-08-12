@@ -3,6 +3,7 @@ class DropdownSubmenu {
 	constructor(node, dropdown) {
 		this.node = node;
 		this.dropdown = dropdown;
+		this.lastUpdateTime = 0;
 		node.previousSibling.addEventListener('click', this.toggle.bind(this));
 		this.setupMouseHover();
 	}
@@ -12,6 +13,9 @@ class DropdownSubmenu {
 	}
 
 	updateClass(method) {
+		let d = Date.now();
+		if (d - this.lastUpdateTime < 128) return;
+		this.lastUpdateTime = d;
 		this.node.classList[method]('open');
 		this.dropdown.hideAll(this.node);
 		this.dropdown.onChange();

@@ -23,6 +23,7 @@ class Dropdown {
 	}
 
 	hideAll(skip) {
+		console.log('Dropdown.hideAll', skip);
 		for (let n of this.node.querySelectorAll('.open')) if (n != skip) n.classList.remove('open');
 		if (!skip) this.onChange();
 	}

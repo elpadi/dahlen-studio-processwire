@@ -2,8 +2,8 @@
 
 JS_COMPONENTS := $(shell find src/js/components -type d -mindepth 1 | xargs basename)
 
-DIST_CSS := base images motion jigsaw home
-DIST_JS := base slideshow motion heart-collage home
+DIST_CSS := base images motion jigsaw home page
+DIST_JS := base slideshow motion heart-collage home page
 
 all: css js
 
@@ -25,11 +25,11 @@ $(foreach jsc,$(JS_COMPONENTS),$(eval $(call COMPONENT_template,$(jsc))))
 	postcss --use cssnano --no-map -o $@ $^
 
 %.min.js: %.js
-	uglifyjs $^ --compress drop_console=true --mangle --output $@
+	babel $^ | uglifyjs --compress drop_console=true --mangle --output $@
 
 ########################################################################
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
-dist/base.js: vendor/js.cookie.min.js vendor/jquery.min.js vendor/lodash.min.js vendor/buzz.min.js dist/events.component.js dist/timeouts.component.js dist/music.component.js dist/dropdown.component.js src/js/app.min.js
+dist/base.js: vendor/js.cookie.min.js vendor/promise-polyfill.min.js vendor/unfetch.umd.js vendor/jquery.min.js vendor/lodash.min.js vendor/buzz.min.js dist/events.component.js dist/timeouts.component.js dist/music.component.js dist/dropdown.component.js src/js/app.min.js
 	cat $^ > $@
 
 dist/gallery_vendor.js: vendor/jquery.justifiedGallery.min.js vendor/featherlight.min.js vendor/featherlight.gallery.min.js
@@ -48,6 +48,9 @@ dist/home.js: dist/intro.component.js src/js/templates/home.min.js
 	cat $^ > $@
 
 dist/heart-collage.js: vendor/jquery.easing.min.js dist/jigsaw.component.js dist/heart-collage.component.js src/js/templates/heart-collage.min.js
+	cat $^ > $@
+
+dist/page.js: src/js/templates/page.min.js
 	cat $^ > $@
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
 ########################################################################
@@ -72,5 +75,7 @@ dist/jigsaw.css: src/css/components/jigsaw.min.css
 dist/home.css: src/css/components/intro.min.css
 	cat $^ > $@
 
+dist/page.css: src/css/templates/basic-page.min.css
+	cat $^ > $@
 ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## 
 ########################################################################

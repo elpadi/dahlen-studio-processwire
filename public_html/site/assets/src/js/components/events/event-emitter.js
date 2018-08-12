@@ -1,7 +1,7 @@
 class EventEmitter {
 
 	constructor() {
-		this.events = new EventTarget();
+		this.events = document.createDocumentFragment();
 		this.triggeredEvents = [];
 	}
 

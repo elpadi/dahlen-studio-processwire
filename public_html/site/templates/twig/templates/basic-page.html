@@ -1,2 +1,9 @@
 {% extends "base.html" %}
 
+{% block head_assets %}
+<link rel="stylesheet" href="{{ config.urls.assets }}dist/page.css?v=1530896390">
+{% endblock %}
+
+{% block foot_assets %}
+<script src="{{ config.urls.assets }}dist/page.js?v=1531697860"></script>
+{% endblock %}
