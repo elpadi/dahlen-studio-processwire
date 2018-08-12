@@ -157,6 +157,11 @@ input[type="password"] {
 	#main-header {
 		max-width: 500px;
 	}
+	#main-menu > ul > li > ul > li:nth-child(2),
+	#main-menu > ul > li > ul > li:nth-child(3) {
+		flex: 0 1 50%;
+		order: 1;
+	}
 }
 @media (min-width: 840px) {
 	#main-header {
@@ -166,10 +171,32 @@ input[type="password"] {
 		height: 44px;
 		overflow: visible;
 	}
+	#main-menu {
+		font-size: 37px;
+	}
+	/* Root menu */
 	#main-menu > ul > li > ul {
 		margin: 0;
 		line-height: 1.2;
 		max-width: none;
+	}
+	/* Root items */
+	#main-menu > ul > li > ul > li > a {
+		display: block;
+	}
+	/* Submenus */
+	#main-menu > ul > li > ul ul {
+		position: absolute;
+		visibility: hidden;
+		opacity: 0;
+		transform: translateY(-100%);
+		transition: transform 0s 0.2s, opacity 0.2s, visibility 0s 0.2s;
+	}
+	#main-menu > ul > li > ul ul.open {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);
+		transition: transform 0.1s, opacity 0.2s, visibility 0s 0s;
 	}
 	#main-content {
 		margin-top: 7%;

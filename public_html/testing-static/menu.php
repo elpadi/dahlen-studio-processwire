@@ -1,5 +1,5 @@
 <?php
-define('MINIFY', true);
+define('MINIFY', false);
 ?><!doctype html>
 <html class="no-js" lang="">
 	<head>
@@ -20,6 +20,7 @@ define('MINIFY', true);
 		<link rel="stylesheet" href="/site/assets/src/css/components/menu.css">
 		<link rel="stylesheet" href="/site/assets/src/css/main.css">
 		<?php endif; ?>
+		<script>document.documentElement.className = 'js';</script>
 	</head>
 	<body class="page--advertising template--images parent--still theme--white">
 		<div id="container">

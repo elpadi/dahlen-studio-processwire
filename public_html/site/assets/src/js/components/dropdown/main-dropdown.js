@@ -22,7 +22,10 @@ class MainDropdown extends AutohideDropdown {
 
 }
 
+MainDropdown.MEDIA_QUERY_BREAKPOINT = 840;
+
 MainDropdown.create = function() {
+	if (window.innerWidth < MainDropdown.MEDIA_QUERY_BREAKPOINT) return;
 	let node = document.getElementById('main-menu').querySelector('a').nextElementSibling;
 	if (!node) throw new Error("Could not find main menu element.");
 	return new MainDropdown(node);

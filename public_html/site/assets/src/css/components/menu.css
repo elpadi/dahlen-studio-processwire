@@ -7,9 +7,8 @@
 	display: block;
 	color: inherit;
 }
-
 #main-menu {
-	font-size: 37px;
+	font-size: 28px;
 	text-transform: uppercase;
 }
 /* Home button */
@@ -36,29 +35,20 @@ body:not(.submenu-open) #main-menu > ul > li > ul {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	text-align: center;
 }
+/* Root menu items */
 #main-menu > ul > li > ul > li > a {
+	display: inline-block;
 	position: relative;
 	overflow: hidden;
 	z-index: 2;
+	vertical-align: bottom;
 }
-
 /* Submenus */
 #main-menu > ul > li > ul ul {
-	position: absolute;
 	z-index: 1;
 	font-size: 14px;
 	overflow: visible;
 	padding: 0 4px 4px;
-	visibility: hidden;
-	opacity: 0;
-	transform: translateY(-100%);
-	transition: transform 0s 0.2s, opacity 0.2s, visibility 0s 0.2s;
 }
-#main-menu > ul > li > ul ul.open {
-	visibility: visible;
-	opacity: 1;
-	transform: translateY(0);
-	transition: transform 0.1s, opacity 0.2s, visibility 0s 0s;
-}
-
