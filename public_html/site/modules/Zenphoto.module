@@ -127,7 +127,7 @@ class Zenphoto extends WireData implements Module {
 				return $images;
 			}
 
-			$sth = $db->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$row->id ORDER BY `sort_order` ASC");
+			$sth = $db->query("SELECT `filename`,`width`,`height` FROM `zp_images` WHERE `albumid`=$row->id AND `show`=1 ORDER BY `sort_order` ASC");
 			while ($img = $sth->fetch(\PDO::FETCH_OBJ)) {
 				$img->width = intval($img->width);
 				$img->height = intval($img->height);
