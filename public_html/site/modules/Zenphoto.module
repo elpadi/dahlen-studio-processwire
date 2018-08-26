@@ -151,7 +151,8 @@ class Zenphoto extends WireData implements Module {
 
 	protected static function saveImageInfo($name, $images) {
 		$jsPath = $GLOBALS['wire']->config->paths->assets."slideshows/$name.js";
-		if (!is_readable($jsPath) || time() - filemtime($jsPath) > 24 * 3600) {
+		$hasExpired = !getenv('ENABLE_IMAGE_QUERY_CACHE') || !is_readable($jsPath) || time() - filemtime($jsPath) > 24 * 3600;
+		if ($hasExpired) {
 			if (!is_dir(dirname($jsPath))) mkdir(dirname($jsPath), 0755, TRUE);
 			file_put_contents($jsPath, "window['$name']=".json_encode($images).';');
 		}
