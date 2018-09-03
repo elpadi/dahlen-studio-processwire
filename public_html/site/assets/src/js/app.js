@@ -2,10 +2,8 @@ class App {
 
 	constructor() {
 		this.config = {};
-		this.initQueue = [];
-		this.isDocReady = false;
-		this.init(this.initApp.bind(this));
-		jQuery(document).ready(this.onDocumentReady.bind(this));
+		this.initQueue = new InitQueue([this.initApp.bind(this)]);
+		this.loadQueue = new LoadQueue([this.loadApp.bind(this)]);
 	}
 
 	initApp() {
@@ -13,15 +11,16 @@ class App {
 		this.music = new Music(new MusicMuter());
 	}
 
-	init(fn) {
-		if (this.isDocReady) fn();
-		else this.initQueue.push(fn);
+	loadApp() {
+		jQuery('#main-content').removeClass('loading')
 	}
 
-	onDocumentReady() {
-		let fn;
-		while (fn = this.initQueue.shift()) fn();
-		this.isDocReady = true;
+	init(fn) {
+		this.initQueue.add(fn);
+	}
+
+	load(fn) {
+		this.loadQueue.add(fn);
 	}
 
 	setConfig(obj) {
