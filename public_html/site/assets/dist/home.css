@@ -1,1 +1,19 @@
-.js .template--home #logo path,.js .template--home #main-menu>ul>li>ul>li{opacity:0;transition:opacity 1.5s linear}.js .template--home #logo.visible path,.js .template--home #main-menu>ul>li>ul>li.visible{opacity:1}.menu-intro #main-menu a{transition:color 1s 1s}body.template--home .motion:first-of-type{opacity:0}body.template--home .motion:first-of-type .play-button{display:none}
+.js .template--home #logo path,
+.js .template--home #main-menu > ul > li > ul > li {
+	opacity: 0;
+	transition: opacity 1.5s linear;
+}
+
+.js .template--home #logo.visible path,
+.js .template--home #main-menu > ul > li > ul > li.visible {
+	opacity: 1;
+}
+.menu-intro #main-menu a {
+	transition: color 1s 1s;
+}
+body.template--home .motion:nth-of-type(1) {
+	opacity: 0;
+}
+body.template--home .motion:nth-of-type(1) .play-button {
+	display: none;
+}

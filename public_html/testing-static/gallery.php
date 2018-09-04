@@ -1,5 +1,5 @@
 <?php
-define('MINIFY', false);
+define('MINIFY', true);
 ?><!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -23,16 +23,10 @@ define('MINIFY', false);
 		<?php endif; ?>
 		
 		<?php if (MINIFY): ?>
-		<link rel="stylesheet" href="/site/assets/dist/images.css">
+		<link rel="stylesheet" href="/site/assets/dist/slideshow.css">
 		<?php else: ?>
-		<!--
-		<link rel="stylesheet" href="/site/assets/vendor/justifiedGallery.min.css">
-		<link rel="stylesheet" href="/site/assets/vendor/featherlight.min.css">
-		<link rel="stylesheet" href="/site/assets/vendor/featherlight.gallery.min.css">
-		-->
-		
-		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
 		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css?v=7">
+		<link rel="stylesheet" href="/site/assets/src/css/components/slideshow.css">
 		<?php endif; ?>
 		
 		<script>document.documentElement.className = 'js';</script>
@@ -41,9 +35,7 @@ define('MINIFY', false);
 		<div id="container">
 			<?php include('header.php'); ?>
 			<main id="main-content">
-				<article id="advertising_new" class="fade slideshow grid-6" style="" data-name="advertising_new" data-music="">
-					<?php //foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s">%s</a>', $path, basename($path)); ?>
-				</article>
+				<article id="advertising_new" class="fade slideshow grid-6" style="" data-name="advertising_new" data-music=""></article>
 			</main>
 			<svg class="spinning-circles-loader loader" width="58" height="58" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
 				<g fill="none" fill-rule="evenodd">
@@ -70,9 +62,9 @@ define('MINIFY', false);
 		<?php else: ?>
 		<script src="/site/assets/vendor/jquery.min.js"></script>
 		<script src="/site/assets/vendor/lodash.min.js"></script>
-		<script src="/site/assets/src/js/components/events/queue/queue.js"></script>
-		<script src="/site/assets/src/js/components/events/queue/init.js"></script>
-		<script src="/site/assets/src/js/components/events/queue/load.js"></script>
+		<script src="/site/assets/src/js/components/event-queue/event-queue.js"></script>
+		<script src="/site/assets/src/js/components/event-queue/init-event-queue.js"></script>
+		<script src="/site/assets/src/js/components/event-queue/load-event-queue.js"></script>
 		<script src="/site/assets/src/js/app.js"></script>
 
 		<script src="/site/assets/vendor/js.cookie.min.js"></script>
@@ -101,22 +93,6 @@ define('MINIFY', false);
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/slideshow.js"></script>
 		<?php else: ?>
-		<!--
-		<script src="/site/assets/vendor/jquery.justifiedGallery.min.js"></script>
-		<script src="/site/assets/vendor/featherlight.min.js"></script>
-		<script src="/site/assets/vendor/featherlight.gallery.min.js"></script>
-
-		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
-		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
-
-		<script src="/site/assets/src/js/components/pager/pager.js"></script>
-		<script src="/site/assets/src/js/components/pager/infinite-scroll-pager.js"></script>
-
-		<script src="/site/assets/src/js/components/gallery/gallery-pager.js"></script>
-		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
-
-		<script>window.addEventListener('load', e => document.getElementById('main-content').classList.remove('loading'));</script>
-		-->
 		<script src="/site/assets/src/js/components/gallery/thumb-grid.js"></script>
 		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
 		<script src="/site/assets/src/js/templates/slideshow.js"></script>

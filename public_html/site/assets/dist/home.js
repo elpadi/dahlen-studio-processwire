@@ -1,1 +1,81 @@
-"use strict";var _createClass=function(){function e(e,n){for(var t=0;t<n.length;t++){var i=n[t];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(n,t,i){return t&&e(n.prototype,t),i&&e(n,i),n}}();function _classCallCheck(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}var Intro=function(){function e(){_classCallCheck(this,e),this.sequence=app.config.INTRO_SEQUENCE}return _createClass(e,[{key:"init",value:function(){document.body.classList.add("menu-intro");var e=Promise.resolve(!0),n=!0,t=!1,i=void 0;try{for(var o,r=this.sequence[Symbol.iterator]();!(n=(o=r.next()).done);n=!0)for(var a=o.value,u=["show","hide"],l=0;l<u.length;l++){var s=u[l],c=_.camelCase(s+" "+a);c in this&&(e=e.then(_.bindKey(this,c)))}}catch(e){t=!0,i=e}finally{try{!n&&r.return&&r.return()}finally{if(t)throw i}}e.then(_.bindKey(this,"finishIntro"))}},{key:"showLogo",value:function(){for(var n=document.querySelectorAll("#logo path"),t=1;t<=n.length;t++)n[t-1].style.transitionDelay=t*e.LOGO_CHAR_DELAY+"ms";return requestAnimationFrame(function(){return document.getElementById("logo").classList.add("visible")}),new Promise(function(t){return setTimeout(t,(n.length+1)*e.LOGO_CHAR_DELAY)})}},{key:"showMenu",value:function(){for(var n=document.querySelectorAll("#main-menu > ul > li > ul > li"),t=function(n){n.classList.add("visible"),setTimeout(function(){return n.classList.add("reset-color")},e.MENU_COLOR_DELAY)},i=1;i<=n.length;i++)setTimeout(t.bind(this,n[i-1]),i*e.MENU_ITEM_DELAY);return new Promise(function(t){return setTimeout(t,(n.length+1)*e.MENU_ITEM_DELAY+e.MENU_COLOR_DELAY+e.MENU_COLOR_DURATION)}).then(function(){return document.body.classList.remove("menu-intro")})}},{key:"showBed",value:function(){var e=app.loadingQueue.list.item(0).data;return e.node.style.opacity=1,setTimeout(_.bindKey(e,"onPlayButtonClick"),Motion.CONTAINER_FADE_DURATION),new Promise(function(n){return e.on("finished",n)})}},{key:"hideBed",value:function(){return app.loadingQueue.list.item(0).data.remove(),Promise.delay(Motion.CONTAINER_FADE_DURATION+1e3)}},{key:"showImages",value:function(){app.playingQueue=app.loadingQueue.clone(function(e){return new MotionPlayingQueue(e.slice(1))}),app.playingQueue.setupRelays(),app.playingQueue.list.item(0).data.node.style.opacity=1;var e=app.playingQueue.list.tail().data;return new Promise(function(n){return e.on("finished",n)})}},{key:"finishIntro",value:function(){app.playingQueue.list.tail().data.remove(),app.music.stop()}}]),e}();Intro.LOGO_CHAR_DELAY=100,Intro.MENU_ITEM_DELAY=1e3,Intro.MENU_COLOR_DELAY=500,Intro.MENU_COLOR_DURATION=1e3;"use strict";app.init(function(){app.intro=new Intro,app.intro.init()});
+class Intro {
+
+	constructor() {
+		this.sequence = app.config.INTRO_SEQUENCE;
+	}
+
+	init() {
+		document.body.classList.add('menu-intro');
+		let p = Promise.resolve(true);
+		for (let key of this.sequence) {
+			for (let action of ['show','hide']) {
+				let fn = _.camelCase(action + ' ' + key);
+				if (fn in this) p = p.then(_.bindKey(this, fn));
+			}
+		}
+		p.then(_.bindKey(this, 'finishIntro'));
+	}
+
+	showLogo() {
+		let p = document.querySelectorAll('#logo path');
+		console.log('Intro.showLogo', p);
+		for (let i = 1; i <= p.length; i++) {
+			p[i - 1].style.transitionDelay = `${i * Intro.LOGO_CHAR_DELAY}ms`;
+		}
+		requestAnimationFrame(() => document.getElementById('logo').classList.add('visible'));
+		return new Promise(resolve => setTimeout(resolve, (p.length + 1) * Intro.LOGO_CHAR_DELAY));
+	}
+
+	showMenu() {
+		let items = document.querySelectorAll('#main-menu > ul > li > ul > li');
+		console.log('Intro.showMenu', items);
+		let showItem = item => {
+			item.classList.add('visible');
+			setTimeout(() => item.classList.add('reset-color'), Intro.MENU_COLOR_DELAY);
+		};
+		for (let i = 1; i <= items.length; i++)
+			setTimeout(showItem.bind(this, items[i - 1]), i * Intro.MENU_ITEM_DELAY);
+		return new Promise(resolve => setTimeout(resolve, (items.length + 1) * Intro.MENU_ITEM_DELAY + Intro.MENU_COLOR_DELAY + Intro.MENU_COLOR_DURATION))
+			.then(() => document.body.classList.remove('menu-intro'));
+	}
+
+	showBed() {
+		console.log('Intro.showBed');
+		let bed = app.loadingQueue.list.item(0).data;
+		bed.node.style.opacity = 1;
+		setTimeout(_.bindKey(bed, 'onPlayButtonClick'), Motion.CONTAINER_FADE_DURATION);
+		return new Promise(resolve => bed.on('finished', resolve));
+	}
+
+	hideBed() {
+		let bed = app.loadingQueue.list.item(0).data;
+		bed.remove();
+		return Promise.delay(Motion.CONTAINER_FADE_DURATION + 1000);
+	}
+
+	showImages() {
+		console.log('Intro.showImages');
+		app.playingQueue = app.loadingQueue.clone(items => new MotionPlayingQueue(items.slice(1)));
+		app.playingQueue.setupRelays();
+		let first = app.playingQueue.list.item(0).data;
+		first.node.style.opacity = 1;
+		let last = app.playingQueue.list.tail().data;
+		return new Promise(resolve => last.on('finished', resolve));
+	}
+
+	finishIntro() {
+		let last = app.playingQueue.list.tail().data;
+		last.remove();
+		app.music.stop();
+	}
+
+}
+
+Intro.LOGO_CHAR_DELAY = 100;
+Intro.MENU_ITEM_DELAY = 1000;
+Intro.MENU_COLOR_DELAY = 500;
+Intro.MENU_COLOR_DURATION = 1000;
+app.init(function() {
+	app.intro = new Intro();
+	app.intro.init();
+});

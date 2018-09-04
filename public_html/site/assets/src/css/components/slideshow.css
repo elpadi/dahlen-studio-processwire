@@ -6,64 +6,9 @@
 
 .slideshow img {
 	outline: none;
+	transform: translateZ(0);
 }
 
-/* Justified Gallery */
-/*
-.justified-gallery.loading {
-	padding-bottom: 100px;
-}
-.justified-gallery + .loader {
-	top: auto;
-	bottom: 20px;
-}
-.justified-gallery > .spinner {
-	display: none !important;
-}
-*/
-
-/* Featherlight Gallery */
-/*
-.featherlight {
-	width: 100vw;
-	height: 100vh;
-}
-.featherlight .featherlight-content {
-	overflow: visible;
-	background-color: transparent;
-}
-.featherlight .featherlight-close-icon {
-	display: none !important;
-}
-.featherlight-next, .featherlight-previous,
-.featherlight-next svg, .featherlight-previous svg {
-	width: 50px;
-	height: 50px;
-}
-.featherlight-next, .featherlight-previous {
-	position: fixed;
-	background-color: transparent !important;
-    top: calc(50% - 25px);
-}
-.featherlight-next > span, .featherlight-previous > span {
-	display: inline-block!important;
-	font-size: 1em;
-	position: static;
-	line-height: 1;
-	margin: 0;
-	width: auto;
-	height: auto;
-	text-shadow: none;
-}
-.featherlight-previous {
-	left: 5px;
-	right: auto;
-}
-.featherlight-next {
-	right: 5px;
-	left: auto;
-}
-*/
 .h-imgs {
 	position: fixed;
 	top: 0;

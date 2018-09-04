@@ -9,19 +9,20 @@ class Gallery {
 		if (!this.name in window) {
 			throw new Error("Error in slideshow JS setup.");
 		}
-		//this.galleryNode = node.children[0];
 		this.initialSetup();
-		/*
-		this.pager = new GalleryPager(window[this.node.dataset.name], this.galleryNode.getElementsByTagName('a').length, this);
-		if (document.body.scrollHeight < window.innerHeight * 1.6) this.pager.next();
-		app.music.play(this.node.dataset.name);
-		*/
 	}
 
 	createImageElement(info, index) {
 		let img = new Image();
 		if (app.config.IS_LOCAL) {
 			img.src = window['static_test_images'][index % window['static_test_images'].length];
+		}
+		else {
+			let size;
+			if (info.width > 980 || info.height > 980) size = 1960
+			else if (info.width < 980 && info.height < 980) size = undefined;
+			else size = 980;
+			img.src = app.imageUrl(info.filename, this.name, size);
 		}
 		return img;
 	}
@@ -30,12 +31,17 @@ class Gallery {
 		let a = document.createElement('a');
 		a.dataset.index = index;
 		if (app.config.IS_LOCAL) {
-			let href = window['static_test_images'][index % window['static_test_images'].length]
-			a.href = href;
+			a.href = window['static_test_images'][index % window['static_test_images'].length];
+		}
+		else {
+			a.href = app.imageUrl(info.filename, this.name);
 		}
 		let img = new Image();
 		if (app.config.IS_LOCAL) {
 			img.src = a.href;
+		}
+		else {
+			img.src = app.imageUrl(info.filename, this.name, 320);
 		}
 		a.appendChild(img);
 		return a;
@@ -57,8 +63,8 @@ class Gallery {
 	}
 
 	createImageElements() {
-		this.images = window[this.name].map(this.createImageElement.bind(this));
 		this.thumbs = window[this.name].map(this.createThumbElement.bind(this));
+		this.images = window[this.name].map(this.createImageElement.bind(this));
 	}
 
 	setupMainSlider() {

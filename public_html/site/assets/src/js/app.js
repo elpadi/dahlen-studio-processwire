@@ -2,8 +2,8 @@ class App {
 
 	constructor() {
 		this.config = {};
-		this.initQueue = new InitQueue([this.initApp.bind(this)]);
-		this.loadQueue = new LoadQueue([this.loadApp.bind(this)]);
+		this.initQueue = new InitEventQueue([this.initApp.bind(this)]);
+		this.loadQueue = new LoadEventQueue([this.loadApp.bind(this)]);
 	}
 
 	initApp() {
