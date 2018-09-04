@@ -1,16 +1,7 @@
 <article
     id="{{ id }}"
-    class="slideshow"
-    style="max-width:{{ width }}px; max-height:{{ height }}px;"
+    class="fade slideshow"
     data-name="{{ name }}"
-    data-width="{{ width }}"
-    data-height="{{ height }}"
     data-music="{{ music | join(' ') }}"
->
-    <main class="images gallery" data-featherlight-gallery data-featherlight-filter="a">
-        {% for img in images | slice(0, 20) %}
-        <a href="{{ album_url ~ img.filename }}"><img src="{{ imageUrl(name, img.filename, img.width / img.height > 2 ? 980 : 320) }}"></a>
-        {% endfor %}
-    </main>
-</article>
-<script src="{{ assets_url }}slideshows/{{ name }}.js"></script>
+></article>
+<script src="{{ assets_url }}slideshows/{{ name }}.js?v=1532064625"></script>
