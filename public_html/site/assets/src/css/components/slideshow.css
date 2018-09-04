@@ -64,6 +64,25 @@
 	left: auto;
 }
 */
+.h-imgs {
+	position: fixed;
+	top: 0;
+	background-color: rgba(255,255,255,0.9);
+	padding: 8px 4px;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	white-space: nowrap;
+	overflow: auto;
+	z-index: 3;
+}
+.h-imgs > img {
+	max-height: calc(100% - 16px);
+	max-width: calc(100% - 16px);
+	object-fit: contain;
+	margin: 0 4px;
+	border-radius: 3px;
+}
 
 .thumbs-grid {
 	display: grid;
@@ -102,8 +121,10 @@
 }
 .thumbs-grid a {
 	display: block;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 	background-color: gray;
+	border-radius: 2px;
+	overflow: hidden;
 }
 .thumbs-grid img {
 	width: 100%;

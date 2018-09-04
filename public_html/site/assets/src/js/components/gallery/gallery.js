@@ -19,7 +19,16 @@ class Gallery {
 	}
 
 	createImageElement(info, index) {
+		let img = new Image();
+		if (app.config.IS_LOCAL) {
+			img.src = window['static_test_images'][index % window['static_test_images'].length];
+		}
+		return img;
+	}
+
+	createThumbElement(info, index) {
 		let a = document.createElement('a');
+		a.dataset.index = index;
 		if (app.config.IS_LOCAL) {
 			let href = window['static_test_images'][index % window['static_test_images'].length]
 			a.href = href;
@@ -44,67 +53,45 @@ class Gallery {
 	changeActiveGrid() {
 		let grids = this.grids.slice(1).filter(g => g.mediaQuery.matches);
 		this.activeGrid = grids.length ? grids.pop() : this.grids[0];
-		this.activeGrid.hydrate(this.images);
+		this.activeGrid.hydrate(this.thumbs);
 	}
 
 	createImageElements() {
 		this.images = window[this.name].map(this.createImageElement.bind(this));
+		this.thumbs = window[this.name].map(this.createThumbElement.bind(this));
+	}
+
+	setupMainSlider() {
+		this.main = document.createElement('main');
+		this.main.className = 'h-imgs fade fade-out';
+		document.body.appendChild(this.main);
+		this.images.forEach(i => this.main.appendChild(i));
+		$(this.node).on('click', 'a', this.onThumbClick.bind(this));
+	}
+
+	onThumbClick(e) {
+		e.preventDefault();
+		let img = this.images[e.currentTarget.dataset.index];
+		this.main.scrollTo(img.offsetLeft - (window.innerWidth / 2) + (img.offsetWidth / 2), 0);
+		this.showMainSlider();
+	}
+
+	showMainSlider() {
+		this.node.classList.add('fade-out');
+		this.main.classList.remove('fade-out');
+	}
+
+	hideMainSlider() {
+		this.node.classList.remove('fade-out');
+		this.main.classList.add('fade-out');
 	}
 
 	initialSetup() {
 		this.createImageElements();
 		this.setupThumbGrids();
-		/*
-		$(this.galleryNode).justifiedGallery({
-			rowHeight : 150,
-			lastRow : 'nojustify',
-			margins : 8
-		});
-		$.featherlight.defaults.beforeContent = this.beforeSliderContent.bind(this);
-		$.featherlight.defaults.afterContent = this.afterSliderContent.bind(this);
-		*/
+		this.setupMainSlider();
+		this.main.addEventListener('click', this.hideMainSlider.bind(this));
 	}
-
-	addImage(image, index, images) {
-		/*
-		console.log('Gallery.addImage', index, image.src.split('/').pop());
-		let a = document.createElement('a');
-		a.href = images[index].url;
-		a.appendChild(image);
-		document.querySelector('.gallery').appendChild(a);
-		*/
-	}
-
-	addImages(images) {
-		/*
-		console.log('Gallery.addImages', images);
-		let loader = new ImageLoader(_.map(images, 'thumb.url'));
-		this.galleryNode.classList.add('loading');
-		loader.events.addEventListener('imageloaded', e => this.addImage(e.detail.image, e.detail.index, images));
-		return loader.loadAll().then(() => {
-			this.galleryNode.classList.remove('loading');
-			requestAnimationFrame(() => $('.gallery').justifiedGallery('norewind'));
-		});
-		*/
-	}
-
-	/*
-	beforeSliderContent() {
-		console.log('Gallery.beforeSliderContent');
-		let f = document.querySelector('.featherlight');
-		if (!f.querySelector('.loader')) {
-			f.appendChild(document.querySelector('.loader').cloneNode(true));
-		}
-		f.querySelector('.featherlight-content').classList.add('loading');
-	}
-
-	afterSliderContent() {
-		console.log('Gallery.afterSliderContent');
-		let f = document.querySelector('.featherlight-content'),
-			img = document.querySelector('.featherlight-image');
-		f.classList.remove('loading');
-	}
-	*/
 
 }
 

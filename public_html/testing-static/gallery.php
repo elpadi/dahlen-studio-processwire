@@ -40,8 +40,8 @@ define('MINIFY', false);
 	<body class="page--advertising template--images parent--still theme--white">
 		<div id="container">
 			<?php include('header.php'); ?>
-			<main id="main-content" class="loading">
-				<article id="advertising_new" class="slideshow grid-6" style="" data-name="advertising_new" data-music="">
+			<main id="main-content">
+				<article id="advertising_new" class="fade slideshow grid-6" style="" data-name="advertising_new" data-music="">
 					<?php //foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s">%s</a>', $path, basename($path)); ?>
 				</article>
 			</main>
