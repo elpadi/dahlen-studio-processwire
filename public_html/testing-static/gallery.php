@@ -41,8 +41,8 @@ define('MINIFY', false);
 		<div id="container">
 			<?php include('header.php'); ?>
 			<main id="main-content" class="loading">
-				<article id="advertising_new" class="slideshow" style="" data-name="advertising_new" data-music="">
-					<?php foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s">%s</a>', $path, basename($path)); ?>
+				<article id="advertising_new" class="slideshow grid-6" style="" data-name="advertising_new" data-music="">
+					<?php //foreach (glob('img/originals/*.jpg') as $path) printf('<a href="/testing-static/%s">%s</a>', $path, basename($path)); ?>
 				</article>
 			</main>
 			<svg class="spinning-circles-loader loader" width="58" height="58" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
@@ -63,18 +63,19 @@ define('MINIFY', false);
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
 		<script src="js/still-slideshow.js"></script>
+		<script>window['static_test_images'] = <?= json_encode(glob('img/originals/*.jpg')); ?>;</script>
 		<!--**************** BASE **************** -->
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/base.js"></script>
 		<?php else: ?>
 		<script src="/site/assets/vendor/jquery.min.js"></script>
+		<script src="/site/assets/vendor/lodash.min.js"></script>
 		<script src="/site/assets/src/js/components/events/queue/queue.js"></script>
 		<script src="/site/assets/src/js/components/events/queue/init.js"></script>
 		<script src="/site/assets/src/js/components/events/queue/load.js"></script>
 		<script src="/site/assets/src/js/app.js"></script>
 
 		<script src="/site/assets/vendor/js.cookie.min.js"></script>
-		<script src="/site/assets/vendor/lodash.min.js"></script>
 		<script src="/site/assets/vendor/buzz.min.js"></script>
 
 		<script src="/site/assets/src/js/components/timeouts/resettable-timeout.js"></script>
@@ -113,10 +114,11 @@ define('MINIFY', false);
 
 		<script src="/site/assets/src/js/components/gallery/gallery-pager.js"></script>
 		<script src="/site/assets/src/js/components/gallery/image-listing-loader.js"></script>
-		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
 
 		<script>window.addEventListener('load', e => document.getElementById('main-content').classList.remove('loading'));</script>
 		-->
+		<script src="/site/assets/src/js/components/gallery/thumb-grid.js"></script>
+		<script src="/site/assets/src/js/components/gallery/gallery.js"></script>
 		<script src="/site/assets/src/js/templates/slideshow.js"></script>
 		<?php endif; ?>
 	</body>
