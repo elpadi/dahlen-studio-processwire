@@ -103,6 +103,7 @@ body:not(.template--images) #main-content > p:first-child {
 #main-content a {
 	text-decoration: none;
 	color: lightblue;
+	cursor: pointer;
 }
 
 video {

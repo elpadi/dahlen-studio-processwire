@@ -39,7 +39,7 @@ dist/base.min.js: dist/base.vendor.js dist/base.js
 	cp dist/base.vendor.js $@
 	babel dist/base.js | uglifyjs --compress drop_console=true --mangle >> $@
 
-dist/slideshow.js: dist/gallery.component.js src/js/templates/slideshow.js
+dist/slideshow.js: src/js/components/loader/image-loader.js dist/gallery.component.js src/js/templates/slideshow.js
 	cat $^ > $@
 
 dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.js dist/loader.component.js dist/motion.component.js src/js/templates/motion.js
