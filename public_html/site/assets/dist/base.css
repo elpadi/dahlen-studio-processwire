@@ -6,7 +6,6 @@
 .slideshow a,
 */
 .template--home .motion,
-.template--images video,
 .parent--motion .motion,
 .absolute-center {
 	position: absolute;
@@ -595,12 +594,6 @@ body:not(.template--images) #main-content > p:first-child {
 	text-decoration: none;
 	color: lightblue;
 	cursor: pointer;
-}
-
-video {
-	display: block;
-	margin: auto;
-	outline-style: none;
 }
 
 input[type="submit"] {

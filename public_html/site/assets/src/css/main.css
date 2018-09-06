@@ -106,12 +106,6 @@ body:not(.template--images) #main-content > p:first-child {
 	cursor: pointer;
 }
 
-video {
-	display: block;
-	margin: auto;
-	outline-style: none;
-}
-
 input[type="submit"] {
 	text-transform: uppercase;
 	cursor: pointer;

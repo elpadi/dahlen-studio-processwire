@@ -1,11 +1,7 @@
-<video width="{{ width }}" height="{{ height }}" poster="{{ path }}poster.jpg" controls="controls" preload="none">
-		<source type="video/mp4" src="{{ path }}video.mp4" />
-    <source type="video/webm" src="{{ path }}video.webm" />
-    <source type="video/ogg" src="{{ path }}video.ogv" />
-		<object width="{{ width }}" height="{{ height }}" type="application/x-shockwave-flash" data="{{ swf_path }}">
-        <param name="movie" value="{{ swf_path }}" />
-        <param name="flashvars" value="controls=true&file={{ path }}video.mp4" />
-        <!-- Image as a last resort -->
-        <img src="{{ path }}poster.jpg" width="{{ width }}" height="{{ height }}" title="Cannot play video" />
-    </object>
-</video>
+<article class="fade fade-out video" data-name="{{ name }}">
+	<video controls>
+		{% for src in srcs %}
+		<source src="{{ path }}/{{ src }}">
+		{% endfor %}
+	</video>
+</article>

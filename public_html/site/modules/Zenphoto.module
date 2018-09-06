@@ -187,13 +187,11 @@ class Zenphoto extends WireData implements Module {
 
 	public static function video(ShortcodeInterface $s) {
 		$name = $s->getParameter('name');
-		$width = intval($s->getParameter('width'));
-		$height = intval($s->getParameter('height'));
 
 		$path = "{$GLOBALS['wire']->config->urls->assets}videos/$name/";
-		$swf_path = "{$GLOBALS['wire']->config->urls->assets}media-element/build/flashmediaelement.swf";
+		$srcs = array_map(function($p) { return basename($p); }, glob("{$GLOBALS['wire']->config->paths->assets}videos/$name/*"));
 		
-		$vars = compact('name','width','height','path','swf_path');
+		$vars = compact('name','path','srcs');
 		return $GLOBALS['twig']->render("components/video.html", $vars);
 	}
 
