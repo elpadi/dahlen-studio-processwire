@@ -1,10 +1,11 @@
 (function($) {
 
 	app.load(function() {
-		$('#main-content .video').removeClass('fade-out');
-		setTimeout(function() {
-			_.invokeMap($('#main-content video'), 'play');
-		}, 1000);
+		app.videos = {};
+		$('#main-content .video').each(function() {
+			app.videos[this.id] = new Video(this);
+			app.videos[this.id].init();
+		});
 	});
 
 })(jQuery);

@@ -60,8 +60,20 @@ h2.page-title.breadcrumb > span {
 	min-height: calc(100vh - 240px);
 	z-index: 1;
 }
-.template--home #main-content {
-	min-height: calc(100vh - 138px);
+.template--images #main-content .video,
+.template--home #main-content .video {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: white;
+}
+#main-content video {
+	background-color: white;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
 }
 #main-content > p:empty {
 	display: none;
@@ -157,8 +169,24 @@ input[type="password"] {
 		flex: 0 1 50%;
 		order: 1;
 	}
+	.template--home #main-content,
+	body[class^="url--motion"] #main-content {
+		height: calc(100vh - 150px);
+		margin: 0 auto;
+	}
+	.template--home #main-content #cj-bedroom-bed {
+		bottom: 150px;
+	}
 }
 @media (min-width: 840px) {
+	.template--home #main-content,
+	body[class^="url--motion"] #main-content {
+		height: calc(100vh - 50px);
+		margin: 0 auto;
+	}
+	.template--home #main-content #cj-bedroom-bed {
+		bottom: 50px;
+	}
 	#main-header {
 		justify-content: space-between;
 	}

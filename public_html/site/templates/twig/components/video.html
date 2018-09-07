@@ -1,7 +1,7 @@
-<article class="fade fade-out video" data-name="{{ name }}">
-	<video controls>
+<article id="{{ name }}" class="fade fade-out video" data-name="{{ name }}">
+	<video>
 		{% for src in srcs %}
-		<source src="{{ path }}/{{ src }}">
+		<source src="{{ path }}{{ src.name }}?v={{ src.mtime }}">
 		{% endfor %}
 	</video>
 </article>

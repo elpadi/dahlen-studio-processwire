@@ -10,6 +10,7 @@ define('MINIFY', false);
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" class="not-in-build" href="/site/assets/fonts/definitions.css?v=7">
 
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<?php if (MINIFY): ?>
 		<link rel="stylesheet" href="/site/assets/dist/base.min.css">
 		<?php else: ?>
@@ -25,8 +26,7 @@ define('MINIFY', false);
 		<?php if (MINIFY): ?>
 		<link rel="stylesheet" href="/site/assets/dist/video.min.css">
 		<?php else: ?>
-		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css?v=7">
-		<link rel="stylesheet" href="/site/assets/src/css/components/video.css">
+		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css">
 		<?php endif; ?>
 		
 		<script>document.documentElement.className = 'js';</script>
@@ -35,11 +35,7 @@ define('MINIFY', false);
 		<div id="container">
 			<?php include('header.php'); ?>
 			<main id="main-content">
-				<article id="introduction" class="fade fade-out video" data-name="introduction">
-					<video controls>
-						<source src="video/introduction.mp4">
-					</video>
-				</article>
+				<?php $name = 'introduction'; include('_video.php'); ?>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
@@ -80,6 +76,7 @@ define('MINIFY', false);
 		<?php if (MINIFY): ?>
 		<script src="/site/assets/dist/video.min.js"></script>
 		<?php else: ?>
+		<script src="/site/assets/src/js/components/video/video.js"></script>
 		<script src="/site/assets/src/js/templates/video.js"></script>
 		<?php endif; ?>
 	</body>

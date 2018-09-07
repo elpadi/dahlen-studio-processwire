@@ -40,33 +40,19 @@ class Intro {
 	}
 
 	showBed() {
-		console.log('Intro.showBed');
-		let bed = app.loadingQueue.list.item(0).data;
-		bed.node.style.opacity = 1;
-		setTimeout(_.bindKey(bed, 'onPlayButtonClick'), Motion.CONTAINER_FADE_DURATION);
-		return new Promise(resolve => bed.on('finished', resolve));
+		return app.videos['cj-bedroom-bed'].init();
 	}
 
 	hideBed() {
-		let bed = app.loadingQueue.list.item(0).data;
-		bed.remove();
-		return Promise.delay(Motion.CONTAINER_FADE_DURATION + 1000);
+		document.querySelector('#cj-bedroom-bed').remove();
+		return Promise.delay(1000);
 	}
 
 	showImages() {
-		console.log('Intro.showImages');
-		app.playingQueue = app.loadingQueue.clone(items => new MotionPlayingQueue(items.slice(1)));
-		app.playingQueue.setupRelays();
-		let first = app.playingQueue.list.item(0).data;
-		first.node.style.opacity = 1;
-		let last = app.playingQueue.list.tail().data;
-		return new Promise(resolve => last.on('finished', resolve));
+		return app.videos['introduction'].init();
 	}
 
 	finishIntro() {
-		let last = app.playingQueue.list.tail().data;
-		last.remove();
-		app.music.stop();
 	}
 
 }

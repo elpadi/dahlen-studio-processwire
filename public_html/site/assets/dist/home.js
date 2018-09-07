@@ -40,33 +40,19 @@ class Intro {
 	}
 
 	showBed() {
-		console.log('Intro.showBed');
-		let bed = app.loadingQueue.list.item(0).data;
-		bed.node.style.opacity = 1;
-		setTimeout(_.bindKey(bed, 'onPlayButtonClick'), Motion.CONTAINER_FADE_DURATION);
-		return new Promise(resolve => bed.on('finished', resolve));
+		return app.videos['cj-bedroom-bed'].init();
 	}
 
 	hideBed() {
-		let bed = app.loadingQueue.list.item(0).data;
-		bed.remove();
-		return Promise.delay(Motion.CONTAINER_FADE_DURATION + 1000);
+		document.querySelector('#cj-bedroom-bed').remove();
+		return Promise.delay(1000);
 	}
 
 	showImages() {
-		console.log('Intro.showImages');
-		app.playingQueue = app.loadingQueue.clone(items => new MotionPlayingQueue(items.slice(1)));
-		app.playingQueue.setupRelays();
-		let first = app.playingQueue.list.item(0).data;
-		first.node.style.opacity = 1;
-		let last = app.playingQueue.list.tail().data;
-		return new Promise(resolve => last.on('finished', resolve));
+		return app.videos['introduction'].init();
 	}
 
 	finishIntro() {
-		let last = app.playingQueue.list.tail().data;
-		last.remove();
-		app.music.stop();
 	}
 
 }
@@ -75,7 +61,53 @@ Intro.LOGO_CHAR_DELAY = 100;
 Intro.MENU_ITEM_DELAY = 1000;
 Intro.MENU_COLOR_DELAY = 500;
 Intro.MENU_COLOR_DURATION = 1000;
-app.init(function() {
-	app.intro = new Intro();
-	app.intro.init();
-});
+class Video {
+
+	constructor(element, options) {
+		Video.assertVideoElement(element);
+		this.element = element;
+		this.video = element.querySelector('video');
+		$.extend(this, {
+			autoplay: false,
+			playIcon: true,
+			mute: false
+		}, options);
+	}
+
+	createPlayIcon() {
+		this.element.appendChild(app.createIcon('play_arrow'));
+	}
+
+	init() {
+		if (this.playIcon) this.createPlayIcon();
+		if (this.mute) this.video.muted = true;
+		this.element.classList.remove('fade-out');
+		return new Promise((resolve, reject) => {
+			this.video.addEventListener('ended', resolve);
+			if (this.autoplay) setTimeout(() => this.video.play(), Video.AUTOPLAY_DELAY);
+		});
+	}
+
+}
+
+Video.assertVideoElement = function(element) {
+	if (!element || element.childElementCount == 0) throw new Error("Invalid video node.");
+	let v = element.children[0];
+	if (v.nodeName !== 'VIDEO') throw new Error("Invalid video node.");
+};
+
+Video.AUTOPLAY_DELAY = 500;
+(function($) {
+	app.load(function() {
+		app.videos = {};
+		$('#main-content .video').each(function(i, el) {
+			app.videos[this.id] = new Video(this, {
+				autoplay: i == 0,
+				mute: i == 0,
+				playIcon: i > 0
+			});
+		});
+		app.intro = new Intro();
+		app.intro.init();
+	});
+})(jQuery);

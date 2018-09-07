@@ -11,6 +11,7 @@ define('DEBUG', true);
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" class="not-in-build" href="/site/assets/fonts/definitions.css?v=7">
 
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<!--**************** BASE **************** -->
 		<?php if (MINIFY): ?>
 		<link rel="stylesheet" href="/site/assets/dist/base.css">
@@ -29,6 +30,7 @@ define('DEBUG', true);
 		<link rel="stylesheet" href="/site/assets/dist/home.css">
 		<?php else: ?>
 		<link rel="stylesheet" href="/site/assets/src/css/components/intro.css">
+		<link rel="stylesheet" href="/site/assets/src/css/templates/images.css">
 		<?php endif; ?>
 		<!--**************** INTRO **************** -->
 		<script>document.documentElement.className = 'js';</script>
@@ -62,114 +64,7 @@ define('DEBUG', true);
 				<h2 class="page-title breadcrumb visuallyhidden" data-opacity="0.75"><span class="parent">Still</span> ➤ <span class="current">Advertising</span></h2>
 			</header>
 			<main id="main-content">
-	<section
-	class="motion"
-	data-name="charles-jourdan/bedroom-bed"
-	data-timing="150"
-	data-start="50"
-	style="max-width:300px; max-height:225px;"
-	data-width="300"
-	data-height="225"
-	data-music=""
-	data-music-delay="0"
-	data-fade-duration="0"
-	>
-	<button class="play-button icon-button absolute-center fade">
-	<svg class="play-icon svg-icon" viewBox="0 0 100 100" title="Play Slideshow">
-		<defs>
-			<linearGradient id="spinner-one">
-				<stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
-				<stop offset="100%" stop-color="rgba(255,255,255,0.4)"/>
-			</linearGradient>
-			<linearGradient id="spinner-two">
-				<stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-				<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-			</linearGradient>
-		</defs>
-		<circle class="outer" cx="50" cy="50" r="47"/>
-		<circle class="filler" cx="50" cy="50" r="47"/>
-		<circle class="loading-inner" cx="50" cy="50" r="37"/>
-		<path class="loading-spinner one" d="M 50,7 A 50,50,0,0,0,7,50" stroke="url(#spinner-one)"/>
-		<path class="loading-spinner two" d="M 93,50 A 50,50,0,0,0,50,7" stroke="url(#spinner-two)"/>
-		<path class="triangle" d="M 30,20 L 80,50 L 30,80 Z"/>
-	</svg>
-</button>
-	<img src="/zenphoto/albums/charles-jourdan/bedroom-bed/poster.jpg" alt="Charles Jourdan Bedroom Bed" data-width="300" data-height="217">
-</section>
-<script src="/site/assets/slideshows/charles-jourdan/bedroom-bed.js"></script>
-
-<section
-	class="motion"
-	data-name="pat-field-keith-haring/ana-lisboa-steps"
-	data-timing="250"
-	data-start="50"
-	style="max-width:754px; max-height:503px;"
-	data-width="754"
-	data-height="503"
-	data-music="1-tainted-love"
-	data-music-delay="9000"
-	data-fade-duration="2000"
-	>
-	<button class="play-button icon-button absolute-center fade">
-	<svg class="play-icon svg-icon" viewBox="0 0 100 100" title="Play Slideshow">
-		<defs>
-			<linearGradient id="spinner-one">
-				<stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
-				<stop offset="100%" stop-color="rgba(255,255,255,0.4)"/>
-			</linearGradient>
-			<linearGradient id="spinner-two">
-				<stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-				<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-			</linearGradient>
-		</defs>
-		<circle class="outer" cx="50" cy="50" r="47"/>
-		<circle class="filler" cx="50" cy="50" r="47"/>
-		<circle class="loading-inner" cx="50" cy="50" r="37"/>
-		<path class="loading-spinner one" d="M 50,7 A 50,50,0,0,0,7,50" stroke="url(#spinner-one)"/>
-		<path class="loading-spinner two" d="M 93,50 A 50,50,0,0,0,50,7" stroke="url(#spinner-two)"/>
-		<path class="triangle" d="M 30,20 L 80,50 L 30,80 Z"/>
-	</svg>
-</button>
-	<img src="/zenphoto/albums/pat-field-keith-haring/ana-lisboa-steps/darker_join1.jpg" alt="Pat Field Keith Haring Ana Lisboa Steps" data-width="754" data-height="503">
-</section>
-<script src="/site/assets/slideshows/pat-field-keith-haring/ana-lisboa-steps/info.js"></script>
-
-<section
-	class="motion"
-	data-name="general/introduction"
-	data-timing="250"
-	data-start="85"
-	style="max-width:5100px; max-height:2850px;"
-	data-width="5100"
-	data-height="2850"
-	data-music=""
-	data-music-delay="0"
-	data-fade-duration="1000"
-	data-autoplay="true">
-	<button class="play-button icon-button absolute-center fade">
-	<svg class="play-icon svg-icon" viewBox="0 0 100 100" title="Play Slideshow">
-		<defs>
-			<linearGradient id="spinner-one">
-				<stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
-				<stop offset="100%" stop-color="rgba(255,255,255,0.4)"/>
-			</linearGradient>
-			<linearGradient id="spinner-two">
-				<stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-				<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-			</linearGradient>
-		</defs>
-		<circle class="outer" cx="50" cy="50" r="47"/>
-		<circle class="filler" cx="50" cy="50" r="47"/>
-		<circle class="loading-inner" cx="50" cy="50" r="37"/>
-		<path class="loading-spinner one" d="M 50,7 A 50,50,0,0,0,7,50" stroke="url(#spinner-one)"/>
-		<path class="loading-spinner two" d="M 93,50 A 50,50,0,0,0,50,7" stroke="url(#spinner-two)"/>
-		<path class="triangle" d="M 30,20 L 80,50 L 30,80 Z"/>
-	</svg>
-</button>
-	<img src="/zenphoto/albums/general/introduction/3feb15_collage3.jpg" alt="General Introduction" data-width="1216" data-height="1630">
-</section>
-<script src="/site/assets/slideshows/general/introduction.js"></script>
-
+				<?php foreach (['cj-bedroom-bed','introduction'] as $name) include('_video.php'); ?>
 			</main>
 			<button id="sound-button" class="clean-button img-button state--on"><img src="/site/assets/img/sound.png" alt="Toggle sound"></button>
 		</div>
@@ -182,6 +77,9 @@ define('DEBUG', true);
 		<script src="/site/assets/vendor/lodash.min.js"></script>
 		<script src="/site/assets/vendor/buzz.min.js"></script>
 
+		<script src="/site/assets/src/js/components/event-queue/event-queue.js"></script>
+		<script src="/site/assets/src/js/components/event-queue/init-event-queue.js"></script>
+		<script src="/site/assets/src/js/components/event-queue/load-event-queue.js"></script>
 		<script src="/site/assets/src/js/components/timeouts/resettable-timeout.js"></script>
 
 		<script src="/site/assets/src/js/components/events/event-emitter.js"></script>
@@ -206,38 +104,17 @@ define('DEBUG', true);
 				IS_LOCAL: location.hostname.indexOf('localhost') !== -1
 			});
 			app.setConfig({
-				INTRO_SEQUENCE: app.config.IS_LOCAL ? ['logo','menu'] : ['bed','logo','menu','images']
+				INTRO_SEQUENCE: ['bed','logo','menu','images']
 			});
 		</script>
-	
-		<!--**************** MOTION **************** -->
-		<?php if (MINIFY): ?>
-		<script src="/site/assets/dist/motion.js"></script>
-		<?php else: ?>
-		<script src="/site/assets/vendor/doubly-linked-list.min.js"></script>
-
-		<script src="/site/assets/src/js/components/maths/rect.js"></script>
-
-		<script src="/site/assets/src/js/components/loader/ajax-loader.js"></script>
-		<script src="/site/assets/src/js/components/loader/image-loader.js"></script>
-
-		<script src="/site/assets/src/js/components/motion/motion.js"></script>
-		<script src="/site/assets/src/js/components/motion/motion-image.js"></script>
-		<script src="/site/assets/src/js/components/motion/motion-animation.js"></script>
-		<script src="/site/assets/src/js/components/motion/motion-queue.js"></script>
-		<script src="/site/assets/src/js/components/motion/motion-loading-queue.js"></script>
-		<script src="/site/assets/src/js/components/motion/motion-playing-queue.js"></script>
-		
-		<script src="/site/assets/src/js/templates/motion.js"></script>
-		<?php endif; ?>
-		<!--**************** MOTION **************** -->
 
 		<!--**************** INTRO **************** -->
 		<?php if (MINIFY): ?>
-		<script src="/site/assets/dist/home.js"></script>
+		<script src="/site/assets/dist/home.min.js"></script>
 		<?php else: ?>
 			
 		<script src="/site/assets/src/js/components/intro/intro.js"></script>
+		<script src="/site/assets/src/js/components/video/video.js"></script>
 		<script src="/site/assets/src/js/templates/home.js"></script>
 		<?php endif; ?>
 		<!--**************** INTRO **************** -->

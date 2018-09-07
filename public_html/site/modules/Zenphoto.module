@@ -189,7 +189,9 @@ class Zenphoto extends WireData implements Module {
 		$name = $s->getParameter('name');
 
 		$path = "{$GLOBALS['wire']->config->urls->assets}videos/$name/";
-		$srcs = array_map(function($p) { return basename($p); }, glob("{$GLOBALS['wire']->config->paths->assets}videos/$name/*"));
+		$srcs = array_map(function($p) { 
+			return ['name' => basename($p), 'mtime' => filemtime($p)];
+		}, glob("{$GLOBALS['wire']->config->paths->assets}videos/$name/*"));
 		
 		$vars = compact('name','path','srcs');
 		return $GLOBALS['twig']->render("components/video.html", $vars);

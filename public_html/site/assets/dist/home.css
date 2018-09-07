@@ -17,3 +17,31 @@ body.template--home .motion:nth-of-type(1) {
 body.template--home .motion:nth-of-type(1) .play-button {
 	display: none;
 }
+.gallery a {
+	overflow: hidden;
+}
+.gallery a:not(.jg-entry) img {
+	opacity: 0;
+}
+.gallery img {
+	transition: transform 0.5s, opacity 0.3s !important;
+}
+.video > .material-icons {
+	font-size: 64px;
+	width: 64px;
+	height: 64px;
+	z-index: 400;
+	color: rgba(240,240,240,0.7);
+	opacity: 0;
+	transition: color 0.2s linear, opacity 0.2s linear;
+	pointer-events: none;
+}
+video:hover + .material-icons {
+	color: rgba(255,255,255,0.9);
+}
+.video.paused > .material-icons {
+	opacity: 1;
+}
+video {
+	cursor: pointer;
+}

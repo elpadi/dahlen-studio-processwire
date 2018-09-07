@@ -1,11 +1,8 @@
 .tc { text-align: center; }
 
-/*
-.slideshow > nav,
-.slideshow a,
-*/
-.template--home .motion,
-.parent--motion .motion,
+.video > .material-icons,
+.template--images #main-content .video,
+.template--home #main-content .video,
 .absolute-center {
 	position: absolute;
 	top: 0;
@@ -43,11 +40,6 @@ input,
 .icon-button > svg {
 	pointer-events: none;
 }
-/*
-.loading {
-	background: transparent url(/site/assets/img/ajax-loader.gif) center center no-repeat;
-}
-*/
 .full-window {
 	position: fixed;
 	top: 0;

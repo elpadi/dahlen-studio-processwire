@@ -12,7 +12,12 @@ class App {
 	}
 
 	loadApp() {
-		jQuery('#main-content').removeClass('loading')
+		$('#main-content').removeClass('loading').on('click', 'video', e => this.onVideoClick(e.target));
+	}
+
+	onVideoClick(node) {
+		node.parentNode.classList.toggle('paused', !node.paused);
+		node.paused ? node.play() : node.pause();
 	}
 
 	init(fn) {
@@ -41,6 +46,13 @@ class App {
 		};
 		let qs = Object.keys(params).map(key => key + '=' + encodeURIComponent(params[key])).join('&');
 		return this.config.ROOT_URL + 'zenphoto/zp-core/i.php?' + qs;
+	}
+
+	createIcon(name) {
+		let n = document.createElement('span');
+		n.className = 'material-icons';
+		n.innerHTML = name;
+		return n;
 	}
 
 }

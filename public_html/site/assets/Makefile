@@ -2,8 +2,8 @@
 
 JS_COMPONENTS := $(shell find src/js/components -type d -mindepth 1 | xargs basename)
 
-DIST_CSS := base slideshow motion jigsaw home page
-DIST_JS := base slideshow motion heart-collage home page
+DIST_CSS := base slideshow motion jigsaw home page video
+DIST_JS := base slideshow motion heart-collage home page video
 
 all: css js
 
@@ -45,13 +45,16 @@ dist/slideshow.js: src/js/components/loader/image-loader.js dist/gallery.compone
 dist/motion.js: vendor/doubly-linked-list.min.js src/js/components/maths/rect.js dist/loader.component.js dist/motion.component.js src/js/templates/motion.js
 	cat $^ > $@
 
-dist/home.js: dist/intro.component.js src/js/templates/home.js
+dist/home.js: src/js/components/intro/intro.js src/js/components/video/video.js src/js/templates/home.js
 	cat $^ > $@
 
 dist/heart-collage.js: vendor/jquery.easing.min.js dist/jigsaw.component.js dist/heart-collage.component.js src/js/templates/heart-collage.js
 	cat $^ > $@
 
 dist/page.js: src/js/templates/page.js
+	cat $^ > $@
+
+dist/video.js: src/js/components/video/video.js src/js/templates/video.js
 	cat $^ > $@
 ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## ## JS ## 
 ########################################################################
@@ -70,10 +73,13 @@ dist/motion.css: src/css/templates/images.css src/css/components/motion.css
 dist/jigsaw.css: src/css/components/jigsaw.css
 	cat $^ > $@
 
-dist/home.css: src/css/components/intro.css
+dist/home.css: src/css/components/intro.css src/css/templates/images.css
 	cat $^ > $@
 
 dist/page.css: src/css/templates/basic-page.css
+	cat $^ > $@
+
+dist/video.css: src/css/templates/images.css
 	cat $^ > $@
 ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## ## CSS ## 
 ########################################################################
