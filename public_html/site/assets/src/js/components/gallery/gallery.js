@@ -72,6 +72,7 @@ class Gallery {
 	}
 
 	onAllImagesLoaded() {
+		this.grid.resizeLastRow();
 		this.node.classList.add('images-loaded');
 	}
 

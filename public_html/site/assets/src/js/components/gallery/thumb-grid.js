@@ -5,6 +5,7 @@ class ThumbGrid {
 		this.container.classList.add('thumbs-grid');
 		this.totalRatio = Number.POSITIVE_INFINITY;
 		this.columnCount = this.getColumnCount();
+		this.rowRatios = [];
 	}
 
 	getColumnCount() {
@@ -15,33 +16,45 @@ class ThumbGrid {
 		return 2;
 	}
 
-	getNextColumnIndex() {
-		let h = this.columns.map(c => c.height);
-		let min = Math.min.apply(window, h);
-		console.log('ThumbGrid.getNextColumnIndex', h, min);
-		return h.indexOf(min);
+	getNextRowIndex(itemRatio) {
+		let index = _.findIndex(this.rowRatios, r => r + itemRatio < this.columnCount);
+		if (index == -1) {
+			this.newRow();
+			return this.rowRatios.length - 1;
+		}
+		return index;
 	}
 
 	newRow() {
 		this.row = document.createElement('div');
 		this.row.className = 'grid-row';
 		this.container.appendChild(this.row);
-		this.totalRatio = 0;
+		this.rowRatios.push(0);
 		this.fadeDurations = _.shuffle(_.range(500, 3000, 500));
 	}
 
-	addItem(item) {
-		if (this.totalRatio > this.columnCount) this.newRow();
-		this.totalRatio += item.aspectRatio;
-		this.row.style.gridTemplateColumns += ` ${item.aspectRatio}fr `;
-		item.link.style.transitionDelay = this.fadeDurations.pop() + 'ms';
-		this.row.appendChild(item.link);
-		setTimeout(() => item.link.classList.remove('fade-out'), 100);
-		//this.columns[this.getNextColumnIndex()].addItem(item);
+	resizeLastRow() {
+		let c = this.container.childElementCount;
+		let h = this.container.offsetHeight;
+		let avgH = (h - c * ThumbGrid.GRID_GAP) / c;
+		let ratios = _.map(this.row.children, a => Number(a.dataset.aspectRatio));
+		this.row.style.gridTemplateColumns = ratios.map(r => Math.round(r * avgH) + 'px').join(' ');
 	}
 
-	hydrate(items) {
-		items.forEach(this.addItem.bind(this));
+	showItem(item) {
+		item.link.classList.remove('fade-out');
+	}
+
+	addItem(item) {
+		let index = this.getNextRowIndex(item.aspectRatio);
+		let row = this.container.children[index];
+		this.rowRatios[index] += item.aspectRatio;
+		row.style.gridTemplateColumns += ` ${item.aspectRatio}fr `;
+		item.link.style.transitionDelay = this.fadeDurations.pop() + 'ms';
+		row.appendChild(item.link);
+		setTimeout(this.showItem.bind(this, item), 100);
 	}
 
 }
+
+ThumbGrid.GRID_GAP = 10;

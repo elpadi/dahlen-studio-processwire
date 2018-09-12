@@ -42,7 +42,7 @@ class GalleryImage {
 
 	createLink(albumName) {
 		let a = document.createElement('a');
-		a.className = 'fade fade-out';
+		a.className = 'fade';
 		a.dataset.index = this.index;
 		a.dataset.aspectRatio = this.aspectRatio;
 		a.href = this.getOriginalSrc(albumName);
