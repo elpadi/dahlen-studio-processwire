@@ -147,12 +147,16 @@ class Gallery {
 		this[index % 2 == 0 ? 'onThumbLoaded' : 'onMainImageLoaded'].call(this, img, Math.floor(index / 2));
 	}
 
+	onAllImagesLoaded() {
+		this.node.classList.add('images-loaded');
+	}
+
 	load() {
 		let size = this.node.offsetWidth / this.grid.columnCount;
 		let srcs = _.flatten(this.images.map(i => [i.getThumbSrc(this.name, size), i.getMainSrc(this.name, size)]));
 		let loader = new ImageLoader(srcs);
 		loader.events.addEventListener('imageloaded', e => this.onImageLoaded(e.detail.image, e.detail.index));
-		loader.loadAll();
+		loader.loadAll().then(this.onAllImagesLoaded.bind(this));
 	}
 
 }
@@ -167,9 +171,8 @@ class ThumbGrid {
 
 	getColumnCount() {
 		let w = window.innerWidth;
-		if (w >= 1280) return 6;
-		if (w >= 980) return 5;
-		if (w >= 768) return 4;
+		if (w >= 1280) return 5;
+		if (w >= 980) return 4;
 		if (w >= 540) return 3;
 		return 2;
 	}
@@ -186,12 +189,14 @@ class ThumbGrid {
 		this.row.className = 'grid-row';
 		this.container.appendChild(this.row);
 		this.totalRatio = 0;
+		this.fadeDurations = _.shuffle(_.range(500, 3000, 500));
 	}
 
 	addItem(item) {
 		if (this.totalRatio > this.columnCount) this.newRow();
 		this.totalRatio += item.aspectRatio;
 		this.row.style.gridTemplateColumns += ` ${item.aspectRatio}fr `;
+		item.link.style.transitionDelay = this.fadeDurations.pop() + 'ms';
 		this.row.appendChild(item.link);
 		setTimeout(() => item.link.classList.remove('fade-out'), 100);
 		//this.columns[this.getNextColumnIndex()].addItem(item);

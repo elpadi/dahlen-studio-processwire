@@ -71,12 +71,16 @@ class Gallery {
 		this[index % 2 == 0 ? 'onThumbLoaded' : 'onMainImageLoaded'].call(this, img, Math.floor(index / 2));
 	}
 
+	onAllImagesLoaded() {
+		this.node.classList.add('images-loaded');
+	}
+
 	load() {
 		let size = this.node.offsetWidth / this.grid.columnCount;
 		let srcs = _.flatten(this.images.map(i => [i.getThumbSrc(this.name, size), i.getMainSrc(this.name, size)]));
 		let loader = new ImageLoader(srcs);
 		loader.events.addEventListener('imageloaded', e => this.onImageLoaded(e.detail.image, e.detail.index));
-		loader.loadAll();
+		loader.loadAll().then(this.onAllImagesLoaded.bind(this));
 	}
 
 }

@@ -27,12 +27,14 @@ class ThumbGrid {
 		this.row.className = 'grid-row';
 		this.container.appendChild(this.row);
 		this.totalRatio = 0;
+		this.fadeDurations = _.shuffle(_.range(500, 3000, 500));
 	}
 
 	addItem(item) {
 		if (this.totalRatio > this.columnCount) this.newRow();
 		this.totalRatio += item.aspectRatio;
 		this.row.style.gridTemplateColumns += ` ${item.aspectRatio}fr `;
+		item.link.style.transitionDelay = this.fadeDurations.pop() + 'ms';
 		this.row.appendChild(item.link);
 		setTimeout(() => item.link.classList.remove('fade-out'), 100);
 		//this.columns[this.getNextColumnIndex()].addItem(item);

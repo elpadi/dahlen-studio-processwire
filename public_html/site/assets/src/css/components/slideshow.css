@@ -40,6 +40,9 @@
 	display: block;
 	overflow: hidden;
 }
+.slideshow:not(.images-loaded) .thumbs-grid > .grid-row:last-child a {
+	opacity: 0;
+}
 .thumbs-grid img {
 	width: 100%;
 	height: auto;
