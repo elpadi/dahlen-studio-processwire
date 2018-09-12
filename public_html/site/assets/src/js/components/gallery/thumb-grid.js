@@ -10,9 +10,10 @@ class ThumbGrid {
 
 	getColumnCount() {
 		let w = window.innerWidth;
-		if (w >= 1280) return 5;
-		if (w >= 980) return 4;
-		if (w >= 540) return 3;
+		if (w >= 1280) return 6;
+		if (w >= 980) return 5;
+		if (w >= 640) return 4;
+		if (w >= 480) return 3;
 		return 2;
 	}
 

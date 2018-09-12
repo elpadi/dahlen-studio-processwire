@@ -17,6 +17,10 @@ body.template--home .motion:nth-of-type(1) {
 body.template--home .motion:nth-of-type(1) .play-button {
 	display: none;
 }
+.parent--still #main-content {
+	max-width: none;
+	padding: 0 10px;
+}
 .gallery a {
 	overflow: hidden;
 }

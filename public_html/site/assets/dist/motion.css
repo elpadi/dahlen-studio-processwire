@@ -1,3 +1,7 @@
+.parent--still #main-content {
+	max-width: none;
+	padding: 0 10px;
+}
 .gallery a {
 	overflow: hidden;
 }
