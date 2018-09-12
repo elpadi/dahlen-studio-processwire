@@ -43,8 +43,9 @@
 .thumbs-grid img {
 	width: 100%;
 	height: auto;
-	transition: opacity 0.2s;
+	filter: brightness(1);
+	transition: filter 0.5s;
 }
 .thumbs-grid a:hover img {
-	opacity: 0.5;
+	filter: brightness(0.6);
 }
