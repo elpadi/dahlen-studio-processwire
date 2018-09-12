@@ -33,12 +33,11 @@
 }
 .thumbs-grid > .grid-row {
 	display: grid;
-	grid-gap: 8px;
-	margin-bottom: 8px;
+	grid-gap: 10px;
+	margin-bottom: 10px;
 }
 .thumbs-grid a {
 	display: block;
-	border-radius: 2px;
 	overflow: hidden;
 }
 .thumbs-grid img {
