@@ -39,6 +39,9 @@
 	display: block;
 	overflow: hidden;
 }
+.slideshow:not(.images-loaded) .thumbs-grid > .grid-row:last-child {
+	background: transparent url(/site/assets/img/ajax-loader.gif) center 150px no-repeat;
+}
 .slideshow:not(.images-loaded) .thumbs-grid > .grid-row:last-child a {
 	opacity: 0;
 }
