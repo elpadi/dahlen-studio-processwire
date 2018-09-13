@@ -402,6 +402,11 @@ class App {
 	initApp() {
 		this.mainMenu = MainDropdown.create();
 		this.music = new Music(new MusicMuter());
+
+		let imgSizes = Object.keys(this.config.IMG_SIZE_HASHES);
+		this.MIN_IMG_SIZE = imgSizes[0];
+		this.MAX_IMG_SIZE = _.last(imgSizes);
+		this.IMAGE_SIZE_AREAS = _.fromPairs(imgSizes.map(s => [s, s * s]));
 	}
 
 	loadApp() {
@@ -423,6 +428,12 @@ class App {
 
 	setConfig(obj) {
 		for (let key of Object.keys(obj)) this.config[key] = obj[key];
+	}
+
+	getValidImageSize(w, h, fallback) {
+		let area = w * h;
+		let size = _.findKey(this.config.IMAGE_SIZE_AREAS, a => a > area);
+		return size ? size : fallback;
 	}
 
 	imageUrl(filename, albumName, size) {

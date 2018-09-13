@@ -232,16 +232,14 @@ class GalleryImage {
 		this.thumb = null;
 	}
 
-	getThumbSize(sizeFactor) {
-		let totalSize = this.aspectRatio * sizeFactor;
-		if (totalSize > 700) return 980;
-		//if (totalSize > 500) return 640;
-		return 320;
+	getThumbSize() {
+		let avgH = 200;
+		return app.getValidImageSize(this.aspectRatio * avgH, avgH, app.MIN_IMG_SIZE);
 	}
 
 	getMainSize() {
-		if (this.aspectRatio > 2 && this.info.height > 600) return 1960;
-		return 980;
+		let h = window.innerHeight - 237;
+		return app.getValidImageSize(this.aspectRatio * h, h, app.MAX_IMG_SIZE);
 	}
 
 	getTestSrc() {
