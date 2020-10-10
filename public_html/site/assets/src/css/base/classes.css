@@ -4,52 +4,52 @@
 .template--images #main-content .video,
 .template--home #main-content .video,
 .absolute-center {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-	z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 2;
 }
 .fade {
-	opacity: 1;
-	visibility: visible;
-	transition: opacity 0.3s, visibility 0s 0s;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s, visibility 0s 0s;
 }
 .fade.fade-out {
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity 0.3s, visibility 0s 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s 0.3s;
 }
 input,
 .clean-button,
 .slick-arrow,
 .icon-button {
-	background-color: transparent;
-	border-style: none;
-	box-shadow: none;
-	outline-style: none;
-	padding: 0;
+    background-color: transparent;
+    border-style: none;
+    box-shadow: none;
+    outline-style: none;
+    padding: 0;
 }
 .clean-button,
 .slick-arrow,
 .icon-button {
-	cursor: pointer;
+    cursor: pointer;
 }
 .icon-button > svg {
-	pointer-events: none;
+    pointer-events: none;
 }
 .full-window {
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
 }
 .sound-button {
-	background: transparent url(/site/assets/img/sound.png) center center no-repeat;
+    background: transparent url(/site/assets/img/sound.png) center center no-repeat;
 }
 .mute .sound-button {
-	background-image: url(/site/assets/img/sound-red.png);
+    background-image: url(/site/assets/img/sound-red.png);
 }

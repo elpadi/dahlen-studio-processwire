@@ -1,9 +1,9 @@
 body {
-	background-color: black;
-	color: black;
+    background-color: black;
+    color: black;
 }
 input {
-	color: white;
+    color: white;
 }
 
 #logo path { fill: white; }
@@ -28,18 +28,18 @@ input {
 .page--new .breadcrumb > .current { color: #35D7DD; }
 
 .slick-arrow path {
-	stroke: white;
+    stroke: white;
 }
 
 body.theme--white {
-	background-color: white;
-	color: #333;
+    background-color: white;
+    color: #333;
 }
 body.theme--white input {
-	color: black;
+    color: black;
 }
 body.theme--white input[type="text"], body.theme--white input[type="email"], body.theme--white input[type="password"] {
-	border-bottom-color: black;
+    border-bottom-color: black;
 }
 
 body.theme--white #logo path { fill: black; }
@@ -50,6 +50,6 @@ body.theme--white #main-menu > ul > li > ul ul { background-color: rgba(255,255,
 body.theme--white #main-menu > ul > li > ul > li > ul > li > a { color: #999; }
 
 body.theme--white .slick-arrow path {
-	stroke: #ccc;
+    stroke: #ccc;
 }
 

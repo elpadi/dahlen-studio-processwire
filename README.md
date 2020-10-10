@@ -7,11 +7,11 @@ Website for dahlenstudio.com using Processwire as the content CMS and Zenphoto i
 
 Download the [latest version of ProcessWire](https://github.com/processwire/processwire) and move the `wire` directory into the `public_html` directory.
 
-Scan index.php for updates to merge.
+Copy the index.php from the ProcessWire install dir.
 
 Import data and structure for ProcessWire database.
 
-Create the config file in the site directory.
+Create the config file int the `wire` directory.
 
 ### Zenphoto
 

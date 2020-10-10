@@ -1,31 +1,40 @@
 class EventEmitter {
 
-	constructor() {
-		this.events = document.createDocumentFragment();
-		this.triggeredEvents = [];
-	}
+    constructor()
+    {
+        this.events = document.createDocumentFragment();
+        this.triggeredEvents = [];
+    }
 
-	on() {
-		this.events.addEventListener.apply(this.events, arguments);
-	}
+    on()
+    {
+        this.events.addEventListener.apply(this.events, arguments);
+    }
 
-	when(name) {
-		return this.hasTriggered(name)
-			? Promise.resolve(true)
-			: new Promise((resolve, reject) => {
-				this.on(name, resolve);
-			})
-	}
+    when(name)
+    {
+        return this.hasTriggered(name)
+            ? Promise.resolve(true)
+            : new Promise((resolve, reject) => {
+                this.on(name, resolve);
+            })
+    }
 
-	hasTriggered(name) {
-		return this.triggeredEvents.indexOf(name) != -1;
-	}
+    hasTriggered(name)
+    {
+        return this.triggeredEvents.indexOf(name) != -1;
+    }
 
-	trigger(name, data) {
-		console.log('EventEmitter.trigger', name, data);
-		if (data == undefined) data = {};
-		this.events.dispatchEvent(new CustomEvent(name, { detail: data }));
-		if (!this.hasTriggered(name)) this.triggeredEvents.push(name);
-	}
+    trigger(name, data)
+    {
+        console.log('EventEmitter.trigger', name, data);
+        if (data == undefined) {
+            data = {};
+        }
+        this.events.dispatchEvent(new CustomEvent(name, { detail: data }));
+        if (!this.hasTriggered(name)) {
+            this.triggeredEvents.push(name);
+        }
+    }
 
 }

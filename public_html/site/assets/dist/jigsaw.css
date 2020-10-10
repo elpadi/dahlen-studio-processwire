@@ -1,36 +1,36 @@
 .jigsaw {
-	position: relative;
+    position: relative;
 }
 /*
 .jigsaw > img:not(.jsimg) {
-	display: none;
+    display: none;
 }
 */
 .no-js .jigsaw > img:first-child {
-	display: block;
+    display: block;
 }
 .jigsaw > .piece {
-	position: absolute;
-	z-index: 1;
+    position: absolute;
+    z-index: 1;
 }
 
 #heart-collage {
-	width: 514px;
-	height: 503px;
-	position: absolute;
-	left: calc(50% - 257px);
-	top: calc(50% - 251px);
+    width: 514px;
+    height: 503px;
+    position: absolute;
+    left: calc(50% - 257px);
+    top: calc(50% - 251px);
 }
 #heart-collage > img:not(.piece) {
-	position:absolute;
-	left: 0;
-	top: 0;
-	opacity: 0;
-	transition: opacity 2s;
+    position:absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: opacity 2s;
 }
 #heart-collage > img[src$="outline.gif"] {
-	transition: none;
+    transition: none;
 }
 #heart-collage > img.visible {
-	opacity: 1;
+    opacity: 1;
 }

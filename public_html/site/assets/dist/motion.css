@@ -1,111 +1,111 @@
 .parent--still #main-content {
-	max-width: none;
-	padding: 0 10px;
+    max-width: none;
+    padding: 0 10px;
 }
 .gallery a {
-	overflow: hidden;
+    overflow: hidden;
 }
 .gallery a:not(.jg-entry) img {
-	opacity: 0;
+    opacity: 0;
 }
 .gallery img {
-	transition: transform 0.5s, opacity 0.3s !important;
+    transition: transform 0.5s, opacity 0.3s !important;
 }
 .video > .material-icons {
-	font-size: 64px;
-	width: 64px;
-	height: 64px;
-	z-index: 400;
-	color: rgba(240,240,240,0.7);
-	opacity: 0;
-	transition: color 0.2s linear, opacity 0.2s linear;
-	pointer-events: none;
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    z-index: 400;
+    color: rgba(240,240,240,0.7);
+    opacity: 0;
+    transition: color 0.2s linear, opacity 0.2s linear;
+    pointer-events: none;
 }
 video:hover + .material-icons {
-	color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.9);
 }
 .video.paused > .material-icons {
-	opacity: 1;
+    opacity: 1;
 }
 video {
-	cursor: pointer;
+    cursor: pointer;
 }
 .motion {
-	width: 100%;
-	position: relative;
-	margin: 0 auto;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
 }
 .motion.finished {
 }
 body:not(.template--basic-page) .motion {
-	position: absolute;
-	opacity: 0;
-	transition: opacity 4s;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 4s;
 }
 body.template--images .motion:nth-of-type(1) {
-	opacity: 1;
+    opacity: 1;
 }
 .motion.current {
-	z-index: 3;
+    z-index: 3;
 }
 .motion > img {
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-	opacity: 0;
-	transition: opacity 1s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 1s;
 }
 .motion > img:nth-of-type(1) {
-	opacity: 1;
-	z-index: -1;
+    opacity: 1;
+    z-index: -1;
 }
 .motion > button {
-	width: 60px;
-	height: 60px;
-	margin: auto;
-	opacity: 0.45;
-	transition: opacity 0.3s, visibility 0s 0.3s;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    opacity: 0.45;
+    transition: opacity 0.3s, visibility 0s 0.3s;
 }
 .motion.removed {
-	display: none;
+    display: none;
 }
 .motion.finished > button,
 .motion.playing > button {
-	opacity: 0;
-	visibility: hidden;
+    opacity: 0;
+    visibility: hidden;
 }
 .motion.loaded[data-autoplay="true"] > button {
-	display: none;
+    display: none;
 }
 
 .play-icon .outer {
-	fill: none;
-	stroke-width: 3;
-	stroke: white;
-	opacity: 0.7;
+    fill: none;
+    stroke-width: 3;
+    stroke: white;
+    opacity: 0.7;
 }
 .play-icon .filler {
-	stroke: none;
-	fill: #ccc;
-	opacity: 0.5;
+    stroke: none;
+    fill: #ccc;
+    opacity: 0.5;
 }
 .play-icon .triangle {
-	stroke: none;
-	fill: white;
+    stroke: none;
+    fill: white;
 }
 .play-icon .outer,
 .play-icon .filler {
-	transition: opacity 0.3s, stroke-width 0.3s;
+    transition: opacity 0.3s, stroke-width 0.3s;
 }
 .play-icon .triangle {
-	transform-origin: center center;
-	transition: transform 0.3s, fill 0.3s;
+    transform-origin: center center;
+    transition: transform 0.3s, fill 0.3s;
 }
 .motion.loading .play-button .outer,
 .motion .play-button:hover .outer,
 .motion .play-button:hover .filler {
-	opacity: 1;
+    opacity: 1;
 }
