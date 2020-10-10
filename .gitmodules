@@ -1,0 +1,3 @@
+[submodule "public_html/zenphoto"]
+	path = public_html/zenphoto
+	url = https://github.com/zenphoto/zenphoto.git

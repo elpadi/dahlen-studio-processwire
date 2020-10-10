@@ -16,7 +16,8 @@
 		"symfony/debug": "~4.1",
 		"symfony/var-dumper": "~4.1",
 		"pimple/pimple": "~3.2",
-		"vlucas/phpdotenv": "~2.4"
+		"vlucas/phpdotenv": "~2.4",
+		"processwire/processwire": "^3.0"
 	},
 	"autoload": {
 		"psr-4": {
