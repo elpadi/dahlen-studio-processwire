@@ -57,3 +57,4 @@ public_html/site/assets/vendor
 public_html/testing-static/js/
 public_html/testing-static/video/
 sql/*.sql
+public_html/site/assets/node_modules/

@@ -57,6 +57,7 @@ class App {
     {
         if (size === undefined) {
             return `$this.config.ALBUMS_URL + albumName} / ${filename}`;
+        }
         if (!(size in this.config.IMG_SIZE_HASHES)) {
             throw new Error("Invalid size.");
         }

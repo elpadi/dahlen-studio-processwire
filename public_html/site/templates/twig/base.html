@@ -32,14 +32,14 @@
 			<header id="main-header">
 				{% block main_menu %}
 				<a id="logo" href="{{ config.urls.get('root') }}">{% include 'snippets/logo.svg' %}</a>
-				<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu }}</ul></nav>
+				<nav id="main-menu" class="dropdown-menu horizontal-list"><ul>{{ menu | raw }}</ul></nav>
 				{% endblock %}
 				{% block page_title %}
 				<h2 class="page-title">{{ page.title }}</h2>
 				{% endblock %}
 			</header>
 			{% block main_content %}
-			<main id="main-content">{{ page.content }}</main>
+			<main id="main-content">{{ page.content | raw }}</main>
 			{% endblock %}
 			<button id="sound-button" class="clean-button img-button state--on"><img src="{{ config.urls.assets }}img/sound.png" alt="Toggle sound"></button>
 		</div>
@@ -49,27 +49,33 @@
 		<!--**************** BASE **************** -->
     	{% if config.minifyAssets %}
     	<script src="{{ config.urls.assets }}dist/base.js?v=1533959185"></script>
-    	{% else %}{% for s in [
-    		'vendor/js.cookie.min.js',
-    		'vendor/jquery.min.js',
-    		'vendor/lodash.min.js',
-    		'vendor/buzz.min.js',
-    		'src/js/components/timeouts/resettable-timeout.js',
-    		'src/js/components/events/event-emitter.js',
-    		'src/js/components/events/timeout-event-emitter.js',
-    		'src/js/components/dropdown/dropdown.js',
-    		'src/js/components/dropdown/autohide-dropdown.js',
-    		'src/js/components/dropdown/main-dropdown.js',
-    		'src/js/components/dropdown/dropdown-submenu.js',
-    		'src/js/components/music/music.js',
-    		'src/js/components/music/music-playlist.js',
-    		'src/js/components/music/music-muter.js',
-    		'src/js/app.js'
-    	] %}<link rel="stylesheet" href="{{ config.urls.assets ~ s }}">{% endfor %}
+    	{% else %}
+        {% for s in [
+    		'js-cookie/src/js.cookie.js',
+    		'jquery/dist/jquery.min.js',
+    		'lodash/lodash.min.js',
+    		'buzz/dist/buzz.min.js'
+        ] %}<script src="{{ config.urls.assets ~ 'node_modules/' ~ s }}"></script>{% endfor %}
+        {% for s in [
+    		'components/event-queue/event-queue.js',
+    		'components/event-queue/init-event-queue.js',
+    		'components/event-queue/load-event-queue.js',
+    		'components/timeouts/resettable-timeout.js',
+    		'components/events/event-emitter.js',
+    		'components/events/timeout-event-emitter.js',
+    		'components/dropdown/dropdown.js',
+    		'components/dropdown/autohide-dropdown.js',
+    		'components/dropdown/main-dropdown.js',
+    		'components/dropdown/dropdown-submenu.js',
+    		'components/music/music.js',
+    		'components/music/music-playlist.js',
+    		'components/music/music-muter.js',
+    		'app.js'
+        ] %}<script src="{{ config.urls.assets ~ 'src/js/' ~ s }}"></script>{% endfor %}
     	{% endif %}
 		<!--**************** BASE **************** -->
 		<script>
-			app.setConfig({{ config.appConfig }});
+			app.setConfig({{ config.appConfig | raw }});
 		</script>
 		{% block foot_assets %}
 		{% endblock %}

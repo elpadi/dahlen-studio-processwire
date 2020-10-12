@@ -12,7 +12,12 @@ services:
     database:
         creds:
             database: elpadi_ds_pw
+    node:
+        type: node
     phpmyadmin:
         type: phpmyadmin
         hosts:
           - database
+tooling:
+    yarn:
+        service: node
