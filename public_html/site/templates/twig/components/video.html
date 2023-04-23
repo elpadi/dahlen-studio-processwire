@@ -1,5 +1,5 @@
 <article id="{{ name }}" class="fade fade-out video" data-name="{{ name }}">
-	<video>
+    <video width="{{ width }}" height="{{ height }}" poster="{{ path }}poster.jpg" playsinline>
 		{% for src in srcs %}
 		<source src="{{ path }}{{ src.name }}?v={{ src.mtime }}">
 		{% endfor %}
